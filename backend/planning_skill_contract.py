@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PRODUCTION_SKILLS = {
     "gameplay_reconstruction": ROOT / "skills" / "gameplay-reconstruction-v2" / "SKILL.md",
     "execution_planning": ROOT / "skills" / "execution-planning-v2" / "SKILL.md",
+    "interaction_planning": ROOT / "skills" / "interaction-planning-v2" / "SKILL.md",
     "quality_judge": ROOT / "skills" / "planner-quality-judge-v2" / "SKILL.md",
 }
 
