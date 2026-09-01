@@ -6,6 +6,10 @@ from typing import Any
 from fastapi import Body, HTTPException
 
 from . import analysis_service, gameplay_analysis, server
+from .master_planner_sanitizer import (
+    sanitize_optional_modules_for_master_planner,
+    sanitize_semantics_for_master_planner,
+)
 from .provider_adapter import (
     DEFAULT_API_BASE,
     DEFAULT_MODEL,
@@ -20,6 +24,7 @@ _installed = False
 _original_client = analysis_service._client
 _original_detail_prompt = gameplay_analysis._prompt
 _original_structure_prompt = gameplay_analysis._structure_prompt
+_original_cached_call = gameplay_analysis._cached_call
 
 _MASTER_PLANNER_OVERRIDE = r"""
 
@@ -30,11 +35,11 @@ _MASTER_PLANNER_OVERRIDE = r"""
 - 正文只写具体策划结论，不得写“【推断】”“根据现有素材推测”“尚未确认”“建议确认”等来源说明，也不要仅因状态较低使用“可能/或许/大概率”逃避决策。
 - 若 mechanism、claim、formula、parameter 或 acceptance case 是推断/方案，请把状态放进 knowledgeStatus，而不是改写成 unknown/pending。
 - 只有存在明确互斥证据且无法形成唯一结论时才使用 CONFLICT。
+- 参数、公式、生命周期、波次、随机池等实现闭环内容可以由 AI 提出 PROPOSED 方案；不得因为缺少直接画面证据自动删除这些内容或强制转换成决策卡。
 """.strip()
 
 
 def _runtime_client(config: dict[str, Any]):
-    """Drop-in replacement for the legacy client factory."""
     base = str(config.get("apiBase") or "").strip().rstrip("/")
     if "127.0.0.1" in base or "localhost" in base:
         return _original_client(config)
@@ -50,7 +55,6 @@ def _master_detail_prompt(frame_ids: list[str]) -> str:
 
 def _master_structure_prompt(frame_ids: list[str]) -> str:
     prompt = _original_structure_prompt(frame_ids)
-    # Remove the old implementation cap without changing the surrounding project-specific prompt.
     prompt = re.sub(
         r"每个子系统最多包含 8 个机制，超过时必须按真实业务责任拆分为多个子系统，不能把整个项目压成一个大组。",
         "子系统与机制数量没有固定上限；只按真实业务责任与可独立审核的规则边界拆分，禁止为了满足数量限制而合并或拆分。",
@@ -61,12 +65,16 @@ def _master_structure_prompt(frame_ids: list[str]) -> str:
 """
 
 
-def _master_validate_structure_response(value: Any, known_frame_ids: set[str]) -> dict[str, Any]:
-    """Validate dynamic hierarchy without the legacy eight-mechanism cap.
+def _master_cached_call(job, job_dir, runtime_config, phase, prompt, images, max_tokens, structure=None):
+    """Ensure the Master Planner contract is the last instruction seen by the model."""
+    return _original_cached_call(
+        job, job_dir, runtime_config, phase,
+        str(prompt).rstrip() + "\n\n" + _MASTER_PLANNER_OVERRIDE,
+        images, max_tokens, structure,
+    )
 
-    The canonical directory may contain inferred/proposed hidden mechanisms. Confirmed entries
-    require evidence frames; inferred/proposed entries may have contextual frames or none.
-    """
+
+def _master_validate_structure_response(value: Any, known_frame_ids: set[str]) -> dict[str, Any]:
     if not isinstance(value, dict) or not isinstance(value.get("systems"), list) or not value["systems"]:
         raise gameplay_analysis.GameplayAnalysisQualityError("gameplay structure response must contain systems")
     result: dict[str, Any] = {"systems": []}
@@ -83,16 +91,11 @@ def _master_validate_structure_response(value: Any, known_frame_ids: set[str]) -
     for raw_system in value["systems"]:
         if not isinstance(raw_system, dict) or not str(raw_system.get("name") or "").strip():
             raise gameplay_analysis.GameplayAnalysisQualityError("gameplay system name is required")
-        system = {
-            "name": str(raw_system["name"]).strip(),
-            "reason": str(raw_system.get("reason") or "").strip(),
-            "subsystems": [],
-        }
+        system = {"name": str(raw_system["name"]).strip(), "reason": str(raw_system.get("reason") or "").strip(), "subsystems": []}
         system_key = title_key(system["name"])
         if not system_key or system_key in seen_systems:
             raise gameplay_analysis.GameplayAnalysisQualityError("duplicate gameplay system title")
         seen_systems.add(system_key)
-
         raw_subsystems = raw_system.get("subsystems") or []
         if not isinstance(raw_subsystems, list) or not raw_subsystems:
             raise gameplay_analysis.GameplayAnalysisQualityError("gameplay system requires subsystems")
@@ -103,7 +106,6 @@ def _master_validate_structure_response(value: Any, known_frame_ids: set[str]) -
             subsystem_key = title_key(subsystem["name"])
             if not subsystem_key or subsystem_key == system_key:
                 raise gameplay_analysis.GameplayAnalysisQualityError("hierarchy titles must be distinct")
-
             raw_mechanisms = raw_subsystem.get("mechanisms") or []
             if not isinstance(raw_mechanisms, list) or not raw_mechanisms:
                 raise gameplay_analysis.GameplayAnalysisQualityError("gameplay subsystem requires mechanisms")
@@ -117,7 +119,6 @@ def _master_validate_structure_response(value: Any, known_frame_ids: set[str]) -
                 if not key or key in {system_key, subsystem_key} or key in seen_mechanisms:
                     raise gameplay_analysis.GameplayAnalysisQualityError("duplicate or invalid gameplay mechanism title")
                 seen_mechanisms.add(key)
-
                 status = str(raw_mechanism.get("knowledgeStatus") or "CONFIRMED").strip().upper()
                 if status not in allowed_status:
                     status = "CONFIRMED"
@@ -127,10 +128,8 @@ def _master_validate_structure_response(value: Any, known_frame_ids: set[str]) -
                 if status == "CONFIRMED" and not ids:
                     raise gameplay_analysis.GameplayAnalysisQualityError("confirmed gameplay mechanism requires evidence frames")
                 subsystem["mechanisms"].append({
-                    "name": name,
-                    "reason": str(raw_mechanism.get("reason") or "").strip(),
-                    "sourceFrameIds": ids,
-                    "knowledgeStatus": status,
+                    "name": name, "reason": str(raw_mechanism.get("reason") or "").strip(),
+                    "sourceFrameIds": ids, "knowledgeStatus": status,
                 })
             system["subsystems"].append(subsystem)
         result["systems"].append(system)
@@ -142,21 +141,19 @@ def install_provider_runtime_patch(app) -> None:
     if _installed:
         return
     _installed = True
-
-    # These constants are read dynamically by _runtime_ai_config and /api/config/public.
     server.BUILT_IN_VISION_API_BASE = DEFAULT_API_BASE
     server.BUILT_IN_VISION_MODEL = DEFAULT_MODEL
-
-    # Modules imported legacy helpers by value, so patch both owner and consumers.
     analysis_service._client = _runtime_client
     gameplay_analysis._client = _runtime_client
     gameplay_analysis._prompt = _master_detail_prompt
     gameplay_analysis._structure_prompt = _master_structure_prompt
+    gameplay_analysis._cached_call = _master_cached_call
     gameplay_analysis._validate_structure_response = _master_validate_structure_response
+    gameplay_analysis.sanitize_generated_optional_modules = sanitize_optional_modules_for_master_planner
+    gameplay_analysis.sanitize_generated_semantics = sanitize_semantics_for_master_planner
 
     @app.post("/api/config/validate")
     def validate_ai_config(payload: dict[str, Any] = Body(...)) -> dict[str, Any]:
-        """Perform a real authenticated provider request before long-running generation."""
         try:
             return validate_connection(ProviderConfig.from_mapping(payload))
         except ProviderError as exc:
