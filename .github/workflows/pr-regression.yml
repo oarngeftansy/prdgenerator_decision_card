@@ -14,24 +14,27 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - shard: a-c
-            pattern: 'tests/test_[a-c]*.py'
-          - shard: d-f
-            pattern: 'tests/test_[d-f]*.py'
-          - shard: g-i
-            pattern: 'tests/test_[g-i]*.py'
-          - shard: j-l
-            pattern: 'tests/test_[j-l]*.py'
-          - shard: m-o
-            pattern: 'tests/test_[m-o]*.py'
-          - shard: p-r
-            pattern: 'tests/test_[p-r]*.py'
-          - shard: s-u
-            pattern: 'tests/test_[s-u]*.py'
-          - shard: v-z
-            pattern: 'tests/test_[v-z]*.py'
-          - shard: calibration
-            pattern: 'tests/calibration'
+          - { shard: a, pattern: 'tests/test_a*.py' }
+          - { shard: b, pattern: 'tests/test_b*.py' }
+          - { shard: c, pattern: 'tests/test_c*.py' }
+          - { shard: d, pattern: 'tests/test_d*.py' }
+          - { shard: e, pattern: 'tests/test_e*.py' }
+          - { shard: f, pattern: 'tests/test_f*.py' }
+          - { shard: g, pattern: 'tests/test_g*.py' }
+          - { shard: h, pattern: 'tests/test_h*.py' }
+          - { shard: i, pattern: 'tests/test_i*.py' }
+          - { shard: j-l, pattern: 'tests/test_[j-l]*.py' }
+          - { shard: m, pattern: 'tests/test_m*.py' }
+          - { shard: n, pattern: 'tests/test_n*.py' }
+          - { shard: o, pattern: 'tests/test_o*.py' }
+          - { shard: p, pattern: 'tests/test_p*.py' }
+          - { shard: q, pattern: 'tests/test_q*.py' }
+          - { shard: r, pattern: 'tests/test_r*.py' }
+          - { shard: s, pattern: 'tests/test_s*.py' }
+          - { shard: t, pattern: 'tests/test_t*.py' }
+          - { shard: u, pattern: 'tests/test_u*.py' }
+          - { shard: v-z, pattern: 'tests/test_[v-z]*.py' }
+          - { shard: calibration, pattern: 'tests/calibration' }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
