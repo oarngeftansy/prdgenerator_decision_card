@@ -68,7 +68,13 @@ def test_legacy_confirmed_interaction_job_can_queue_gameplay_without_mutating_re
     submitted = []
     monkeypatch.setattr(server.executor, "submit", lambda *args: submitted.append(args))
 
-    response = client.post(f"/api/jobs/{legacy_three_board_job['id']}/gameplay-review/generate")
+    # Generation endpoints still require a configured credential. The actual
+    # network call is suppressed here because this test only verifies queueing
+    # compatibility and preservation of the confirmed interaction model.
+    response = client.post(
+        f"/api/jobs/{legacy_three_board_job['id']}/gameplay-review/generate",
+        data={"api_key": "test-only-key"},
+    )
 
     assert response.status_code == 202
     assert response.json()["status"] == "queued"
