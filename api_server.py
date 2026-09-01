@@ -26,9 +26,6 @@ from backend.ai_provider import DEFAULT_API_BASE, DEFAULT_MODEL, ProviderConfig,
 from backend.master_planner import MasterPlannerError  # noqa: E402
 from backend.production_planning import ProductionPlanningError, build_master_planning_delivery  # noqa: E402
 
-# Keep the legacy server's public/runtime configuration contract while switching
-# its actual defaults to the production OpenAI-compatible provider. The key stays
-# empty and must be supplied by the local user or environment.
 server_module.BUILT_IN_VISION_API_BASE = DEFAULT_API_BASE
 server_module.BUILT_IN_VISION_MODEL = DEFAULT_MODEL
 server_module.BUILT_IN_VISION_API_KEY = ""
@@ -42,11 +39,7 @@ def _provider_config(payload: dict) -> ProviderConfig:
         str(payload.get("model") or ""),
         str(payload.get("apiKey") or ""),
     )
-    return ProviderConfig(
-        api_base=runtime["apiBase"],
-        model=runtime["model"],
-        api_key=runtime["apiKey"],
-    )
+    return ProviderConfig(api_base=runtime["apiBase"], model=runtime["model"], api_key=runtime["apiKey"])
 
 
 @app.post("/api/config/validate")
@@ -57,11 +50,7 @@ def validate_runtime_provider(payload: dict = Body(default={})):
 
 @app.post("/api/jobs/{job_id}/master-plan/final-preview")
 def create_master_planning_final_preview(job_id: str, payload: dict = Body(default={})):
-    """Production P7: legacy delivery checks + canonical Master Planner Final.
-
-    The legacy preview still owns interaction/board/table/diagram revision safety.
-    Master Planner owns execution-gap closure and the final textual rule authority.
-    """
+    """Production P7: legacy delivery safety + canonical Master Planner Final."""
     try:
         job = server_module.load_job(job_id)
     except (FileNotFoundError, ValueError) as exc:
@@ -73,19 +62,15 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
     if type(expected) is not int or expected != gameplay.get("revision"):
         raise HTTPException(409, {"currentRevision": gameplay.get("revision", 0)})
 
-    # Reuse the existing P7 guard for interaction revision, boards, diagrams,
-    # tables and delivery validity. It is intentionally not replaced by the LLM.
+    # Preserve all non-text P7 safety checks and reusable deliverables.
     legacy_preview = server_module.create_gameplay_final_preview(job_id, payload)
-    # The guard may have persisted preview state; reload the canonical job before
-    # building the planning projection so the two outputs share one revision.
     job = server_module.load_job(job_id)
     gameplay = copy.deepcopy(job.get("gameplayReviewModel") or {})
     if gameplay.get("revision") != expected:
         raise HTTPException(409, {"currentRevision": gameplay.get("revision", 0)})
 
-    config = _provider_config(payload)
     try:
-        delivery = build_master_planning_delivery(gameplay, config)
+        delivery = build_master_planning_delivery(gameplay, _provider_config(payload))
     except ProviderError as exc:
         raise HTTPException(502 if exc.retryable else 400, exc.public()) from exc
     except (MasterPlannerError, ProductionPlanningError, ValueError) as exc:
@@ -108,6 +93,22 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
             "masterPlanner": copy.deepcopy(delivery.get("masterPlanner") or {}),
         }
 
+        # This is the publication handoff consumed by the existing Feishu
+        # renderer/publisher. The board and reviewed P5/P6 assets remain owned by
+        # their existing modules; only the textual body authority changes.
+        existing_accepted = current.get("acceptedPublication") if isinstance(current.get("acceptedPublication"), dict) else {}
+        accepted_markdown = delivery["acceptedMarkdown"].rstrip() + (
+            "\n\n## 策划草图\n\n<!-- EMBED:BOARD:planning -->\n"
+        )
+        current["acceptedPublication"] = {
+            **copy.deepcopy(existing_accepted),
+            "source": "master_planner_v1",
+            "gameplayRevision": expected,
+            "markdown": accepted_markdown,
+            "p5Diagrams": copy.deepcopy(current_gameplay.get("diagrams") or []),
+            "p6Tables": copy.deepcopy(current_gameplay.get("tables") or []),
+        }
+
     try:
         server_module.storage.mutate_job(job_id, persist)
     except HTTPException:
@@ -123,8 +124,6 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
         "masterPlanningFeishuXml": delivery["feishuXml"],
         "masterPlanningQuality": quality,
         "masterPlanner": delivery.get("masterPlanner") or {},
-        # P7 displays the canonical rule document, not the old free-form gameplay
-        # body. Existing planning-board/P5/P6 data remain available separately.
         "legacyDeliveryPreviewHtml": legacy_preview.get("deliveryPreviewHtml", ""),
         "deliveryPreviewHtml": delivery["previewHtml"],
     })
@@ -140,5 +139,4 @@ def get_master_plan(job_id: str):
     record = job.get("masterPlanning")
     if not isinstance(record, dict):
         raise HTTPException(404, "master plan not generated")
-    # API keys never enter this persisted structure.
     return record
