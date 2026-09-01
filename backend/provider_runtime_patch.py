@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from contextvars import ContextVar
+import copy
 import re
 from typing import Any
 
@@ -25,6 +27,8 @@ _original_client = analysis_service._client
 _original_detail_prompt = gameplay_analysis._prompt
 _original_structure_prompt = gameplay_analysis._structure_prompt
 _original_cached_call = gameplay_analysis._cached_call
+_original_build_gameplay_review_model = gameplay_analysis.build_gameplay_review_model
+_structure_statuses: ContextVar[dict[str, str]] = ContextVar("master_planner_structure_statuses", default={})
 
 _MASTER_PLANNER_OVERRIDE = r"""
 
@@ -66,7 +70,6 @@ def _master_structure_prompt(frame_ids: list[str]) -> str:
 
 
 def _master_cached_call(job, job_dir, runtime_config, phase, prompt, images, max_tokens, structure=None):
-    """Ensure the Master Planner contract is the last instruction seen by the model."""
     return _original_cached_call(
         job, job_dir, runtime_config, phase,
         str(prompt).rstrip() + "\n\n" + _MASTER_PLANNER_OVERRIDE,
@@ -80,6 +83,8 @@ def _master_validate_structure_response(value: Any, known_frame_ids: set[str]) -
     result: dict[str, Any] = {"systems": []}
     seen_systems: set[str] = set()
     seen_mechanisms: set[str] = set()
+    statuses: dict[str, str] = {}
+    fallback_context = sorted(known_frame_ids)[:2]
 
     def title_key(raw: Any) -> str:
         title = re.sub(r"[\s\-—_·:：/（）()]+", "", str(raw or "").casefold())
@@ -127,13 +132,43 @@ def _master_validate_structure_response(value: Any, known_frame_ids: set[str]) -
                     raise gameplay_analysis.GameplayAnalysisQualityError("gameplay mechanism references unknown evidence frames")
                 if status == "CONFIRMED" and not ids:
                     raise gameplay_analysis.GameplayAnalysisQualityError("confirmed gameplay mechanism requires evidence frames")
+                # The legacy detail generator requires images for every chapter. For an inferred/proposed
+                # hidden mechanism an empty list means "use contextual frames", not "these frames prove it".
+                if not ids and status in {"INFERRED", "PROPOSED", "CONFLICT"}:
+                    ids = list(fallback_context)
+                statuses[name] = status
                 subsystem["mechanisms"].append({
                     "name": name, "reason": str(raw_mechanism.get("reason") or "").strip(),
                     "sourceFrameIds": ids, "knowledgeStatus": status,
                 })
             system["subsystems"].append(subsystem)
         result["systems"].append(system)
+    _structure_statuses.set(statuses)
     return result
+
+
+def _master_build_gameplay_review_model(job, drafts, *args, **kwargs):
+    statuses = _structure_statuses.get()
+    stamped = []
+    for raw in drafts or []:
+        draft = copy.deepcopy(raw)
+        title = str(draft.get("title") or "")
+        status = str(draft.get("knowledgeStatus") or statuses.get(title) or "").upper()
+        if status not in {"CONFIRMED", "INFERRED", "PROPOSED", "CONFLICT"}:
+            status = "CONFIRMED"
+        draft["knowledgeStatus"] = status
+        if isinstance(draft.get("mechanism"), dict):
+            draft["mechanism"]["knowledgeStatus"] = status
+        source_type = "inference" if status == "INFERRED" else ("planner" if status == "PROPOSED" else "material")
+        for claim in draft.get("claims") or []:
+            if not isinstance(claim, dict):
+                continue
+            if claim.get("knowledgeStatus") is None:
+                claim["knowledgeStatus"] = status
+            if status in {"INFERRED", "PROPOSED"} and claim.get("sourceType") in {None, "material", "pending"}:
+                claim["sourceType"] = source_type
+        stamped.append(draft)
+    return _original_build_gameplay_review_model(job, stamped, *args, **kwargs)
 
 
 def install_provider_runtime_patch(app) -> None:
@@ -149,6 +184,7 @@ def install_provider_runtime_patch(app) -> None:
     gameplay_analysis._structure_prompt = _master_structure_prompt
     gameplay_analysis._cached_call = _master_cached_call
     gameplay_analysis._validate_structure_response = _master_validate_structure_response
+    gameplay_analysis.build_gameplay_review_model = _master_build_gameplay_review_model
     gameplay_analysis.sanitize_generated_optional_modules = sanitize_optional_modules_for_master_planner
     gameplay_analysis.sanitize_generated_semantics = sanitize_semantics_for_master_planner
 
