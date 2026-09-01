@@ -159,6 +159,7 @@ def chat_json_object(
     transport: Transport | None = None,
     max_attempts: int = 3,
     temperature: float = 0.1,
+    sleep: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any]:
     """Request a JSON object using the OpenAI-compatible JSON response contract."""
     payload = {
@@ -167,7 +168,13 @@ def chat_json_object(
         "temperature": temperature,
         "response_format": {"type": "json_object"},
     }
-    response = _request_json(config, payload, transport=transport, max_attempts=max_attempts)
+    response = _request_json(
+        config,
+        payload,
+        transport=transport,
+        max_attempts=max_attempts,
+        sleep=sleep,
+    )
     try:
         content = response["choices"][0]["message"]["content"]
     except (KeyError, IndexError, TypeError):
