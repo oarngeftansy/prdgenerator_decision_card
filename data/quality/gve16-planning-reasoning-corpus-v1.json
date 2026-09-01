@@ -1,0 +1,152 @@
+{
+  "corpusVersion": "gve16-planning-reasoning-corpus-v1",
+  "contentAuthority": "none",
+  "provisional": true,
+  "sourceScope": "anonymous structural observations from GVE16 and reviewed human planning samples",
+  "forbiddenContent": ["raw_sentence", "project_object", "project_field", "project_value", "project_rule", "gap_answer"],
+  "reasoningOrder": ["object", "state", "entry_condition", "trigger", "precondition", "processing", "state_transition", "output", "exit_condition", "exception", "boundary", "parameter", "config_source", "upstream_dependency", "downstream_dependency", "lifecycle_initialize", "lifecycle_persist", "lifecycle_reset"],
+  "templates": {
+    "movement": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "location": "STRUCT/MOVEMENT", "occurrenceCount": 3}],
+      "nodes": [
+        ["moving_object", "object", "required", []], ["movement_state", "state", "required", []],
+        ["movement_entry", "entry_condition", "required", ["movement_trigger"]], ["movement_input", "trigger", "required", ["movement_control"]],
+        ["movement_path", "processing", "required", ["movement_path"]], ["position_update", "state_transition", "required", ["movement_trigger", "movement_control"]],
+        ["movement_output", "output", "required", []], ["movement_stop", "exit_condition", "required", ["movement_stop_condition"]],
+        ["movement_collision", "boundary", "conditional", ["movement_collision"]], ["movement_speed", "parameter", "required", ["movement_speed_source"]],
+        ["movement_config", "config_source", "required", ["movement_speed_source"]], ["level_flow_dependency", "upstream_dependency", "required", []],
+        ["movement_initialize", "lifecycle_initialize", "required", []], ["movement_persist", "lifecycle_persist", "conditional", []], ["movement_reset", "lifecycle_reset", "required", []]
+      ]
+    },
+    "attack": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "location": "STRUCT/ATTACK", "occurrenceCount": 11}],
+      "nodes": [
+        ["attacker", "object", "required", []], ["attack_state", "state", "required", []], ["attack_entry", "entry_condition", "required", ["attack_range"]],
+        ["attack_trigger", "trigger", "required", ["attack_trigger"]], ["target_set_build", "processing", "required", []],
+        ["target_selection", "processing", "required", ["attack_target"]], ["attack_execution", "processing", "required", ["attack_method", "attack_target"]],
+        ["hit_processing", "processing", "required", ["attack_method"]], ["attack_state_transition", "state_transition", "required", []],
+        ["damage_output", "output", "required", ["damage_reference"]], ["exit_condition", "exit_condition", "required", ["attack_exit_condition"]],
+        ["target_invalid", "exception", "required", ["attack_target"]], ["range_boundary", "boundary", "required", ["attack_range"]],
+        ["attack_parameters", "parameter", "required", ["attack_range", "damage_reference"]], ["attack_config", "config_source", "required", ["attack_range"]],
+        ["damage_dependency", "downstream_dependency", "required", ["damage_reference"]], ["retarget_policy", "downstream_dependency", "conditional", []],
+        ["attack_initialize", "lifecycle_initialize", "required", []], ["attack_persist", "lifecycle_persist", "conditional", []], ["attack_reset", "lifecycle_reset", "required", ["attack_exit_condition"]]
+      ]
+    },
+    "damage_death": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "location": "STRUCT/DAMAGE-DEATH", "occurrenceCount": 8}],
+      "nodes": [
+        ["damage_target", "object", "required", []], ["alive_dead_state", "state", "required", []], ["damage_entry", "entry_condition", "required", ["damage_reference"]],
+        ["damage_trigger", "trigger", "required", ["damage_death_definition"]], ["health_update", "state_transition", "required", ["damage_death_definition"]],
+        ["death_check", "precondition", "required", ["failure_condition"]], ["death_processing", "processing", "required", ["death_process"]],
+        ["death_output", "output", "required", []], ["entity_exit", "exit_condition", "required", ["entity_removal"]],
+        ["repeated_damage", "boundary", "conditional", []], ["health_parameter", "parameter", "required", []], ["damage_config", "config_source", "required", []],
+        ["damage_initialize", "lifecycle_initialize", "required", []], ["damage_persist", "lifecycle_persist", "conditional", []], ["damage_reset", "lifecycle_reset", "required", []]
+      ]
+    },
+    "randomization": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "S3-TC09-B", "location": "STRUCT/RANDOMIZATION", "occurrenceCount": 4}],
+      "nodes": [
+        ["candidate_set", "object", "required", ["candidate_pool_source"]], ["selection_state", "state", "required", ["selection_pause"]],
+        ["random_entry", "entry_condition", "required", ["random_trigger"]], ["random_trigger", "trigger", "required", ["random_trigger"]],
+        ["candidate_filter", "precondition", "required", ["pool_entry_condition", "pool_exit_condition", "prerequisite_rule", "max_level_rule"]],
+        ["candidate_constraints", "precondition", "required", ["duplicate_rule", "replacement_rule", "weight_rule"]],
+        ["candidate_draw", "processing", "required", []], ["candidate_generation", "output", "required", ["random_trigger"]],
+        ["refresh_processing", "processing", "required", ["refresh_rule", "refresh_count", "refresh_cost"]], ["selection_processing", "processing", "required", ["candidate_selection"]],
+        ["effect_transition", "state_transition", "required", ["candidate_effect", "effect_parameter", "confirm_effect_timing"]],
+        ["selection_output", "output", "required", ["candidate_effect"]], ["resume_exit", "exit_condition", "required", ["confirm_effect_timing"]],
+        ["empty_candidate", "exception", "required", ["empty_result_rule"]], ["pool_boundary", "boundary", "required", ["duplicate_rule", "replacement_rule", "max_level_rule"]],
+        ["random_parameters", "parameter", "required", ["weight_rule", "refresh_count", "refresh_cost"]], ["pool_config", "config_source", "required", ["candidate_pool_source"]],
+        ["progression_dependency", "upstream_dependency", "required", ["random_trigger"]], ["effect_dependency", "downstream_dependency", "required", ["candidate_effect"]],
+        ["selection_initialize", "lifecycle_initialize", "required", []], ["selection_persist", "lifecycle_persist", "conditional", []], ["selection_reset", "lifecycle_reset", "required", ["confirm_effect_timing"]]
+      ]
+    },
+    "unlock_progression": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "location": "STRUCT/PROGRESSION", "occurrenceCount": 9}],
+      "nodes": [
+        ["progression_object", "object", "required", []], ["progression_state", "state", "required", ["initial_state", "initial_level"]],
+        ["unlock_entry", "entry_condition", "required", ["unlock_condition"]], ["upgrade_trigger", "trigger", "required", ["upgrade_entry"]],
+        ["cost_check", "precondition", "required", ["upgrade_cost"]], ["upgrade_processing", "processing", "required", ["upgrade_effect"]],
+        ["level_transition", "state_transition", "required", ["unlock_result", "upgrade_effect"]], ["progression_output", "output", "required", ["upgrade_effect"]],
+        ["max_level_exit", "exit_condition", "required", ["max_level"]], ["invalid_upgrade", "exception", "required", []],
+        ["progression_boundary", "boundary", "required", ["max_level", "reversible_rule"]], ["upgrade_parameters", "parameter", "required", ["upgrade_cost"]],
+        ["progression_config", "config_source", "required", []], ["progression_initialize", "lifecycle_initialize", "required", ["initial_state", "initial_level"]],
+        ["progression_persist", "lifecycle_persist", "required", []], ["progression_reset", "lifecycle_reset", "required", ["reset_rule"]]
+      ]
+    },
+    "slot": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "location": "STRUCT/SLOT", "occurrenceCount": 5}],
+      "nodes": [
+        ["slot_container", "object", "required", ["slot_count", "slot_type"]], ["slot_state", "state", "required", ["slot_initial_state"]],
+        ["slot_entry", "entry_condition", "required", ["slot_fill_condition"]], ["slot_trigger", "trigger", "required", []],
+        ["slot_validation", "precondition", "required", ["slot_fill_condition"]], ["slot_fill", "processing", "required", ["slot_fill_condition"]],
+        ["slot_transition", "state_transition", "required", ["slot_replace", "slot_remove"]], ["slot_output", "output", "required", []],
+        ["slot_full", "boundary", "required", ["slot_full_rule"]], ["slot_invalid", "exception", "conditional", []],
+        ["slot_parameters", "parameter", "required", ["slot_count"]], ["slot_config", "config_source", "required", []],
+        ["slot_initialize", "lifecycle_initialize", "required", ["slot_initial_state", "slot_default_content"]], ["slot_persist", "lifecycle_persist", "conditional", []], ["slot_reset", "lifecycle_reset", "required", []]
+      ]
+    },
+    "spawn": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "location": "STRUCT/SPAWN", "occurrenceCount": 6}],
+      "nodes": [
+        ["spawned_object", "object", "required", ["spawn_source"]], ["spawn_state", "state", "required", []],
+        ["spawn_entry", "entry_condition", "required", ["spawn_trigger"]], ["spawn_trigger", "trigger", "required", ["spawn_trigger"]],
+        ["spawn_validation", "precondition", "required", ["spawn_condition"]], ["spawn_processing", "processing", "required", ["spawn_source"]],
+        ["spawn_transition", "state_transition", "required", []], ["spawn_output", "output", "required", []],
+        ["spawn_end", "exit_condition", "required", ["spawn_end_condition"]], ["empty_spawn", "exception", "required", []],
+        ["spawn_boundary", "boundary", "required", []], ["spawn_parameters", "parameter", "required", ["spawn_count", "spawn_interval"]],
+        ["spawn_config", "config_source", "required", ["spawn_source"]], ["level_dependency", "upstream_dependency", "required", []],
+        ["spawn_initialize", "lifecycle_initialize", "required", []], ["spawn_persist", "lifecycle_persist", "conditional", []], ["spawn_reset", "lifecycle_reset", "required", []]
+      ]
+    },
+    "level_flow": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "location": "STRUCT/LEVEL-FLOW", "occurrenceCount": 7}],
+      "nodes": [
+        ["level_context", "object", "required", []], ["level_state", "state", "required", ["level_initial_state"]],
+        ["level_entry", "entry_condition", "required", ["level_start_condition"]], ["level_trigger", "trigger", "required", ["level_start_condition"]],
+        ["stage_condition", "precondition", "required", ["stage_transition", "win_condition", "failure_condition"]], ["stage_processing", "processing", "required", ["stage_execution"]],
+        ["stage_transition", "state_transition", "required", ["stage_transition"]], ["level_output", "output", "required", []],
+        ["level_exit", "exit_condition", "required", ["level_end_timing"]], ["level_exception", "exception", "conditional", []],
+        ["level_boundary", "boundary", "required", ["win_condition", "failure_condition"]], ["level_parameters", "parameter", "required", []],
+        ["level_config", "config_source", "required", []], ["spawn_dependency", "downstream_dependency", "required", []], ["settlement_dependency", "downstream_dependency", "required", []],
+        ["level_initialize", "lifecycle_initialize", "required", ["level_initial_state"]], ["level_persist", "lifecycle_persist", "conditional", []], ["level_reset", "lifecycle_reset", "required", []]
+      ]
+    },
+    "settlement": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "S3-TC09-C", "location": "STRUCT/SETTLEMENT", "occurrenceCount": 4}],
+      "nodes": [
+        ["settlement_context", "object", "required", []], ["settlement_state", "state", "required", []],
+        ["settlement_entry", "entry_condition", "required", ["settlement_trigger"]], ["settlement_trigger", "trigger", "required", ["settlement_trigger"]],
+        ["result_condition", "precondition", "required", ["result_determination"]], ["settlement_processing", "processing", "required", ["result_determination", "statistics_content", "reward_rule"]],
+        ["record_transition", "state_transition", "required", ["record_update", "data_persist_timing"]], ["settlement_output", "output", "required", ["reward_rule"]],
+        ["settlement_exit", "exit_condition", "required", ["exit_path"]], ["settlement_failure", "exception", "required", ["failure_branch"]],
+        ["settlement_boundary", "boundary", "required", []], ["settlement_parameters", "parameter", "required", []],
+        ["settlement_config", "config_source", "required", []], ["level_dependency", "upstream_dependency", "required", ["settlement_trigger"]],
+        ["statistics_dependency", "downstream_dependency", "required", ["statistics_content"]], ["settlement_initialize", "lifecycle_initialize", "required", []],
+        ["settlement_persist", "lifecycle_persist", "required", ["data_persist_timing"]], ["settlement_reset", "lifecycle_reset", "required", []]
+      ]
+    },
+    "statistics": {
+      "canGenerateRule": false,
+      "sourceEvidence": [{"sourceId": "S3-TC09-C", "location": "STRUCT/STATISTICS", "occurrenceCount": 4}],
+      "nodes": [
+        ["statistics_report", "object", "required", []], ["statistics_state", "state", "required", []],
+        ["statistics_entry", "entry_condition", "required", ["statistics_trigger"]], ["statistics_trigger", "trigger", "required", ["statistics_trigger"]],
+        ["statistics_scope", "precondition", "required", ["statistics_content"]], ["statistics_collect", "processing", "required", ["statistics_content"]],
+        ["statistics_calculate", "processing", "required", ["statistics_formula"]], ["statistics_transition", "state_transition", "required", []],
+        ["statistics_output", "output", "required", ["statistics_content"]], ["statistics_exit", "exit_condition", "required", []],
+        ["statistics_boundary", "boundary", "required", []], ["statistics_parameters", "parameter", "required", ["statistics_formula"]],
+        ["statistics_config", "config_source", "required", []], ["settlement_dependency", "upstream_dependency", "required", []],
+        ["statistics_initialize", "lifecycle_initialize", "required", []], ["statistics_persist", "lifecycle_persist", "conditional", []], ["statistics_reset", "lifecycle_reset", "required", []]
+      ]
+    }
+  }
+}

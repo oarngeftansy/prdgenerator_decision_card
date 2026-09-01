@@ -1,0 +1,65 @@
+{
+  "corpusId": "EXTERNAL-GAME-DESIGN-CORPUS-V1",
+  "phase": "5.4.5",
+  "provisional": true,
+  "contentAuthority": "none",
+  "runtimeInstallPerformed": false,
+  "allowedOutputs": ["possible_scope", "possible_rule_dimension"],
+  "forbiddenOutputs": ["confirmed_scope", "strongly_implied_scope", "missingGameRules", "approved_rule", "gap_closure", "project_value", "renderer_text"],
+  "requiredGate": "Phase 5.4.4 MechanicScope",
+  "promotionAuthority": ["project_evidence", "project_fact", "approved_rule", "ui_structure", "entity_relationship"],
+  "sources": {
+    "GDO-GENRE": "https://github.com/lorenzopapa2/game-development-orchestrator/blob/main/references/genre-templates.md",
+    "GDO-BALANCE": "https://github.com/lorenzopapa2/game-development-orchestrator/blob/main/references/balance-economy.md",
+    "GDO-ECONOMY": "https://github.com/lorenzopapa2/game-development-orchestrator/blob/main/references/data_models/economy_and_progression.md",
+    "GDO-LEVEL": "https://github.com/lorenzopapa2/game-development-orchestrator/blob/main/references/level-design.md",
+    "GDO-IMPLEMENTATION": "https://github.com/lorenzopapa2/game-development-orchestrator/blob/main/references/implementation.md",
+    "CCGS-MAP": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/main/.claude/skills/map-systems/SKILL.md",
+    "CCGS-DESIGN": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/main/.claude/skills/design-system/SKILL.md",
+    "CCGS-REVIEW": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/main/.claude/skills/design-review/SKILL.md",
+    "CCGS-GAME-DESIGNER": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/main/.claude/agents/game-designer.md",
+    "CCGS-SYSTEMS-DESIGNER": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/main/.claude/agents/systems-designer.md"
+  },
+  "patterns": [
+    {"patternId":"EXT-MSP-01","category":"mechanic_scope_pattern","pattern":"从明确的玩家动作、循环步骤、MVP功能和可见界面提取候选系统；隐含配套系统保持候选。","allowedOutput":"possible_scope","sourceRefs":["CCGS-MAP"],"permission":"exploration_only"},
+    {"patternId":"EXT-MSP-02","category":"mechanic_scope_pattern","pattern":"分别识别即时操作、单局目标奖励循环和长期回流成长循环。","allowedOutput":"possible_scope","sourceRefs":["CCGS-GAME-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-MSP-03","category":"mechanic_scope_pattern","pattern":"混合品类的主循环与次级元结构分别作为候选 scope 来源，不合并全部品类模板项。","allowedOutput":"possible_scope","sourceRefs":["GDO-GENRE"],"permission":"exploration_only"},
+    {"patternId":"EXT-MSP-04","category":"mechanic_scope_pattern","pattern":"关卡、房间或区段可具有教学、检验、组合、奖励、休整、高潮或路线选择等主导用途。","allowedOutput":"possible_scope","sourceRefs":["GDO-LEVEL"],"permission":"exploration_only"},
+
+    {"patternId":"EXT-GRP-01","category":"game_rule_pattern","pattern":"候选的玩家使用链包含入口或触发、可用行动或选择、规则结算和可观察结果。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-DESIGN","CCGS-GAME-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-GRP-02","category":"game_rule_pattern","pattern":"已证明存在状态时，可检查玩家可见状态、合法转换和转换原因。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-DESIGN"],"permission":"exploration_only"},
+    {"patternId":"EXT-GRP-03","category":"game_rule_pattern","pattern":"同时检查玩家可以做什么、不能做什么以及适用条件。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-DESIGN"],"permission":"exploration_only"},
+    {"patternId":"EXT-GRP-04","category":"game_rule_pattern","pattern":"普通规则与真正特殊的玩家可见边界分开；可枚举 QA Case 本身不产生设计规则。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-REVIEW"],"permission":"exploration_only"},
+    {"patternId":"EXT-GRP-05","category":"game_rule_pattern","pattern":"已确认的失败循环可检查失败触发、玩家代价、恢复路径和保留或重置状态。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-GAME-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-GRP-06","category":"game_rule_pattern","pattern":"已确认的遭遇可检查威胁、辅助条件、规则修正、目标和完成结果。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-LEVEL"],"permission":"exploration_only"},
+    {"patternId":"EXT-GRP-07","category":"game_rule_pattern","pattern":"已确认失败或结束流程后，可检查玩家可见的结果、代价、恢复入口与后续去向；不得据此发明恢复机制。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-REVIEW","CCGS-GAME-DESIGNER"],"permission":"exploration_only"},
+
+    {"patternId":"EXT-SDP-01","category":"system_dependency_pattern","pattern":"候选依赖关系包含上游输入、下游输出、交换的玩法数据及契约 owner。","allowedOutput":"possible_scope","sourceRefs":["CCGS-MAP","CCGS-DESIGN"],"permission":"exploration_only"},
+    {"patternId":"EXT-SDP-02","category":"system_dependency_pattern","pattern":"区分机制运行必需的硬依赖与仅增强体验的软依赖。","allowedOutput":"possible_scope","sourceRefs":["CCGS-MAP"],"permission":"exploration_only"},
+    {"patternId":"EXT-SDP-03","category":"system_dependency_pattern","pattern":"双向检查依赖声明；不一致时暴露冲突，不自动补桥接规则。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-REVIEW"],"permission":"exploration_only"},
+    {"patternId":"EXT-SDP-04","category":"system_dependency_pattern","pattern":"配置引用和ID只能提示内容、奖励、关卡、解锁或成长之间的可能关系，不能证明机制存在。","allowedOutput":"possible_scope","sourceRefs":["GDO-IMPLEMENTATION"],"permission":"exploration_only"},
+    {"patternId":"EXT-SDP-05","category":"system_dependency_pattern","pattern":"当两个系统均有项目证据时，可检查双方声明的输入、输出和影响方向是否一致；不一致只暴露冲突。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-MAP","CCGS-REVIEW","CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+
+    {"patternId":"EXT-PRG-01","category":"progression_pattern","pattern":"已确认成长系统可检查获取输入、成长转换、里程碑或解锁效果、阶段节奏和重置或保留。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","CCGS-GAME-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-PRG-02","category":"progression_pattern","pattern":"检查解锁改变玩家策略或能力，还是只改变数值幅度。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-GAME-DESIGNER","CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-PRG-03","category":"progression_pattern","pattern":"证据支持生命周期后，可区分局内成长、局外成长以及重置或转生循环。","allowedOutput":"possible_scope","sourceRefs":["GDO-ECONOMY","CCGS-GAME-DESIGNER"],"permission":"exploration_only"},
+
+    {"patternId":"EXT-RND-01","category":"randomization_pattern","pattern":"已确认随机选择或掉落可检查候选资格、权重、重复处理、连续失败保护和重置范围。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","GDO-ECONOMY"],"permission":"exploration_only"},
+    {"patternId":"EXT-RND-02","category":"randomization_pattern","pattern":"已确认随机内容生成可检查内容语法、分布限制、保证出现项和非法组合。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-GENRE","GDO-LEVEL"],"permission":"exploration_only"},
+    {"patternId":"EXT-RND-03","category":"randomization_pattern","pattern":"概率候选维度需要与玩家成本或时间以及重复或落空后果联合检查。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","GDO-ECONOMY"],"permission":"exploration_only"},
+
+    {"patternId":"EXT-ECO-01","category":"economy_pattern","pattern":"对已证明的资源检查来源、消耗、转换、存储或保留，以及资源允许或限制的玩家行动。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","GDO-ECONOMY"],"permission":"exploration_only"},
+    {"patternId":"EXT-ECO-02","category":"economy_pattern","pattern":"检查不同玩法阶段的可负担性和盈余或缺口，不导入外部目标值。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","GDO-ECONOMY"],"permission":"exploration_only"},
+    {"patternId":"EXT-ECO-03","category":"economy_pattern","pattern":"将奖励、升级或购买成本及到达下一有效目标的时间视为同一经济成长杠杆。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-ECONOMY","CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+
+    {"patternId":"EXT-BAL-01","category":"parameter_pattern","pattern":"玩法公式候选可检查输入、输出、边界或极端行为和玩家影响；数值保持未决。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-BAL-02","category":"parameter_pattern","pattern":"机制存在后才识别调节杠杆；检查杠杆对策略、节奏、结果或资源压力的影响。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-BAL-03","category":"balance_pattern","pattern":"检查前中后期结果、难度形状、恢复可能性和优势策略风险，不以公式数量代表深度。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","CCGS-GAME-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-BAL-04","category":"balance_pattern","pattern":"只有项目已证明多种类型、元素或状态交互时，才把交互矩阵作为候选规则维度。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-BAL-05","category":"balance_pattern","pattern":"将正向成长循环和稳定或反制循环作为关联杠杆，检查失控增长或死路。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-GAME-DESIGNER","CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-BAL-06","category":"balance_pattern","pattern":"已确认阶段变化后，可检查玩家可见的压力、恢复空间与优势来源如何随阶段变化。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-BALANCE","GDO-LEVEL"],"permission":"exploration_only"},
+    {"patternId":"EXT-BAL-07","category":"balance_pattern","pattern":"当多个已确认系统相互增强时，可检查是否形成持续放大或稳定回落的玩法反馈；不得假定反制机制存在。","allowedOutput":"possible_rule_dimension","sourceRefs":["CCGS-REVIEW","CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-PAR-03","category":"parameter_pattern","pattern":"已确认玩法参数可检查语义、单位、作用对象、适用状态和直接影响的玩家结果；配置字段本身不证明参数适用。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-IMPLEMENTATION","CCGS-SYSTEMS-DESIGNER"],"permission":"exploration_only"},
+    {"patternId":"EXT-PAR-04","category":"parameter_pattern","pattern":"参数值、配置来源和系统依赖分开：先由玩法机制证明参数存在，再检查值、单位和数据 owner。","allowedOutput":"possible_rule_dimension","sourceRefs":["GDO-IMPLEMENTATION","CCGS-DESIGN"],"permission":"exploration_only"}
+  ]
+}

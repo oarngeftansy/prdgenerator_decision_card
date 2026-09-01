@@ -1,0 +1,99 @@
+{
+  "libraryId": "full_mechanic_reconstruction_profiles_v1",
+  "contentAuthority": "none",
+  "detailTypeOverrides": {
+    "choice.candidate_stability": "supporting_execution",
+    "choice.candidate_generation": "supporting_execution",
+    "choice.cleanup": "temporary_state_cleanup",
+    "choice.resume": "supporting_execution",
+    "weapon.instance_identity": "addressable_instance_model",
+    "weapon.cleanup": "reference_cleanup",
+    "weapon.statistics_dependency": "supporting_execution",
+    "monster.enter": "supporting_execution",
+    "monster.pending_damage": "internal_pending_processing",
+    "monster.death_interrupt": "supporting_execution",
+    "monster.cleanup": "reference_cleanup"
+  },
+  "designLevers": {
+    "MDES-CHOICE": [
+      ["choice.entry_pause", "什么事件触发三选一，以及选择期间暂停哪些战斗状态？", ["choice.trigger", "choice.pause_scope"]],
+      ["choice.candidate_construction", "候选池如何构成，并如何处理资格、重复与数量不足？", ["choice.candidate_pool", "choice.eligibility", "choice.duplicate_handling", "choice.pool_shortage"]],
+      ["choice.refresh_branch", "刷新如何消耗次数并替换当前候选？", ["choice.refresh_invalidation"]],
+      ["choice.commit_apply", "玩家确认后，唯一结果写入哪个玩法对象并在何时生效？", ["choice.commit_boundary", "choice.apply_consumer"]],
+      ["choice.run_reset", "候选状态与刷新次数在哪个生命周期边界重置？", ["choice.reset"]]
+    ],
+    "MDES-WEAPON": [
+      ["weapon.result_handling", "获得武器后，如何在新武器、重复强化、空栏和满栏之间分支？", ["weapon.acquire", "weapon.result_classification", "weapon.slot_branches", "weapon.full_slot", "weapon.upgrade"]],
+      ["weapon.activation", "栏位处理完成后，武器何时开始参与战斗？", ["weapon.activation"]],
+      ["weapon.attack_model", "武器如何选择目标、循环攻击，并在暂停或结果锁定时中断？", ["weapon.target_validity", "weapon.attack_cycle", "weapon.interrupt", "weapon.parameter_contract"]],
+      ["weapon.damage_ownership", "武器产生的伤害如何归属并交给战斗统计？", ["weapon.damage_handoff"]]
+    ],
+    "MDES-MONSTER": [
+      ["monster.target_movement", "普通怪物以什么对象为目标并如何持续接近？", ["monster.target", "monster.move"]],
+      ["monster.contact_damage_cycle", "怪物从接触、首次伤害、周期伤害到脱离恢复如何形成完整行为循环？", ["monster.contact_evaluation", "monster.first_damage", "monster.repeat", "monster.movement_lock", "monster.exit_resume"]],
+      ["monster.multiple_attackers", "多个怪物同时接触载具时如何结算伤害？", ["monster.multiple_attackers"]],
+      ["monster.pause_resume", "玩法暂停与恢复如何影响怪物行为和伤害计时？", ["monster.pause_resume"]],
+      ["monster.combat_parameters", "接触伤害和攻击间隔由哪套怪物行为规则消费？", ["monster.parameter_contract"]]
+    ]
+  },
+  "profiles": {
+    "MDES-CHOICE": {
+      "modelType": "candidate_decision_lifecycle",
+      "responsibilities": [
+        ["choice.trigger", "lifecycle", "core", "什么事件进入本次选择流程？", "trigger_model", null],
+        ["choice.pause_scope", "state", "core", "选择期间冻结哪些运行状态并保留哪些数据？", "pause_scope", null],
+        ["choice.candidate_pool", "algorithm", "core", "候选从哪些当前可用内容中构成？", "candidate_pool", null],
+        ["choice.eligibility", "condition", "core", "内容满足哪些资格才可进入本次候选池？", "eligibility_model", null],
+        ["choice.duplicate_handling", "branch", "conditional", "候选生成时如何处理重复内容？", "duplicate_handling", "duplicate_candidate_signal"],
+        ["choice.pool_shortage", "branch", "core", "可用候选不足目标数量时如何完成本次生成？", "pool_shortage", null],
+        ["choice.candidate_generation", "algorithm", "core", "候选池如何生成并暂存本次候选？", "candidate_generation", null],
+        ["choice.candidate_stability", "state", "core", "候选在确认或刷新前是否保持不变？", "candidate_stability", null],
+        ["choice.refresh_invalidation", "branch", "conditional", "刷新时旧候选何时失效并如何形成新候选？", "refresh_invalidation", "refresh_exists"],
+        ["choice.commit_boundary", "data_flow", "core", "玩家操作在什么时点提交唯一选择结果？", "commit_boundary", null],
+        ["choice.apply_consumer", "data_flow", "core", "已提交结果写入哪个玩法对象并如何确认生效？", "apply_consumer", null],
+        ["choice.cleanup", "lifecycle", "core", "结果生效后清理哪些临时选择状态？", "cleanup_model", null],
+        ["choice.resume", "dependency", "core", "选择流程退出后哪些战斗系统恢复运行？", "resume_model", null],
+        ["choice.consecutive_level", "branch", "conditional", "一次结算多个等级提升时如何串联多轮选择？", "consecutive_level", "multi_level_signal"],
+        ["choice.reset", "reset", "core", "候选临时态与局内次数在哪些边界清理？", "reset_model", null]
+      ]
+    },
+    "MDES-WEAPON": {
+      "modelType": "weapon_instance_lifecycle",
+      "responsibilities": [
+        ["weapon.acquire", "lifecycle", "core", "什么结果进入武器处理流程？", "acquire_model", null],
+        ["weapon.instance_identity", "state", "core", "武器实例由哪些身份与所属关系区分？", "instance_identity", null],
+        ["weapon.result_classification", "condition", "core", "获得结果如何区分新武器与已有武器？", "result_classification", null],
+        ["weapon.slot_branches", "branch", "core", "不同栏位占用状态分别进入什么处理分支？", "slot_branches", null],
+        ["weapon.full_slot", "branch", "conditional", "栏位已满时新武器结果如何处理？", "full_slot_model", "slot_capacity_reached_signal"],
+        ["weapon.upgrade", "data_flow", "conditional", "重复武器结果如何写入已有实例？", "upgrade_model", "duplicate_weapon_signal"],
+        ["weapon.activation", "state", "core", "武器实例何时转为可参与战斗的状态？", "activation_model", null],
+        ["weapon.target_validity", "condition", "core", "武器攻击前如何确定并持续校验目标？", "target_validity", null],
+        ["weapon.attack_cycle", "repeat", "core", "武器如何从触发、执行、结算进入下一轮攻击？", "attack_cycle", null],
+        ["weapon.damage_handoff", "data_flow", "core", "攻击结果如何产生伤害并交给归因与统计？", "damage_handoff", null],
+        ["weapon.interrupt", "interrupt", "core", "暂停、目标失效或结果锁定时如何中断攻击？", "interrupt_model", null],
+        ["weapon.cleanup", "lifecycle", "core", "替换、移除或关卡结束时清理哪些实例状态？", "cleanup_model", null],
+        ["weapon.parameter_contract", "parameter", "core", "攻击周期与伤害参数由哪些规则消费？", "weapon_parameter_contract", null],
+        ["weapon.statistics_dependency", "dependency", "core", "武器伤害以什么身份交给战斗统计？", "statistics_dependency", null]
+      ]
+    },
+    "MDES-MONSTER": {
+      "modelType": "combat_behavior_state_model",
+      "responsibilities": [
+        ["monster.enter", "lifecycle", "core", "怪物进入战区后如何开始行为处理？", "enter_model", null],
+        ["monster.target", "condition", "core", "怪物以什么对象为目标并如何判断目标有效？", "target_model", null],
+        ["monster.move", "state", "core", "目标有效且未满足接触条件时如何移动？", "move_model", null],
+        ["monster.contact_evaluation", "condition", "core", "什么可验证条件进入接触伤害处理？", "contact_evaluation", null],
+        ["monster.first_damage", "data_flow", "core", "首次接触伤害在什么执行点产生？", "first_damage", null],
+        ["monster.repeat", "repeat", "conditional", "保持接触时如何重复产生伤害？", "repeat_model", "periodic_contact_damage_signal"],
+        ["monster.movement_lock", "state", "core", "接触伤害处理期间移动如何变化？", "movement_lock", null],
+        ["monster.exit_resume", "lifecycle", "core", "接触结束后如何停止伤害并进入后续行为？", "exit_resume", null],
+        ["monster.multiple_attackers", "branch", "conditional", "多个怪物同时接触时如何分别结算？", "multiple_attackers", "multiple_monster_signal"],
+        ["monster.pause_resume", "interrupt", "conditional", "玩法暂停与恢复如何影响行为和计时？", "pause_resume", "choice_pause_signal"],
+        ["monster.death_interrupt", "interrupt", "core", "怪物死亡如何终止行为与后续伤害？", "death_interrupt", null],
+        ["monster.pending_damage", "interrupt", "core", "中断发生时尚未结算的伤害如何处理？", "pending_damage", null],
+        ["monster.cleanup", "lifecycle", "core", "怪物离场时清理哪些行为与计时状态？", "cleanup_model", null],
+        ["monster.parameter_contract", "parameter", "core", "接触伤害与重复间隔由哪个行为职责消费？", "monster_parameter_contract", null]
+      ]
+    }
+  }
+}

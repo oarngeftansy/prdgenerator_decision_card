@@ -1,0 +1,4 @@
+interface:
+  display_name: "GVE16 飞书交付"
+  short_description: "按 GVE16 审核交互并交付飞书正文与 UE 画板"
+  default_prompt: "按 GVE16 颗粒度和 FlowDoc 审核逻辑确认交互策划案，再发布为飞书文档与可验收的原生 UE 流转画板。"

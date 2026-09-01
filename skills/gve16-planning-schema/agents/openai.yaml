@@ -1,0 +1,4 @@
+interface:
+  display_name: "GVE16 策划数据模型"
+  short_description: "构建并校验玩法/交互策划案的统一证据模型"
+  default_prompt: "使用 $gve16-planning-schema 把视频证据转换成可校验的 GVE16 中间模型。"

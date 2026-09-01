@@ -1,0 +1,63 @@
+{
+  "corpusVersion": "gve16-mechanic-structure-v2",
+  "evidenceSourceDocumentHash": "sha256:89d105f7d4a2a46e66ca3ac1d13c6a9b4d1c6320fed0f0a70a2068b42feb91bf",
+  "contentAuthority": "none",
+  "provisional": true,
+  "prohibitedRuntimeContent": ["raw_sentences", "project_objects", "project_fields", "project_values", "gap_answers"],
+  "patterns": [
+    {
+      "mechanicType": "movement",
+      "nodeTypes": ["movement_entry", "movement_input", "position_update", "movement_exit"],
+      "edgePatterns": [["movement_entry", "triggers", "position_update"], ["movement_input", "transitions_to", "position_update"], ["position_update", "persists_until", "movement_exit"]],
+      "branchPatterns": ["continue_or_stop"], "lifecyclePatterns": ["state_restore_requires_evidence"],
+      "dependencyPatterns": ["movement_can_depend_on_combat_state"], "boundaryPatterns": ["exit_condition_after_main_processing"],
+      "parameterCarrierPatterns": ["speed_and_duration_adjacent_to_state_change"],
+      "evidenceSourceRef": "GVE16/ANON-MOVEMENT-FLOW-01", "provisional": true
+    },
+    {
+      "mechanicType": "attack",
+      "nodeTypes": ["attack_entry", "target_set_build", "target_selection", "attack_execution", "exit_condition", "retarget_policy"],
+      "edgePatterns": [["attack_entry", "triggers", "target_set_build"], ["target_set_build", "produces", "target_selection"], ["target_selection", "triggers", "attack_execution"], ["attack_execution", "persists_until", "exit_condition"], ["exit_condition", "transitions_to", "retarget_policy"]],
+      "branchPatterns": ["valid_target_or_exit"], "lifecyclePatterns": [],
+      "dependencyPatterns": ["attack_processing_depends_on_damage_resolution"], "boundaryPatterns": ["exit_restores_prior_state_when_proven"],
+      "parameterCarrierPatterns": ["range_frequency_and_damage_reference_near_execution"],
+      "evidenceSourceRef": "GVE16/ANON-ATTACK-FLOW-01", "provisional": true
+    },
+    {
+      "mechanicType": "randomization",
+      "nodeTypes": ["random_trigger", "selection_state", "candidate_filter", "candidate_draw", "candidate_generation", "selection_processing", "refresh_processing", "effect_transition", "resume_exit"],
+      "edgePatterns": [["random_trigger", "triggers", "selection_state"], ["random_trigger", "triggers", "candidate_draw"], ["candidate_filter", "requires", "candidate_draw"], ["candidate_draw", "produces", "candidate_generation"], ["candidate_generation", "branches_to", "selection_processing"], ["candidate_generation", "branches_to", "refresh_processing"], ["refresh_processing", "repeats_to", "candidate_draw"], ["selection_processing", "transitions_to", "effect_transition"], ["selection_state", "persists_until", "selection_processing"], ["effect_transition", "produces", "resume_exit"]],
+      "branchPatterns": ["confirm_or_reroll", "empty_result_when_applicable"], "lifecyclePatterns": ["temporary_selection_state_persists_until_resolution", "reset_requires_confirmed_scope_end"],
+      "dependencyPatterns": ["candidate_eligibility_can_depend_on_progression"], "boundaryPatterns": ["duplicate_weight_empty_pool_require_explicit_contract"],
+      "parameterCarrierPatterns": ["weights_costs_and_counts_belong_to_draw_or_refresh"],
+      "evidenceSourceRef": "GVE16/ANON-RANDOMIZATION-FLOW-01", "provisional": true
+    },
+    {
+      "mechanicType": "level_flow",
+      "nodeTypes": ["level_entry", "stage_condition", "stage_processing", "stage_transition", "level_exit"],
+      "edgePatterns": [["level_entry", "triggers", "stage_processing"], ["stage_condition", "branches_to", "stage_transition"], ["stage_transition", "produces", "level_exit"]],
+      "branchPatterns": ["win_or_fail"], "lifecyclePatterns": ["context_start_and_end_only_when_proven"],
+      "dependencyPatterns": ["flow_can_trigger_settlement"], "boundaryPatterns": ["end_condition_precedes_settlement"],
+      "parameterCarrierPatterns": ["stage_timing_adjacent_to_transition"],
+      "evidenceSourceRef": "GVE16/ANON-LEVEL-FLOW-01", "provisional": true
+    },
+    {
+      "mechanicType": "settlement",
+      "nodeTypes": ["settlement_entry", "result_condition", "settlement_processing", "record_transition", "settlement_output", "settlement_exit", "settlement_failure"],
+      "edgePatterns": [["settlement_entry", "requires", "result_condition"], ["result_condition", "branches_to", "settlement_processing"], ["result_condition", "branches_to", "settlement_failure"], ["settlement_processing", "produces", "settlement_output"], ["settlement_processing", "transitions_to", "record_transition"], ["settlement_output", "produces", "settlement_exit"]],
+      "branchPatterns": ["success_or_failure"], "lifecyclePatterns": ["record_persistence_requires_write_timing"],
+      "dependencyPatterns": ["settlement_depends_on_level_result_and_statistics"], "boundaryPatterns": ["exit_after_result_processing"],
+      "parameterCarrierPatterns": ["reward_contract_adjacent_to_result_branch"],
+      "evidenceSourceRef": "GVE16/ANON-SETTLEMENT-FLOW-01", "provisional": true
+    },
+    {
+      "mechanicType": "statistics",
+      "nodeTypes": ["statistics_entry", "statistics_collect", "statistics_calculate", "statistics_output", "statistics_reset"],
+      "edgePatterns": [["statistics_entry", "triggers", "statistics_collect"], ["statistics_collect", "produces", "statistics_calculate"], ["statistics_calculate", "produces", "statistics_output"], ["statistics_output", "persists_until", "statistics_reset"]],
+      "branchPatterns": [], "lifecyclePatterns": ["initialize_collect_refresh_reset"],
+      "dependencyPatterns": ["settlement_reads_statistics_output"], "boundaryPatterns": ["collection_scope_and_reset_boundary"],
+      "parameterCarrierPatterns": ["formula_and_sort_contract_near_calculation"],
+      "evidenceSourceRef": "GVE16/ANON-STATISTICS-FLOW-01", "provisional": true
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "ddit-skills.marketplace/v1",
+  "slug": "@lexie/visual-prd-reconstruction",
+  "author": "lexie",
+  "author_name": "Lexie",
+  "name": "visual-prd-reconstruction",
+  "version": "0.1.0",
+  "business_domain": "productivity",
+  "business_subdomain": "product-requirements",
+  "category": "productivity",
+  "tags": [
+    "prd",
+    "video-analysis",
+    "screenshot-analysis",
+    "reconstruction",
+    "vibe-coding",
+    "gameplay-demo",
+    "game-prototype",
+    "codex"
+  ],
+  "uploaded_at": "2026-07-08T00:00:00.000Z"
+}

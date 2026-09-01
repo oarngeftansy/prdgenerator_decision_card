@@ -1,0 +1,9 @@
+[
+  {"mechanicId":"BM-MONSTER","mechanicType":"monster_movement_attack","existenceSignals":["repeat_attack_exists"],"ownerPath":{"system":"战斗","subsystem":"怪物","mechanic":"怪物行为"}},
+  {"mechanicId":"BM-WEAPON","mechanicType":"weapon_execution","existenceSignals":["cooldown_exists","slot_full_exists"],"ownerPath":{"system":"战斗","subsystem":"武器","mechanic":"武器执行"}},
+  {"mechanicId":"BM-CHOICE","mechanicType":"battle_level_three_choice","existenceSignals":["pause_exists","refresh_exists","refresh_cost_exists"],"ownerPath":{"system":"局内成长","subsystem":"三选一","mechanic":"升级选择"}},
+  {"mechanicId":"BM-DRAW","mechanicType":"independent_weapon_draw","existenceSignals":["draw_pool_exists","draw_animation_exists"],"ownerPath":{"system":"局内成长","subsystem":"武器抽取","mechanic":"独立抽取"}},
+  {"mechanicId":"BM-STAGE","mechanicType":"stage_boss_end","existenceSignals":["stage_failure_branch_exists"],"ownerPath":{"system":"关卡","subsystem":"流程","mechanic":"阶段推进"}},
+  {"mechanicId":"BM-STATS","mechanicType":"damage_statistics","existenceSignals":[],"ownerPath":{"system":"战斗数据","subsystem":"统计","mechanic":"伤害统计"}},
+  {"mechanicId":"BM-OUTCOME","mechanicType":"outcome_settlement","existenceSignals":["reward_calculation_exists"],"ownerPath":{"system":"关卡","subsystem":"结算","mechanic":"胜负与结算"}}
+]

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "closure_policy_only",
+  "closureInferencePolicies": [
+    {
+      "policyId": "closure.target_reselection_after_target_death",
+      "riskClass": "low",
+      "inferencePermission": "infer_and_publish",
+      "requiredIntents": ["TargetSelection", "Death"],
+      "output": {
+        "intent": "TargetSelection",
+        "schemaSlot": "target_invalidation",
+        "ruleType": "logic",
+        "behaviorTemplate": "当前目标死亡或失效后，{primarySubject}结束当前锁定并重新选择目标"
+      }
+    },
+    {
+      "policyId": "closure.selection_interface_exit_after_confirmation",
+      "riskClass": "low",
+      "inferencePermission": "infer_and_publish",
+      "requiredSlots": ["selection_pause", "candidate_selection"],
+      "output": {
+        "intent": "ResultTransition",
+        "schemaSlot": "selection_interface_exit",
+        "ruleType": "flow",
+        "behaviorTemplate": "玩家确认候选后退出选择界面"
+      }
+    },
+    {
+      "policyId": "closure.selection_exit_after_confirmation",
+      "riskClass": "medium",
+      "inferencePermission": "infer_with_review",
+      "requiredSlots": ["selection_pause", "candidate_selection"],
+      "addressesGapSlots": ["confirm_effect_timing"],
+      "output": {
+        "intent": "ResultTransition",
+        "schemaSlot": "selection_exit",
+        "ruleType": "flow",
+        "behaviorTemplate": "玩家确认候选后应用所选效果、退出选择界面并恢复战斗"
+      }
+    },
+    {
+      "policyId": "closure.attack_exit_after_target_invalidation",
+      "riskClass": "medium",
+      "inferencePermission": "infer_with_review",
+      "requiredSlots": ["attack_target", "attack_method"],
+      "addressesGapSlots": ["attack_exit_condition"],
+      "output": {
+        "intent": "TargetSelection",
+        "schemaSlot": "attack_exit_condition",
+        "ruleType": "logic",
+        "behaviorTemplate": "当前目标死亡或离开攻击范围后，{primarySubject}结束当前攻击并重新选择目标"
+      }
+    }
+  ]
+}

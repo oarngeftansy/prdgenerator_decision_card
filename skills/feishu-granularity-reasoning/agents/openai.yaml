@@ -1,0 +1,4 @@
+interface:
+  display_name: "����߻�����������"
+  short_description: "��������֤�ݡ�����ѡ����������֯����Ǩ��Ϊ����Ʋ߻�����"
+  default_prompt: "Use $feishu-granularity-reasoning to reconstruct an evidence-backed gameplay document without copying sample-specific content."

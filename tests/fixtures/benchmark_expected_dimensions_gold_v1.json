@@ -1,0 +1,30 @@
+{
+  "BM-MONSTER": {
+    "core": ["movement.state","attack.entry","attack.execution","attack.exit","attack.post_exit_state","attack.death_interrupt"],
+    "activeConditional": ["attack.repeat.exists"]
+  },
+  "BM-WEAPON": {
+    "core": ["weapon.acquire","weapon.slot_activation","weapon.attack_trigger","weapon.damage_trigger","weapon.damage_attribution"],
+    "activeConditional": ["weapon.cooldown","weapon.slot_full"]
+  },
+  "BM-CHOICE": {
+    "core": ["choice.trigger","choice.candidate_generation","choice.temporary_state","choice.confirm","choice.apply","choice.exit"],
+    "activeConditional": ["choice.pause_resume","choice.refresh.exists","choice.refresh.cost"]
+  },
+  "BM-DRAW": {
+    "core": ["draw.entry","draw.result_generation","draw.result_commitment","draw.downstream_effect"],
+    "activeConditional": ["draw.pool","draw.animation_relation"]
+  },
+  "BM-STAGE": {
+    "core": ["stage.transition","boss.entry","boss.termination","battle.next_state"],
+    "activeConditional": ["stage.failure_interrupt"]
+  },
+  "BM-STATS": {
+    "core": ["statistics.start","statistics.period","statistics.attribution","statistics.aggregation","statistics.end"],
+    "activeConditional": []
+  },
+  "BM-OUTCOME": {
+    "core": ["outcome.success_trigger","outcome.failure_trigger","outcome.termination","settlement.entry","settlement.next_state"],
+    "activeConditional": ["settlement.reward_calculation"]
+  }
+}

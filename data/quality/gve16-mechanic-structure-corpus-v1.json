@@ -1,0 +1,130 @@
+{
+  "corpusVersion": "gve16-mechanic-structure-corpus-v1",
+  "contentAuthority": "none",
+  "provisional": true,
+  "sourceScope": "single_document_observation",
+  "forbiddenRuntimeContent": ["raw_sentence", "project_field", "project_value", "project_rule", "gap_answer", "chapter_tree"],
+  "globalOrder": ["definition", "input", "precondition", "trigger", "processing", "state_change", "output", "exit_boundary", "dependency", "parameter_need", "presentation"],
+  "mechanicTypes": {
+    "movement": {
+      "purpose": "定义对象的移动输入、位移处理、状态变化和停止边界",
+      "canCloseGap": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "anonymizedLocation": "DOC-A/STRUCT-MOVEMENT", "occurrenceCount": 3}],
+      "nodes": [
+        {"nodeKey": "movement_input", "label": "移动输入", "role": "input", "slotPatterns": ["movement_control"]},
+        {"nodeKey": "movement_start", "label": "开始移动", "role": "trigger", "slotPatterns": ["movement_trigger"]},
+        {"nodeKey": "movement_path", "label": "确定移动路径", "role": "processing", "slotPatterns": ["movement_path"]},
+        {"nodeKey": "movement_update", "label": "更新对象位置", "role": "state_change", "slotPatterns": ["movement_trigger", "movement_control"]},
+        {"nodeKey": "movement_speed", "label": "读取移动参数", "role": "parameter_need", "slotPatterns": ["movement_speed_source"]},
+        {"nodeKey": "movement_stop", "label": "停止移动", "role": "exit_boundary", "slotPatterns": ["movement_stop_condition"]}
+      ]
+    },
+    "attack": {
+      "purpose": "定义攻击的输入约束、目标选择、执行、效果和退出边界",
+      "canCloseGap": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "anonymizedLocation": "DOC-A/STRUCT-ATTACK", "occurrenceCount": 11}],
+      "nodes": [
+        {"nodeKey": "attack_input_mode", "label": "确定攻击输入方式", "role": "input", "slotPatterns": ["attack_trigger"]},
+        {"nodeKey": "attack_precondition", "label": "检查攻击条件", "role": "precondition", "slotPatterns": ["attack_range"]},
+        {"nodeKey": "attack_trigger", "label": "触发攻击", "role": "trigger", "slotPatterns": ["attack_trigger"]},
+        {"nodeKey": "attack_target_set", "label": "构建可攻击目标集合", "role": "processing", "slotPatterns": []},
+        {"nodeKey": "attack_target_select", "label": "选择攻击目标", "role": "processing", "slotPatterns": ["attack_target"]},
+        {"nodeKey": "attack_execute", "label": "执行攻击方式", "role": "processing", "slotPatterns": ["attack_method", "attack_target"]},
+        {"nodeKey": "attack_hit", "label": "处理命中", "role": "effect", "slotPatterns": ["attack_method"]},
+        {"nodeKey": "attack_damage", "label": "提交伤害结算", "role": "output", "slotPatterns": ["damage_reference"]},
+        {"nodeKey": "attack_exit", "label": "退出攻击状态", "role": "exit_boundary", "slotPatterns": ["attack_exit_condition"]},
+        {"nodeKey": "attack_retarget", "label": "重新选择目标", "role": "dependency", "slotPatterns": []}
+      ]
+    },
+    "damage_death": {
+      "purpose": "定义受击、数值更新、死亡判定和实体生命周期",
+      "canCloseGap": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "anonymizedLocation": "DOC-A/STRUCT-DAMAGE-DEATH", "occurrenceCount": 8}],
+      "nodes": [
+        {"nodeKey": "damage_input", "label": "接收伤害结果", "role": "input", "slotPatterns": ["damage_reference"]},
+        {"nodeKey": "damage_apply", "label": "更新当前生命", "role": "state_change", "slotPatterns": ["damage_death_definition"]},
+        {"nodeKey": "death_check", "label": "判断死亡条件", "role": "precondition", "slotPatterns": ["failure_condition"]},
+        {"nodeKey": "death_enter", "label": "进入死亡状态", "role": "state_change", "slotPatterns": ["damage_death_definition"]},
+        {"nodeKey": "death_process", "label": "执行死亡处理", "role": "processing", "slotPatterns": ["death_process"]},
+        {"nodeKey": "death_remove", "label": "结束实体生命周期", "role": "exit_boundary", "slotPatterns": ["entity_removal"]}
+      ]
+    },
+    "randomization": {
+      "purpose": "定义候选集合构建、随机处理、选择生效和流程恢复",
+      "canCloseGap": false,
+      "sourceEvidence": [{"sourceId": "S3-TC09-B", "anonymizedLocation": "DOC-A/STRUCT-RANDOMIZATION", "occurrenceCount": 4}],
+      "nodes": [
+        {"nodeKey": "random_trigger", "label": "触发候选流程", "role": "trigger", "slotPatterns": ["random_trigger"]},
+        {"nodeKey": "random_pause", "label": "暂停当前流程", "role": "state_change", "slotPatterns": ["selection_pause"]},
+        {"nodeKey": "pool_source", "label": "读取候选池来源", "role": "input", "slotPatterns": ["candidate_pool_source"]},
+        {"nodeKey": "pool_build", "label": "构建合法候选池", "role": "processing", "slotPatterns": ["pool_entry_condition", "pool_exit_condition", "prerequisite_rule", "max_level_rule"]},
+        {"nodeKey": "pool_invariants", "label": "应用重复、放回与权重约束", "role": "precondition", "slotPatterns": ["duplicate_rule", "replacement_rule", "weight_rule"]},
+        {"nodeKey": "candidate_draw", "label": "抽取候选项", "role": "processing", "slotPatterns": []},
+        {"nodeKey": "empty_pool", "label": "处理无合法候选", "role": "failure_boundary", "slotPatterns": ["empty_result_rule"]},
+        {"nodeKey": "candidate_generate", "label": "生成本轮候选", "role": "output", "slotPatterns": ["random_trigger"]},
+        {"nodeKey": "candidate_refresh", "label": "刷新本轮候选", "role": "processing", "slotPatterns": ["refresh_rule", "refresh_count", "refresh_cost"]},
+        {"nodeKey": "candidate_select", "label": "确认选择项", "role": "input", "slotPatterns": ["candidate_selection"]},
+        {"nodeKey": "candidate_apply", "label": "结算选择效果", "role": "state_change", "slotPatterns": ["candidate_effect", "effect_parameter", "confirm_effect_timing"]},
+        {"nodeKey": "candidate_state_update", "label": "更新候选状态", "role": "state_change", "slotPatterns": ["pool_exit_condition", "max_level_rule"]},
+        {"nodeKey": "random_resume", "label": "恢复原流程", "role": "exit_boundary", "slotPatterns": ["confirm_effect_timing"]}
+      ]
+    },
+    "slot": {
+      "purpose": "定义容器容量、填充、替换和内容生命周期",
+      "canCloseGap": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "anonymizedLocation": "DOC-A/STRUCT-SLOT", "occurrenceCount": 5}],
+      "nodes": [
+        {"nodeKey": "slot_define", "label": "定义栏位容器", "role": "definition", "slotPatterns": ["slot_count", "slot_type"]},
+        {"nodeKey": "slot_initial", "label": "建立初始栏位状态", "role": "state_before", "slotPatterns": ["slot_initial_state", "slot_default_content"]},
+        {"nodeKey": "slot_fill", "label": "填充栏位", "role": "processing", "slotPatterns": ["slot_fill_condition"]},
+        {"nodeKey": "slot_full", "label": "处理满栏状态", "role": "failure_boundary", "slotPatterns": ["slot_full_rule"]},
+        {"nodeKey": "slot_replace", "label": "替换或卸除内容", "role": "state_change", "slotPatterns": ["slot_replace", "slot_remove"]}
+      ]
+    },
+    "unlock_progression": {
+      "purpose": "定义解锁、升级、上限和重置生命周期",
+      "canCloseGap": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "anonymizedLocation": "DOC-A/STRUCT-PROGRESSION", "occurrenceCount": 9}],
+      "nodes": [
+        {"nodeKey": "progress_initial", "label": "确定初始状态", "role": "state_before", "slotPatterns": ["initial_state", "initial_level"]},
+        {"nodeKey": "unlock_check", "label": "检查解锁条件", "role": "precondition", "slotPatterns": ["unlock_condition"]},
+        {"nodeKey": "unlock_apply", "label": "应用解锁结果", "role": "state_change", "slotPatterns": ["unlock_result"]},
+        {"nodeKey": "upgrade_input", "label": "接收升级输入", "role": "input", "slotPatterns": ["upgrade_entry"]},
+        {"nodeKey": "upgrade_cost", "label": "结算升级消耗", "role": "parameter_need", "slotPatterns": ["upgrade_cost"]},
+        {"nodeKey": "upgrade_apply", "label": "应用升级效果", "role": "state_change", "slotPatterns": ["upgrade_effect"]},
+        {"nodeKey": "progress_cap", "label": "处理等级上限", "role": "exit_boundary", "slotPatterns": ["max_level"]},
+        {"nodeKey": "progress_reset", "label": "处理重置与可逆性", "role": "exit_boundary", "slotPatterns": ["reset_rule", "reversible_rule"]}
+      ]
+    },
+    "settlement": {
+      "purpose": "定义结算触发、结果处理、数据写入和离开路径",
+      "canCloseGap": false,
+      "sourceEvidence": [{"sourceId": "S3-TC09-C", "anonymizedLocation": "DOC-A/STRUCT-SETTLEMENT", "occurrenceCount": 4}],
+      "nodes": [
+        {"nodeKey": "settlement_trigger", "label": "触发结算", "role": "trigger", "slotPatterns": ["settlement_trigger"]},
+        {"nodeKey": "battle_stop", "label": "停止战斗流程", "role": "state_change", "slotPatterns": ["settlement_trigger"]},
+        {"nodeKey": "result_determine", "label": "判定结算结果", "role": "processing", "slotPatterns": ["result_determination"]},
+        {"nodeKey": "statistics_collect", "label": "汇总统计数据", "role": "processing", "slotPatterns": ["statistics_content"]},
+        {"nodeKey": "reward_apply", "label": "结算奖励", "role": "output", "slotPatterns": ["reward_rule"]},
+        {"nodeKey": "record_update", "label": "更新持久记录", "role": "state_change", "slotPatterns": ["record_update"]},
+        {"nodeKey": "settlement_persist", "label": "写入结算数据", "role": "state_change", "slotPatterns": ["data_persist_timing"]},
+        {"nodeKey": "settlement_exit", "label": "离开结算流程", "role": "exit_boundary", "slotPatterns": ["exit_path"]},
+        {"nodeKey": "settlement_failure", "label": "处理失败分支", "role": "failure_boundary", "slotPatterns": ["failure_branch"]}
+      ]
+    },
+    "level_flow": {
+      "purpose": "定义关卡开始、阶段推进、结束和后续流程",
+      "canCloseGap": false,
+      "sourceEvidence": [{"sourceId": "DOC-A", "anonymizedLocation": "DOC-A/STRUCT-LEVEL-FLOW", "occurrenceCount": 7}],
+      "nodes": [
+        {"nodeKey": "level_start", "label": "开始关卡流程", "role": "trigger", "slotPatterns": ["level_start_condition"]},
+        {"nodeKey": "level_initialize", "label": "初始化关卡状态", "role": "state_before", "slotPatterns": ["level_initial_state"]},
+        {"nodeKey": "stage_run", "label": "执行当前阶段", "role": "processing", "slotPatterns": ["stage_execution"]},
+        {"nodeKey": "stage_transition", "label": "切换关卡阶段", "role": "state_change", "slotPatterns": ["stage_transition"]},
+        {"nodeKey": "win_lose_check", "label": "判定胜负条件", "role": "precondition", "slotPatterns": ["win_condition", "failure_condition"]},
+        {"nodeKey": "level_stop", "label": "停止关卡运行", "role": "exit_boundary", "slotPatterns": ["level_end_timing"]},
+        {"nodeKey": "level_handoff", "label": "进入后续流程", "role": "dependency", "slotPatterns": ["settlement_trigger"]}
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+[
+  {
+    "caseId": "yilu",
+    "projectLabel": "一路狂飙",
+    "chapterType": "core_loop",
+    "normalFlow": [
+      "关卡开始后，载具沿道路持续前进。",
+      "玩家拖动载具横向移动以避开障碍。",
+      "敌人进入攻击范围后，武器自动攻击目标。",
+      "目标生命值归零后被击败，并推进关卡进度。",
+      "达到关卡终点后进入结算。"
+    ],
+    "expectedPassed": true
+  },
+  {
+    "caseId": "grocery",
+    "projectLabel": "杂货铺游戏厅",
+    "chapterType": "presentation",
+    "normalFlow": [
+      "底部面板显示当前等级2767级。",
+      "界面显示每秒收益4.9万。",
+      "收益公式为基础收入加其他加成。"
+    ],
+    "expectedPassed": false
+  },
+  {
+    "caseId": "character_creation",
+    "projectLabel": "角色创建",
+    "chapterType": "custom",
+    "normalFlow": [
+      "玩家输入名称并点击确认创建。",
+      "系统校验名称和已选外观。",
+      "校验通过后保存角色数据并进入初始场景。"
+    ],
+    "expectedPassed": true
+  },
+  {
+    "caseId": "new_project",
+    "projectLabel": "随机新建任务名称",
+    "chapterType": "presentation",
+    "normalFlow": [],
+    "presentationRules": ["页面显示当前资源数量和入口按钮。"],
+    "expectedPassed": true
+  }
+]

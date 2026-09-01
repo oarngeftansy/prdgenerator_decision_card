@@ -1,0 +1,4 @@
+interface:
+  display_name: "言灵·镜瞳"
+  short_description: "从成品展示视频/截图提取关键帧，AI 解读后生成复刻 PRD（支持 Web 应用 & 玩法 Demo）"
+  default_prompt: "使用言灵·镜瞳：分析我上传的成品展示视频或截图，先提取关键帧并补充每帧说明、视觉风格、动效反馈和游戏机制（如适用），等我确认后再生成精简复刻 PRD。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频到 GVE16 策划案"
+  short_description: "编排长视频分析并输出样例标准的玩法或交互策划案"
+  default_prompt: "使用 $video-to-gve16-planner 完整分析该视频，并按所选玩法/交互模式输出 GVE16 策划案。"

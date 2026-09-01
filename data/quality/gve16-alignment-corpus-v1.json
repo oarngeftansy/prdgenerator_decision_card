@@ -1,0 +1,104 @@
+{
+  "corpusVersion": "gve16-alignment-corpus-v1",
+  "contentAuthority": "none",
+  "sourceScope": {
+    "documentCount": 2,
+    "completeDocumentCount": 1,
+    "partialDocumentCount": 1,
+    "anonymized": true,
+    "limitedCorpus": true
+  },
+  "provisionalReferences": {
+    "titleLength": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": true,
+      "count": 99,
+      "min": 2,
+      "max": 19,
+      "mean": 4.61,
+      "median": 4,
+      "p75": 5,
+      "histogram": {"0-2": 15, "3-4": 57, "5-8": 19, "9-11": 7, "12+": 1}
+    },
+    "chapterDepth": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": true,
+      "distribution": {"1": 14, "2": 34, "3": 47, "4": 4}
+    },
+    "bulletsPerChapter": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": true,
+      "count": 99,
+      "min": 0,
+      "max": 38,
+      "mean": 4.75,
+      "median": 1,
+      "p75": 6,
+      "histogram": {"0": 45, "1-2": 10, "3-5": 17, "6-8": 9, "9+": 18}
+    },
+    "sentenceLength": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": true,
+      "count": 470,
+      "min": 4,
+      "max": 433,
+      "mean": 30.54,
+      "median": 19,
+      "p75": 30,
+      "histogram": {"0-15": 172, "16-30": 190, "31-49": 81, "50+": 27}
+    },
+    "rulesPerGroup": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": true,
+      "count": 470,
+      "distribution": {"1": 447, "2": 19, "3+": 4}
+    },
+    "explicitSubjectRate": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": true,
+      "documentRates": [0.336, 0.4]
+    },
+    "conditionLifecyclePatterns": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": true,
+      "conditionClauseCount": 85,
+      "stateClauseCount": 3,
+      "lifecycleClauseCount": 23
+    },
+    "carrierDistribution": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": false,
+      "reason": "phase3.6 evidence contains carrier rules but no complete carrier count distribution"
+    },
+    "mechanismGrouping": {
+      "provisional": true,
+      "sourceScope": "anonymized_limited_corpus",
+      "available": false,
+      "reason": "phase3.6 evidence does not expose a complete anonymous grouping histogram"
+    }
+  },
+  "hardConstraints": {
+    "unsupportedSemanticAdditionCount": 0,
+    "presentationMixedIntoLogicBodyCount": 0,
+    "gapRenderedAsConfirmedRuleCount": 0,
+    "inferredFactRenderedAsConfirmedCount": 0,
+    "crossSemanticDomainParagraphCount": 0,
+    "ruleToFinalOutputTraceability": 1.0
+  },
+  "organizationPolicies": {
+    "conditionBeforeAction": true,
+    "lifecycleAfterMainBehavior": true,
+    "presentationOutsideLogicBody": true,
+    "strictConfirmedSequenceUsesNumberedList": true,
+    "parallelRulesUseBullets": true,
+    "repeatedConfigurationFieldsUseTable": true
+  }
+}

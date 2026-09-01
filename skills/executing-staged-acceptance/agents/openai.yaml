@@ -1,0 +1,4 @@
+interface:
+  display_name: "分阶段验收证据链"
+  short_description: "用确认过的验收用例、自检结果和截图证据推进每个阶段任务"
+  default_prompt: "Use $executing-staged-acceptance to execute this stage behind a user-confirmed acceptance and screenshot evidence gate."

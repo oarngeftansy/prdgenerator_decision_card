@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "phase": "2.5-real-video-end-to-end-validation",
+  "baseline": {
+    "head": "e70f5ac5af9b0b0bed02d24b528f2f2fc7608800",
+    "server": "current HEAD on isolated port 8011",
+    "sampleJobId": "4180cd72eeaa4819be41db50bb4c5011",
+    "project": "一路狂飙交互与玩法策划案",
+    "inputType": "image_sequence",
+    "screenshotCount": 15,
+    "auxiliaryVideo": {
+      "filename": "飞书20260803-151413.mp4",
+      "bytes": 69801775,
+      "persistedStatus": "pending"
+    }
+  },
+  "gateStatus": "blocked",
+  "blockingFailure": {
+    "taxonomy": "gap_probe_mapping_failure",
+    "summary": "Production upload/review runtime never constructs or executes TargetedTemporalProbe requests.",
+    "evidence": [
+      "backend/requirement_temporal_probe.py defines build_targeted_probe_requests and run_targeted_temporal_probe",
+      "backend/gameplay_review_service.py defines add_targeted_temporal_probe_result",
+      "repository reference search finds every call to those functions only under tests/",
+      "backend/server.py exposes no temporal-probe route and invokes none of the three functions",
+      "GET /api/jobs/4180cd72eeaa4819be41db50bb4c5011/gameplay-review-model on current HEAD returns temporalProbeRequests=[], temporalEvidence empty"
+    ]
+  },
+  "goldTemporalResponsibilities": [
+    {"goldId":"GT-01","responsibility":"vehicle_visual_position_change","expected":"should_discover","probeType":"persistent_state","targetProperty":"position"},
+    {"goldId":"GT-02","responsibility":"vehicle_movement_mechanism_candidate","expected":"should_discover_for_review","probeType":"persistent_state","targetProperty":"movement"},
+    {"goldId":"GT-03","responsibility":"vehicle_movement_driver","expected":"video_insufficient","probeType":"persistent_state","targetProperty":"movement_driver"},
+    {"goldId":"GT-04","responsibility":"normal_enemy_first_appearance","expected":"should_discover","probeType":"first_appearance","targetProperty":"presence"},
+    {"goldId":"GT-05","responsibility":"normal_enemy_spawn_interval","expected":"video_insufficient_unless_repeated","probeType":"repeated_event","targetProperty":"spawn_interval"},
+    {"goldId":"GT-06","responsibility":"normal_enemy_spawn_source","expected":"video_insufficient","probeType":"first_appearance","targetProperty":"spawn_source"},
+    {"goldId":"GT-07","responsibility":"attack_observed_intervals","expected":"should_discover_if_visible","probeType":"repeated_event","targetProperty":"attack_timestamps"},
+    {"goldId":"GT-08","responsibility":"attack_configured_interval","expected":"video_insufficient","probeType":"repeated_event","targetProperty":"attack_interval_config"},
+    {"goldId":"GT-09","responsibility":"boss_first_appearance","expected":"should_discover","probeType":"first_appearance","targetProperty":"presence"},
+    {"goldId":"GT-10","responsibility":"boss_death_transition","expected":"should_discover_for_review","probeType":"lifecycle_transition","targetProperty":"death"},
+    {"goldId":"GT-11","responsibility":"boss_death_to_settlement_delay","expected":"should_discover_observed_timing_only","probeType":"repeated_event","targetProperty":"transition_timing"},
+    {"goldId":"GT-12","responsibility":"victory_hidden_condition","expected":"video_insufficient_or_review_required","probeType":"lifecycle_transition","targetProperty":"victory_condition"},
+    {"goldId":"GT-13","responsibility":"candidate_equal_probability","expected":"should_not_probe","probeType":null,"targetProperty":"sampling_probability"},
+    {"goldId":"GT-14","responsibility":"candidate_without_replacement","expected":"should_not_probe","probeType":null,"targetProperty":"sampling_replacement"},
+    {"goldId":"GT-15","responsibility":"candidate_weight_or_guarantee","expected":"should_not_probe","probeType":null,"targetProperty":"weight_or_guarantee"}
+  ],
+  "probeValidationLedger": [
+    {
+      "probeRequestId": null,
+      "sourceGap": "runtime produced no probe request",
+      "entity": null,
+      "probeType": null,
+      "targetProperty": null,
+      "anchor": null,
+      "candidateWindows": [],
+      "VLMCalls": 0,
+      "identityStatus": null,
+      "referenceFrameStatus": null,
+      "observations": [],
+      "generatedCandidate": null,
+      "plannerDecision": null,
+      "finalOutcome": "blocked_before_probe_creation",
+      "falsePositive": null,
+      "falseNegative": null,
+      "notes": "No production seam invokes the Phase 2 probe orchestrator; per-probe scoring would be fabricated."
+    }
+  ],
+  "metrics": {
+    "detectionRecall": null,
+    "candidatePrecision": null,
+    "overInferenceRate": null,
+    "unsupportedFinalRuleCount": null,
+    "reason": "No runtime probe population; denominator and outputs do not exist."
+  },
+  "phase3Decision": "not_allowed"
+}

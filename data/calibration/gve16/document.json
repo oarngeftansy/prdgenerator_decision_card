@@ -1,0 +1,7617 @@
+{
+  "chapters": [
+    {
+      "level": 1,
+      "title": "变更记录",
+      "path": [
+        "变更记录"
+      ],
+      "line": 3
+    },
+    {
+      "level": 1,
+      "title": "概述",
+      "path": [
+        "概述"
+      ],
+      "line": 14
+    },
+    {
+      "level": 2,
+      "title": "相关文档",
+      "path": [
+        "概述",
+        "相关文档"
+      ],
+      "line": 16
+    },
+    {
+      "level": 1,
+      "title": "UE流转图",
+      "path": [
+        "UE流转图"
+      ],
+      "line": 23
+    },
+    {
+      "level": 2,
+      "title": "UX设计",
+      "path": [
+        "UE流转图",
+        "UX设计"
+      ],
+      "line": 25
+    },
+    {
+      "level": 2,
+      "title": "策划草图",
+      "path": [
+        "UE流转图",
+        "策划草图"
+      ],
+      "line": 31
+    },
+    {
+      "level": 2,
+      "title": "竞品参考",
+      "path": [
+        "UE流转图",
+        "竞品参考"
+      ],
+      "line": 35
+    },
+    {
+      "level": 1,
+      "title": "活动基础调度",
+      "path": [
+        "活动基础调度"
+      ],
+      "line": 39
+    },
+    {
+      "level": 2,
+      "title": "活动类型",
+      "path": [
+        "活动基础调度",
+        "活动类型"
+      ],
+      "line": 41
+    },
+    {
+      "level": 2,
+      "title": "活动入口及解锁条件",
+      "path": [
+        "活动基础调度",
+        "活动入口及解锁条件"
+      ],
+      "line": 46
+    },
+    {
+      "level": 2,
+      "title": "活动阶段",
+      "path": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "line": 56
+    },
+    {
+      "level": 2,
+      "title": "🚧活动结束数据处理",
+      "path": [
+        "活动基础调度",
+        "🚧活动结束数据处理"
+      ],
+      "line": 94
+    },
+    {
+      "level": 3,
+      "title": "奖励补发",
+      "path": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "奖励补发"
+      ],
+      "line": 96
+    },
+    {
+      "level": 3,
+      "title": "活动道具转化",
+      "path": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "活动道具转化"
+      ],
+      "line": 104
+    },
+    {
+      "level": 3,
+      "title": "数据处理",
+      "path": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "数据处理"
+      ],
+      "line": 108
+    },
+    {
+      "level": 2,
+      "title": "进出公会处理",
+      "path": [
+        "活动基础调度",
+        "进出公会处理"
+      ],
+      "line": 114
+    },
+    {
+      "level": 3,
+      "title": "加入/创建公会",
+      "path": [
+        "活动基础调度",
+        "进出公会处理",
+        "加入/创建公会"
+      ],
+      "line": 116
+    },
+    {
+      "level": 3,
+      "title": "🚧退出公会",
+      "path": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "line": 120
+    },
+    {
+      "level": 3,
+      "title": "解散公会",
+      "path": [
+        "活动基础调度",
+        "进出公会处理",
+        "解散公会"
+      ],
+      "line": 158
+    },
+    {
+      "level": 1,
+      "title": "载具",
+      "path": [
+        "载具"
+      ],
+      "line": 163
+    },
+    {
+      "level": 2,
+      "title": "基础属性",
+      "path": [
+        "载具",
+        "基础属性"
+      ],
+      "line": 165
+    },
+    {
+      "level": 2,
+      "title": "载具等级",
+      "path": [
+        "载具",
+        "载具等级"
+      ],
+      "line": 171
+    },
+    {
+      "level": 2,
+      "title": "武器栏",
+      "path": [
+        "载具",
+        "武器栏"
+      ],
+      "line": 185
+    },
+    {
+      "level": 2,
+      "title": "特权载具",
+      "path": [
+        "载具",
+        "特权载具"
+      ],
+      "line": 217
+    },
+    {
+      "level": 1,
+      "title": "🚧武器",
+      "path": [
+        "🚧武器"
+      ],
+      "line": 237
+    },
+    {
+      "level": 2,
+      "title": "武器类型",
+      "path": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "line": 239
+    },
+    {
+      "level": 2,
+      "title": "基础属性",
+      "path": [
+        "🚧武器",
+        "基础属性"
+      ],
+      "line": 253
+    },
+    {
+      "level": 2,
+      "title": "武器词条",
+      "path": [
+        "🚧武器",
+        "武器词条"
+      ],
+      "line": 257
+    },
+    {
+      "level": 2,
+      "title": "武器养成",
+      "path": [
+        "🚧武器",
+        "武器养成"
+      ],
+      "line": 259
+    },
+    {
+      "level": 1,
+      "title": "怪物",
+      "path": [
+        "怪物"
+      ],
+      "line": 261
+    },
+    {
+      "level": 2,
+      "title": "行为模式",
+      "path": [
+        "怪物",
+        "行为模式"
+      ],
+      "line": 263
+    },
+    {
+      "level": 3,
+      "title": "刷新",
+      "path": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "line": 265
+    },
+    {
+      "level": 3,
+      "title": "移动",
+      "path": [
+        "怪物",
+        "行为模式",
+        "移动"
+      ],
+      "line": 286
+    },
+    {
+      "level": 3,
+      "title": "攻击",
+      "path": [
+        "怪物",
+        "行为模式",
+        "攻击"
+      ],
+      "line": 291
+    },
+    {
+      "level": 3,
+      "title": "受击及死亡",
+      "path": [
+        "怪物",
+        "行为模式",
+        "受击及死亡"
+      ],
+      "line": 301
+    },
+    {
+      "level": 2,
+      "title": "基础属性",
+      "path": [
+        "怪物",
+        "基础属性"
+      ],
+      "line": 306
+    },
+    {
+      "level": 1,
+      "title": "关卡规则",
+      "path": [
+        "关卡规则"
+      ],
+      "line": 352
+    },
+    {
+      "level": 2,
+      "title": "内部逻辑",
+      "path": [
+        "关卡规则",
+        "内部逻辑"
+      ],
+      "line": 354
+    },
+    {
+      "level": 3,
+      "title": "关卡波次",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "line": 356
+    },
+    {
+      "level": 3,
+      "title": "载具移动",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "line": 382
+    },
+    {
+      "level": 3,
+      "title": "战斗等级（关卡内等级）",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "战斗等级（关卡内等级）"
+      ],
+      "line": 418
+    },
+    {
+      "level": 3,
+      "title": "获取武器词条",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条"
+      ],
+      "line": 430
+    },
+    {
+      "level": 4,
+      "title": "🚧关卡内升级-词条三选一",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "🚧关卡内升级-词条三选一"
+      ],
+      "line": 432
+    },
+    {
+      "level": 4,
+      "title": "营救NPC-词条老虎机",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "line": 436
+    },
+    {
+      "level": 3,
+      "title": "~~关卡BUFF~~",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "~~关卡BUFF~~"
+      ],
+      "line": 496
+    },
+    {
+      "level": 3,
+      "title": "伤害统计",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "line": 505
+    },
+    {
+      "level": 3,
+      "title": "关卡时限",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡时限"
+      ],
+      "line": 543
+    },
+    {
+      "level": 3,
+      "title": "倍速播放",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "line": 553
+    },
+    {
+      "level": 3,
+      "title": "关卡结算",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算"
+      ],
+      "line": 573
+    },
+    {
+      "level": 4,
+      "title": "战斗失败",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "line": 575
+    },
+    {
+      "level": 4,
+      "title": "战斗胜利",
+      "path": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "line": 618
+    },
+    {
+      "level": 2,
+      "title": "外部逻辑",
+      "path": [
+        "关卡规则",
+        "外部逻辑"
+      ],
+      "line": 639
+    },
+    {
+      "level": 3,
+      "title": "关卡解锁",
+      "path": [
+        "关卡规则",
+        "外部逻辑",
+        "关卡解锁"
+      ],
+      "line": 641
+    },
+    {
+      "level": 3,
+      "title": "挑战关卡",
+      "path": [
+        "关卡规则",
+        "外部逻辑",
+        "挑战关卡"
+      ],
+      "line": 648
+    },
+    {
+      "level": 3,
+      "title": "首通奖励",
+      "path": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "line": 660
+    },
+    {
+      "level": 3,
+      "title": "扫荡",
+      "path": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "line": 674
+    },
+    {
+      "level": 1,
+      "title": "战斗规则",
+      "path": [
+        "战斗规则"
+      ],
+      "line": 692
+    },
+    {
+      "level": 2,
+      "title": "战斗属性",
+      "path": [
+        "战斗规则",
+        "战斗属性"
+      ],
+      "line": 694
+    },
+    {
+      "level": 2,
+      "title": "战斗计算",
+      "path": [
+        "战斗规则",
+        "战斗计算"
+      ],
+      "line": 698
+    },
+    {
+      "level": 3,
+      "title": "伤害计算",
+      "path": [
+        "战斗规则",
+        "战斗计算",
+        "伤害计算"
+      ],
+      "line": 700
+    },
+    {
+      "level": 3,
+      "title": "战力计算",
+      "path": [
+        "战斗规则",
+        "战斗计算",
+        "战力计算"
+      ],
+      "line": 709
+    },
+    {
+      "level": 2,
+      "title": "🚧战斗表现",
+      "path": [
+        "战斗规则",
+        "🚧战斗表现"
+      ],
+      "line": 720
+    },
+    {
+      "level": 3,
+      "title": "动画",
+      "path": [
+        "战斗规则",
+        "🚧战斗表现",
+        "动画"
+      ],
+      "line": 722
+    },
+    {
+      "level": 3,
+      "title": "飘字",
+      "path": [
+        "战斗规则",
+        "🚧战斗表现",
+        "飘字"
+      ],
+      "line": 724
+    },
+    {
+      "level": 1,
+      "title": "外围&商业化",
+      "path": [
+        "外围&商业化"
+      ],
+      "line": 726
+    },
+    {
+      "level": 2,
+      "title": "礼包（通用模块复用）",
+      "path": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "line": 728
+    },
+    {
+      "level": 2,
+      "title": "特权礼包",
+      "path": [
+        "外围&商业化",
+        "特权礼包"
+      ],
+      "line": 745
+    },
+    {
+      "level": 2,
+      "title": "载具特权礼包",
+      "path": [
+        "外围&商业化",
+        "载具特权礼包"
+      ],
+      "line": 747
+    },
+    {
+      "level": 2,
+      "title": "排行榜",
+      "path": [
+        "外围&商业化",
+        "排行榜"
+      ],
+      "line": 749
+    },
+    {
+      "level": 3,
+      "title": "个人总榜：",
+      "path": [
+        "外围&商业化",
+        "排行榜",
+        "个人总榜："
+      ],
+      "line": 751
+    },
+    {
+      "level": 3,
+      "title": "公会总榜：",
+      "path": [
+        "外围&商业化",
+        "排行榜",
+        "公会总榜："
+      ],
+      "line": 753
+    },
+    {
+      "level": 3,
+      "title": "个人日榜：",
+      "path": [
+        "外围&商业化",
+        "排行榜",
+        "个人日榜："
+      ],
+      "line": 755
+    },
+    {
+      "level": 3,
+      "title": "公会日榜：",
+      "path": [
+        "外围&商业化",
+        "排行榜",
+        "公会日榜："
+      ],
+      "line": 757
+    },
+    {
+      "level": 3,
+      "title": "退出公会处理",
+      "path": [
+        "外围&商业化",
+        "排行榜",
+        "退出公会处理"
+      ],
+      "line": 759
+    },
+    {
+      "level": 2,
+      "title": "任务",
+      "path": [
+        "外围&商业化",
+        "任务"
+      ],
+      "line": 761
+    },
+    {
+      "level": 3,
+      "title": "日常任务",
+      "path": [
+        "外围&商业化",
+        "任务",
+        "日常任务"
+      ],
+      "line": 763
+    },
+    {
+      "level": 3,
+      "title": "个人任务",
+      "path": [
+        "外围&商业化",
+        "任务",
+        "个人任务"
+      ],
+      "line": 769
+    },
+    {
+      "level": 3,
+      "title": "新增任务类型",
+      "path": [
+        "外围&商业化",
+        "任务",
+        "新增任务类型"
+      ],
+      "line": 775
+    },
+    {
+      "level": 2,
+      "title": "战令",
+      "path": [
+        "外围&商业化",
+        "战令"
+      ],
+      "line": 779
+    },
+    {
+      "level": 3,
+      "title": "关联战令",
+      "path": [
+        "外围&商业化",
+        "战令",
+        "关联战令"
+      ],
+      "line": 781
+    },
+    {
+      "level": 3,
+      "title": "战令进度",
+      "path": [
+        "外围&商业化",
+        "战令",
+        "战令进度"
+      ],
+      "line": 786
+    },
+    {
+      "level": 3,
+      "title": "战令特权",
+      "path": [
+        "外围&商业化",
+        "战令",
+        "战令特权"
+      ],
+      "line": 793
+    },
+    {
+      "level": 3,
+      "title": "奖励档位",
+      "path": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "line": 802
+    },
+    {
+      "level": 2,
+      "title": "角色加成",
+      "path": [
+        "外围&商业化",
+        "角色加成"
+      ],
+      "line": 831
+    },
+    {
+      "level": 2,
+      "title": "属性转化",
+      "path": [
+        "外围&商业化",
+        "属性转化"
+      ],
+      "line": 838
+    },
+    {
+      "level": 2,
+      "title": "奖池（关联CommonLottery）",
+      "path": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）"
+      ],
+      "line": 845
+    },
+    {
+      "level": 3,
+      "title": "活动关联",
+      "path": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "活动关联"
+      ],
+      "line": 847
+    },
+    {
+      "level": 3,
+      "title": "活动礼包",
+      "path": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "活动礼包"
+      ],
+      "line": 854
+    },
+    {
+      "level": 3,
+      "title": "切换奖池",
+      "path": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "切换奖池"
+      ],
+      "line": 861
+    },
+    {
+      "level": 3,
+      "title": "保底",
+      "path": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "保底"
+      ],
+      "line": 875
+    },
+    {
+      "level": 3,
+      "title": "免费十连",
+      "path": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "line": 882
+    },
+    {
+      "level": 3,
+      "title": "PRD卡池数据继承",
+      "path": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "line": 907
+    },
+    {
+      "level": 2,
+      "title": "博物馆相关",
+      "path": [
+        "外围&商业化",
+        "博物馆相关"
+      ],
+      "line": 924
+    },
+    {
+      "level": 3,
+      "title": "奖杯",
+      "path": [
+        "外围&商业化",
+        "博物馆相关",
+        "奖杯"
+      ],
+      "line": 926
+    },
+    {
+      "level": 3,
+      "title": "展品（纯配置）",
+      "path": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "line": 934
+    },
+    {
+      "level": 1,
+      "title": "引导",
+      "path": [
+        "引导"
+      ],
+      "line": 947
+    },
+    {
+      "level": 1,
+      "title": "红点提示",
+      "path": [
+        "红点提示"
+      ],
+      "line": 949
+    },
+    {
+      "level": 1,
+      "title": "音乐音效",
+      "path": [
+        "音乐音效"
+      ],
+      "line": 951
+    },
+    {
+      "level": 1,
+      "title": "配置表结构",
+      "path": [
+        "配置表结构"
+      ],
+      "line": 953
+    }
+  ],
+  "tables": [
+    {
+      "headers": [
+        "序号",
+        "变更内容",
+        "变更人",
+        "发起人",
+        "变更日期"
+      ],
+      "rows": [
+        {
+          "序号": "1",
+          "变更内容": "创建文档基本架构",
+          "变更人": "十一",
+          "发起人": "系统策划",
+          "变更日期": "2026.6.22"
+        },
+        {
+          "序号": "2",
+          "变更内容": "完成怪物规则",
+          "变更人": "十一",
+          "发起人": "系统策划",
+          "变更日期": "2026.7.9"
+        },
+        {
+          "序号": "3",
+          "变更内容": "完成关卡规则",
+          "变更人": "十一",
+          "发起人": "系统策划",
+          "变更日期": "2026.7.10"
+        },
+        {
+          "序号": "4",
+          "变更内容": "完善关卡规则，完成部分载具规则",
+          "变更人": "十一",
+          "发起人": "系统策划",
+          "变更日期": "2026.7.14"
+        },
+        {
+          "序号": "5",
+          "变更内容": "完成载具规则",
+          "变更人": "十一",
+          "发起人": "系统策划",
+          "变更日期": "2026.7.15"
+        },
+        {
+          "序号": "6",
+          "变更内容": "完成营救NPC规则",
+          "变更人": "十一",
+          "发起人": "系统策划",
+          "变更日期": "2026.7.17"
+        }
+      ],
+      "locator": "变更记录"
+    }
+  ],
+  "rules": [
+    {
+      "text": "开题文档：<cite doc-id=\"SPaUsooSohQiSktZPR5cwZeFnQh\" file-type=\"sheets\" title=\"GVE16开题文档\" type=\"doc\"></cite>",
+      "chapterPath": [
+        "概述",
+        "相关文档"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:18"
+      }
+    },
+    {
+      "text": "新手包：",
+      "chapterPath": [
+        "概述",
+        "相关文档"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:19"
+      }
+    },
+    {
+      "text": "资源清单：",
+      "chapterPath": [
+        "概述",
+        "相关文档"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:20"
+      }
+    },
+    {
+      "text": "数值规划：",
+      "chapterPath": [
+        "概述",
+        "相关文档"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:21"
+      }
+    },
+    {
+      "text": "界面样式以UX设计为准",
+      "chapterPath": [
+        "UE流转图",
+        "UX设计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:27"
+      }
+    },
+    {
+      "text": "新增活动type=GveKingArthur",
+      "chapterPath": [
+        "活动基础调度",
+        "活动类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:43"
+      }
+    },
+    {
+      "text": "每期活动类型一致，模板ID不同",
+      "chapterPath": [
+        "活动基础调度",
+        "活动类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:44"
+      }
+    },
+    {
+      "text": "***活动入口***",
+      "chapterPath": [
+        "活动基础调度",
+        "活动入口及解锁条件"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:48"
+      }
+    },
+    {
+      "text": "活动入口icon显示在[主界面👉顶部导航栏]中",
+      "chapterPath": [
+        "活动基础调度",
+        "活动入口及解锁条件"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:50"
+      }
+    },
+    {
+      "text": "入口信息配置在MainUIGuideList表，每期活动对应的入口id不同",
+      "chapterPath": [
+        "活动基础调度",
+        "活动入口及解锁条件"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:51"
+      }
+    },
+    {
+      "text": "***解锁条件***",
+      "chapterPath": [
+        "活动基础调度",
+        "活动入口及解锁条件"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:52"
+      }
+    },
+    {
+      "text": "活动入口的解锁条件配置在SystemUnlock表",
+      "chapterPath": [
+        "活动基础调度",
+        "活动入口及解锁条件"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:54"
+      }
+    },
+    {
+      "text": "活动阶段分为[准备期]、[游玩期]和[领奖期]",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:58"
+      }
+    },
+    {
+      "text": "准备期",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:60"
+      }
+    },
+    {
+      "text": "每期活动的准备期持续时间，通过配置GveKingArthur表preparationTime字段控制",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:62"
+      }
+    },
+    {
+      "text": "公会行为限制",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:63"
+      }
+    },
+    {
+      "text": "无限制，可自由加入/创建/退出公会",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:65"
+      }
+    },
+    {
+      "text": "会长可自由踢人",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:66"
+      }
+    },
+    {
+      "text": "会长可解散公会",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:67"
+      }
+    },
+    {
+      "text": "玩法行为限制",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:68"
+      }
+    },
+    {
+      "text": "不可进入活动玩法内",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:70"
+      }
+    },
+    {
+      "text": "可购买礼包，保留打开礼包弹窗时的提示信息（正式开始后才可使用哦\\~）",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:71"
+      }
+    },
+    {
+      "text": "游玩期",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:72"
+      }
+    },
+    {
+      "text": "准备期结束后，自动进入游玩期，无开关门时间限制",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:74"
+      }
+    },
+    {
+      "text": "公会行为限制",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:75"
+      }
+    },
+    {
+      "text": "可加入/创建/退出公会",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:77"
+      }
+    },
+    {
+      "text": "会长可自由踢人",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:78"
+      }
+    },
+    {
+      "text": "会长不可解散公会",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:79"
+      }
+    },
+    {
+      "text": "玩法行为限制",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:80"
+      }
+    },
+    {
+      "text": "无限制（无公会的玩家也可参与活动）",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:82"
+      }
+    },
+    {
+      "text": "领奖期",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:83"
+      }
+    },
+    {
+      "text": "公会行为限制",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:85"
+      }
+    },
+    {
+      "text": "可加入/创建/退出公会",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:87"
+      }
+    },
+    {
+      "text": "会长可自由踢人",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:88"
+      }
+    },
+    {
+      "text": "会长不可解散公会",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:89"
+      }
+    },
+    {
+      "text": "玩法行为限制",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:90"
+      }
+    },
+    {
+      "text": "不可进入活动玩法内",
+      "chapterPath": [
+        "活动基础调度",
+        "活动阶段"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:92"
+      }
+    },
+    {
+      "text": "活动结束后，以下模块中未领取的奖励通过邮件形式补发",
+      "chapterPath": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "奖励补发"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:98"
+      }
+    },
+    {
+      "text": "排行榜奖励",
+      "chapterPath": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "奖励补发"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:100"
+      }
+    },
+    {
+      "text": "任务奖励",
+      "chapterPath": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "奖励补发"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:101"
+      }
+    },
+    {
+      "text": "战令奖励",
+      "chapterPath": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "奖励补发"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:102"
+      }
+    },
+    {
+      "text": "通用逻辑，配置在EventItemRemove表中",
+      "chapterPath": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "活动道具转化"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:106"
+      }
+    },
+    {
+      "text": "活动结束后，以下活动相关数据需进行处理",
+      "chapterPath": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "数据处理"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:110"
+      }
+    },
+    {
+      "text": "<cite type=\"user\" user-id=\"ou_62722a5802e3cb8af932feb0a36175ec\" user-name=\"十一(王奕文)\"></cite>",
+      "chapterPath": [
+        "活动基础调度",
+        "🚧活动结束数据处理",
+        "数据处理"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:112"
+      }
+    },
+    {
+      "text": "活动期间，所有阶段均允许玩家正常加入或创建公会",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "加入/创建公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:118"
+      }
+    },
+    {
+      "text": "加入公会CD",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:122"
+      }
+    },
+    {
+      "text": "退出公会的玩家需要{0}小时后才可以加入新的公会，时间和旧有的退公会CD一致（1小时）",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:124"
+      }
+    },
+    {
+      "text": "排行榜数据处理",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:125"
+      }
+    },
+    {
+      "text": "个人排行榜",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:127"
+      }
+    },
+    {
+      "text": "玩家在活动期间，个人排行榜数据记录在玩家自身上",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:129"
+      }
+    },
+    {
+      "text": "退出/更换公会后个人排行榜积分也会保留",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:130"
+      }
+    },
+    {
+      "text": "公会排行榜",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:131"
+      }
+    },
+    {
+      "text": "玩家在活动期间，公会排行榜数据记录到当时所在的公会中",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:133"
+      }
+    },
+    {
+      "text": "退出老公会后，原公会已有数据不会清空",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:134"
+      }
+    },
+    {
+      "text": "加入新公会后，原公会的数据不会带到新公会；在新公会获得积分也只会计入新公会中",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:135"
+      }
+    },
+    {
+      "text": "排行榜结算",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:136"
+      }
+    },
+    {
+      "text": "在活动结算前退出公会的玩家，无法获取原公会对应的排行榜奖励",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:138"
+      }
+    },
+    {
+      "text": "在活动结算前加入新公会的玩家，可以正常领取新公会对应的排行榜奖励",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:139"
+      }
+    },
+    {
+      "text": "日榜每日刷新时发奖，按照新公会发奖，不会领两次",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:141"
+      }
+    },
+    {
+      "text": "总榜在活动结束后发奖，按照新公会发奖，不会领两次",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:142"
+      }
+    },
+    {
+      "text": "公会任务",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:143"
+      }
+    },
+    {
+      "text": "玩家退出公会时，自身的所有公会任务计数按照0分计算",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:145"
+      }
+    },
+    {
+      "text": "玩家领取过的奖励保持已领取状态",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:147"
+      }
+    },
+    {
+      "text": "玩家加入新公会时，",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:148"
+      }
+    },
+    {
+      "text": "若新公会的公会任务进度**高于**老公会",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:150"
+      }
+    },
+    {
+      "text": "则按新公会进度计算，玩家可直接领取后续任务奖励",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:152"
+      }
+    },
+    {
+      "text": "若新公会的公会任务进度**低于**老公会",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:153"
+      }
+    },
+    {
+      "text": "如果玩家已经领取过超出等级的奖励时，在新的公会不能重复领取，所有已经领取过的等级奖励都为已领取状态",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:155"
+      }
+    },
+    {
+      "text": "如果玩家未领取过超出等级的奖励时，需要在新公会重新提升等级后才可以领取",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "🚧退出公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:156"
+      }
+    },
+    {
+      "text": "活动期间，仅准备期阶段可解散公会",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "解散公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:160"
+      }
+    },
+    {
+      "text": "其余阶段均不可解散公会",
+      "chapterPath": [
+        "活动基础调度",
+        "进出公会处理",
+        "解散公会"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:161"
+      }
+    },
+    {
+      "text": "攻击力",
+      "chapterPath": [
+        "载具",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:167"
+      }
+    },
+    {
+      "text": "生命值",
+      "chapterPath": [
+        "载具",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:168"
+      }
+    },
+    {
+      "text": "固定减伤",
+      "chapterPath": [
+        "载具",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:169"
+      }
+    },
+    {
+      "text": "载具的初始等级为**1级**，可消耗指定道具对载具进行升级",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:173"
+      }
+    },
+    {
+      "text": "每级所需的道具种类一致，消耗的数量不同",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:174"
+      }
+    },
+    {
+      "text": "等级：配置在GVE16载具表level字段",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:176"
+      }
+    },
+    {
+      "text": "消耗数量：配置在GVE16载具表cost字段",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:177"
+      }
+    },
+    {
+      "text": "升级可提升载具的基础属性，每级的基础属性配置在GVE16载具表",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:178"
+      }
+    },
+    {
+      "text": "攻击力：GVE16载具表atk字段",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:180"
+      }
+    },
+    {
+      "text": "生命值：GVE16载具表hp字段",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:181"
+      }
+    },
+    {
+      "text": "固定减伤：GVE16载具表dr字段",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:182"
+      }
+    },
+    {
+      "text": "升级行为不可逆，载具等级在活动结束后重置",
+      "chapterPath": [
+        "载具",
+        "载具等级"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:183"
+      }
+    },
+    {
+      "text": "在进入关卡后，载具会承载5个武器栏，其中包含1个默认武器栏+4个自选武器栏",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:187"
+      }
+    },
+    {
+      "text": "默认武器栏",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:188"
+      }
+    },
+    {
+      "text": "第一个栏位固定为默认武器栏，其中的武器为进入关卡时即默认解锁可用的",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:190"
+      }
+    },
+    {
+      "text": "默认武器栏中的武器类型固定为默认武器（weaponType=normal）",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:191"
+      }
+    },
+    {
+      "text": "自选武器栏",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:192"
+      }
+    },
+    {
+      "text": "进入关卡时，4个自选武器栏为空状态，需要玩家在关卡流程中自主选择武器",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:194"
+      }
+    },
+    {
+      "text": "每个武器栏仅可选择1个武器类型",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:195"
+      }
+    },
+    {
+      "text": "当4个自选武器栏全部填满后，将不可再获取新的武器类型",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:196"
+      }
+    },
+    {
+      "text": "所有武器栏中的武器类型，在选定后不可更换或卸除",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:197"
+      }
+    },
+    {
+      "text": "武器栏在填充武器后，需显示以下信息",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:198"
+      }
+    },
+    {
+      "text": "![图片展示了载具武器栏中自选武器栏的示例。画面中有三个武器图标，上方为紫色圆环内的蓝色冰锥，中间为绿色圆环内的绿色光圈，下方为蓝色圆环内的蓝色光点。每个图标右侧均标有数字，分别为3、3、1。这些图标对应默认武器栏中的武器类型，且在选定后不可更换或卸除，与文档中对武器栏信息显示的描述相契合。](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=YzEwODMzODY3Y2I4NzlmM2IzYzAwMGZkNGY0YzljZTFfM2EyNWE5NzNhZTdiMTU2N2ZmYWYxNGI4ZWQ3Zjk1ODFfSUQ6NzY2NDgxODU2NzAzNDYwNDc2NF8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:200"
+      }
+    },
+    {
+      "text": "武器图标",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:202"
+      }
+    },
+    {
+      "text": "当前累积词条数",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:203"
+      }
+    },
+    {
+      "text": "该类型的武器在本关卡内已累计获取的词条数",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:205"
+      }
+    },
+    {
+      "text": "初始默认=1，即：【获得该武器】本身也记作1个词条",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:206"
+      }
+    },
+    {
+      "text": "冷却时间",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:207"
+      }
+    },
+    {
+      "text": "以扇形角度作为进度百分比的形式显示",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:209"
+      }
+    },
+    {
+      "text": "点击武器栏时，",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:210"
+      }
+    },
+    {
+      "text": "若该武器栏为空，则弹toast提示：当前武器栏为空",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:212"
+      }
+    },
+    {
+      "text": "若该武器栏已填充武器，则打开词条tips",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:213"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=MjIxYTRhMjIyMzExMzQzMTFmYTBhMTFjZDFmYWNhYTZfMzFlYmFhZWJiYjcxZWUzNjk0NWRmM2YyNGVkMzZlMGRfSUQ6NzY2NDgxODU2NzIxMzUzNDM4OV8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "载具",
+        "武器栏"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:215"
+      }
+    },
+    {
+      "text": "解锁方式",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:219"
+      }
+    },
+    {
+      "text": "购买指定的载具特权礼包后解锁",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:221"
+      }
+    },
+    {
+      "text": "礼包ID配置在GVE16主表",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:223"
+      }
+    },
+    {
+      "text": "解锁后自动更换为特权载具，且不可在默认载具和特权载具之间切换",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:224"
+      }
+    },
+    {
+      "text": "解锁状态在活动结束后重置",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:225"
+      }
+    },
+    {
+      "text": "特权效果",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:226"
+      }
+    },
+    {
+      "text": "解锁特权载具后，可解锁2条特权效果",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:228"
+      }
+    },
+    {
+      "text": "载具固定减伤+{x}",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:230"
+      }
+    },
+    {
+      "text": "解锁特权技能",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:231"
+      }
+    },
+    {
+      "text": "特权技能",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:232"
+      }
+    },
+    {
+      "text": "特权技能不占用武器栏位，是独立的特殊武器",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:234"
+      }
+    },
+    {
+      "text": "技能效果：每{x}秒释放一次全屏伤害",
+      "chapterPath": [
+        "载具",
+        "特权载具"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:235"
+      }
+    },
+    {
+      "text": "武器共分为以下类型：",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:241"
+      }
+    },
+    {
+      "text": "物理",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:243"
+      }
+    },
+    {
+      "text": "火",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:244"
+      }
+    },
+    {
+      "text": "毒",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:245"
+      }
+    },
+    {
+      "text": "雷",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:246"
+      }
+    },
+    {
+      "text": "光/能量",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:247"
+      }
+    },
+    {
+      "text": "冰",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:248"
+      }
+    },
+    {
+      "text": "风",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:249"
+      }
+    },
+    {
+      "text": "武器的效果实现按照每种武器的最大效果实现，并对特殊效果配置解锁条件",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:250"
+      }
+    },
+    {
+      "text": "武器效果设计：<cite doc-id=\"Mp4nwrb5ciGf1bkXMHFcSQPJnyh\" file-type=\"wiki\" title=\"GVE16\" type=\"doc\"></cite>",
+      "chapterPath": [
+        "🚧武器",
+        "武器类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:251"
+      }
+    },
+    {
+      "text": "-",
+      "chapterPath": [
+        "🚧武器",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:255"
+      }
+    },
+    {
+      "text": "刷新时机",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:267"
+      }
+    },
+    {
+      "text": "怪物在关卡内的每个波次开始时刷新",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:269"
+      }
+    },
+    {
+      "text": "怪物组",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:270"
+      }
+    },
+    {
+      "text": "每个波次包含多组怪物，每组按顺序刷新",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:272"
+      }
+    },
+    {
+      "text": "每组怪物刷新之间有恒定的时间间隔（ms）",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:273"
+      }
+    },
+    {
+      "text": "刷怪点",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:274"
+      }
+    },
+    {
+      "text": "每个波次内有多个刷怪点，刷怪点的位置是与主角载具之间的相对位置（配置xy偏移量）",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:276"
+      }
+    },
+    {
+      "text": "刷怪点分为普通怪点、精英怪点、BOSS点，为空时该点位不刷怪",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:277"
+      }
+    },
+    {
+      "text": "不同类型的刷怪点对应的怪物组不同",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:278"
+      }
+    },
+    {
+      "text": "同类刷怪点，刷新的怪物组一致",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:279"
+      }
+    },
+    {
+      "text": "例如：该波次有10个普通怪点+1个BOSS点，普通怪点和BOSS点刷新的怪物ID不同，但10个普通怪点刷新的怪物ID均一致",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:281"
+      }
+    },
+    {
+      "text": "配置结构",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:282"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=YTJiYmIxMzUyMDE0MzE3MWIxYTg2OTRlNzg4OGIyN2JfNWY0MTlkNjJkNDI1ZDE3MWY4MzBhZDZlNWJkNTMzZTNfSUQ6NzY2NDgxODU2ODcwMTg3MzM4OF8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "刷新"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:284"
+      }
+    },
+    {
+      "text": "怪物刷新后，会沿**直线**向主角载具的位置匀速移动",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:288"
+      }
+    },
+    {
+      "text": "移动速度根据怪物的基础属性决定",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:289"
+      }
+    },
+    {
+      "text": "当怪物与主角载具之间的直线距离≤怪物的攻击距离时，怪物开始进行攻击",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "攻击"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:293"
+      }
+    },
+    {
+      "text": "攻击时，怪物不会继续前进，保持**绝对位置**不变",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "攻击"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:294"
+      }
+    },
+    {
+      "text": "当主角载具向前移动并脱离怪物的攻击距离时，怪物停止攻击，并继续向主角载具位置移动",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "攻击"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:295"
+      }
+    },
+    {
+      "text": "怪物的攻击动作、攻击子弹通过配置控制",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "攻击"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:296"
+      }
+    },
+    {
+      "text": "远程怪的攻击会发射子弹，类似默认武器",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "攻击"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:298"
+      }
+    },
+    {
+      "text": "伤害公式：见[战斗规则](https://hjjxo8h8vu.feishu.cn/docx/INwudhSMyozEWKxv5TCcPR3Xnih#doxcnAIO4Br0CFC8I7uFctizOqe)",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "攻击"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:299"
+      }
+    },
+    {
+      "text": "怪物受到主角的武器攻击时，按照双方属性进行伤害计算，并按最终伤害值扣除自身生命值",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "受击及死亡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:303"
+      }
+    },
+    {
+      "text": "当怪物的生命值小于等于0时，勇者播放死亡动作，播放完毕后消失",
+      "chapterPath": [
+        "怪物",
+        "行为模式",
+        "受击及死亡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:304"
+      }
+    },
+    {
+      "text": "生命值",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:308"
+      }
+    },
+    {
+      "text": "基础生命值 \\* 当前关卡当前波次的生命值倍率",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:310"
+      }
+    },
+    {
+      "text": "攻击力",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:311"
+      }
+    },
+    {
+      "text": "基础攻击力 \\* 当前关卡当前波次的攻击力倍率",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:313"
+      }
+    },
+    {
+      "text": "移动速度",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:314"
+      }
+    },
+    {
+      "text": "每秒移动距离",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:316"
+      }
+    },
+    {
+      "text": "攻击距离",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:317"
+      }
+    },
+    {
+      "text": "用于判断是否可以发动攻击",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:319"
+      }
+    },
+    {
+      "text": "目标在怪物的攻击距离内时，满足攻击条件",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:320"
+      }
+    },
+    {
+      "text": "攻速",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:321"
+      }
+    },
+    {
+      "text": "每次造成伤害的时间间隔（ms）",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:323"
+      }
+    },
+    {
+      "text": "最终减伤",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:324"
+      }
+    },
+    {
+      "text": "正值增伤，负值减伤",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:326"
+      }
+    },
+    {
+      "text": "最终元素减伤",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:327"
+      }
+    },
+    {
+      "text": "针对指定元素伤害的增伤or减伤",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:329"
+      }
+    },
+    {
+      "text": "闪避",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:330"
+      }
+    },
+    {
+      "text": "万分比，受到攻击时优先判断是否闪避，未闪避时再计算伤害",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:332"
+      }
+    },
+    {
+      "text": "闪避时免除本次伤害，并累计一次闪避次数",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:333"
+      }
+    },
+    {
+      "text": "每只怪物最多累计{3}次闪避次数，当累计的闪避次数到最大值后，再次受到攻击时必定命中",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:334"
+      }
+    },
+    {
+      "text": "被命中时清空已累计闪避次数",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:335"
+      }
+    },
+    {
+      "text": "格挡次数",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:336"
+      }
+    },
+    {
+      "text": "受到伤害时优先消耗剩余的格挡次数",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:338"
+      }
+    },
+    {
+      "text": "格挡时免除本次伤害，并消耗1次格挡次数",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:339"
+      }
+    },
+    {
+      "text": "免疫效果",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:340"
+      }
+    },
+    {
+      "text": "对异常效果（灼烧、中毒等）是否免疫",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:342"
+      }
+    },
+    {
+      "text": "类型",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:343"
+      }
+    },
+    {
+      "text": "普通怪",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:345"
+      }
+    },
+    {
+      "text": "精英怪",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:346"
+      }
+    },
+    {
+      "text": "BOSS",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:347"
+      }
+    },
+    {
+      "text": "子弹id",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:348"
+      }
+    },
+    {
+      "text": "攻击时发射的子弹",
+      "chapterPath": [
+        "怪物",
+        "基础属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:350"
+      }
+    },
+    {
+      "text": "每个关卡包含若干个波次，每个波次具有多个参数",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:358"
+      }
+    },
+    {
+      "text": "所属关卡",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:360"
+      }
+    },
+    {
+      "text": "波次顺序",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:361"
+      }
+    },
+    {
+      "text": "波次路程",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:362"
+      }
+    },
+    {
+      "text": "本波次相较于关卡起点位置的距离",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:364"
+      }
+    },
+    {
+      "text": "普通怪刷怪点&怪物组",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:365"
+      }
+    },
+    {
+      "text": "精英怪刷怪点&怪物组",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:366"
+      }
+    },
+    {
+      "text": "BOSS刷怪点&怪物组",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:367"
+      }
+    },
+    {
+      "text": "[载具点位](https://hjjxo8h8vu.feishu.cn/docx/INwudhSMyozEWKxv5TCcPR3Xnih#doxcnoqDQ1fpdVAroIpz8Xmp2jb)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:368"
+      }
+    },
+    {
+      "text": "[是否停车](https://hjjxo8h8vu.feishu.cn/docx/INwudhSMyozEWKxv5TCcPR3Xnih#doxcnfhmRWOXbFrzI2Gcd4vxkve)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:369"
+      }
+    },
+    {
+      "text": "[载具移速倍率](https://hjjxo8h8vu.feishu.cn/docx/INwudhSMyozEWKxv5TCcPR3Xnih#doxcnsrNVT8pixgVIi4NSydpHhe)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:370"
+      }
+    },
+    {
+      "text": "是否有营救NPC",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:371"
+      }
+    },
+    {
+      "text": "怪物生命值&攻击力倍率",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:372"
+      }
+    },
+    {
+      "text": "本波次怪物经验值",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:373"
+      }
+    },
+    {
+      "text": "击杀本波次怪物时，每只怪物提供的局内经验值",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:375"
+      }
+    },
+    {
+      "text": "本波次结算奖励",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:376"
+      }
+    },
+    {
+      "text": "关卡结算时，根据最终完成的波次id发放对应的结算奖励",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:378"
+      }
+    },
+    {
+      "text": "每个波次按正序顺序进行，当载具移动到该波次对应的路程时，进入该波次",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:379"
+      }
+    },
+    {
+      "text": "路程需根据载具的移动速度和时间进行计算",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡波次"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:380"
+      }
+    },
+    {
+      "text": "概述",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:384"
+      }
+    },
+    {
+      "text": "在进入关卡后，载具开始直线向上，持续匀速移动",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:386"
+      }
+    },
+    {
+      "text": "表现为载具的相对位置不变、背景地图不断向下循环播放",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:387"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=YzM2YmRmOGEyZDEyY2E3OGQzYThhODMxODU4NzcwZjhfYThhNjFhNDJmMzdhMTdkMDM3NjUwNjdhODM2ZjY1M2RfSUQ6NzY2NDgxODU2NzkwNTIzNDE4OV8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:389"
+      }
+    },
+    {
+      "text": "载具点位",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:390"
+      }
+    },
+    {
+      "text": "载具在关卡地图中向上移动时，保持自身的绝对位置不变，始终保持在固定的点位",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:392"
+      }
+    },
+    {
+      "text": "在不同波次中，载具的点位会分为3类",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:393"
+      }
+    },
+    {
+      "text": "1=下车位",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:395"
+      }
+    },
+    {
+      "text": "2=中车位",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:396"
+      }
+    },
+    {
+      "text": "3=下车位",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:397"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NmI0NDExN2ViNzE4YmYwZTkwOTBhZjYwNDRmNjY1NjJfYWI0YzcwMzI5MGI4MTFkYzgxMjkwN2Q1ZGNlNWZkYmNfSUQ6NzY2NDgxODU2ODYwNTU2ODI3NF8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:399"
+      }
+    },
+    {
+      "text": "移动速度",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:400"
+      }
+    },
+    {
+      "text": "载具的标准移速配置在常量中，在关卡内的不同波次的移速倍率不同",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:402"
+      }
+    },
+    {
+      "text": "根据波次对应的移速倍率，在不同波次时载具的移速不同",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:403"
+      }
+    },
+    {
+      "text": "当载具受到攻击时，移动速度降低至恒定的受击移速",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:404"
+      }
+    },
+    {
+      "text": "降低后速度的持续时间（ms）及受击移速均配置在常量中",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:406"
+      }
+    },
+    {
+      "text": "降低速度时，直接降低至指定值，不需要匀减速",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:407"
+      }
+    },
+    {
+      "text": "持续时间结束后恢复至原速度，恢复过程需要匀加速，加速度配置在常量中",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:408"
+      }
+    },
+    {
+      "text": "是否停车",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:409"
+      }
+    },
+    {
+      "text": "主角载具在每个波次战斗时，分为2种情况",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:411"
+      }
+    },
+    {
+      "text": "0=持续前进，并会带领所有怪物进入下一波次",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:413"
+      }
+    },
+    {
+      "text": "1=在当前波次停车（移速=0），击杀本波次所有怪物后才能继续前进",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:414"
+      }
+    },
+    {
+      "text": "除波次战斗外，若在本关卡内的指定波次之间包含剧情，则也需停车完成剧情后再继续前进",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:415"
+      }
+    },
+    {
+      "text": "停车状态下，表现为载具的绝对位置不变，背景地图停止滚动",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "载具移动"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:416"
+      }
+    },
+    {
+      "text": "进入关卡后，玩家在关卡内具有战斗等级和战斗经验值",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "战斗等级（关卡内等级）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:420"
+      }
+    },
+    {
+      "text": "关卡内的战斗等级与关卡外的载具等级、武器等级等均无关",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "战斗等级（关卡内等级）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:422"
+      }
+    },
+    {
+      "text": "战斗等级初始默认0级，且每次关卡结算时均重置",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "战斗等级（关卡内等级）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:423"
+      }
+    },
+    {
+      "text": "在关卡内击杀怪物时，可获得怪物提供的经验值，达到指定值后提升战斗等级",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "战斗等级（关卡内等级）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:424"
+      }
+    },
+    {
+      "text": "怪物提供的经验值需根据怪物所属波次id决定",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "战斗等级（关卡内等级）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:426"
+      }
+    },
+    {
+      "text": "每个波次内可配置对应的经验值数量，该波次下每只怪物均可提供对应数量的经验值",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "战斗等级（关卡内等级）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:427"
+      }
+    },
+    {
+      "text": "每次战斗等级提升时，均会触发词条三选一",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "战斗等级（关卡内等级）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:428"
+      }
+    },
+    {
+      "text": "-",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "🚧关卡内升级-词条三选一"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:434"
+      }
+    },
+    {
+      "text": "触发方式",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:438"
+      }
+    },
+    {
+      "text": "关卡中的部分波次会存在待营救的NPC，在该类波次下载具需停车",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:440"
+      }
+    },
+    {
+      "text": "在进入该波次后，待营救的NPC出现在固定点位上，并头顶气泡显示狗叫文本",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:441"
+      }
+    },
+    {
+      "text": "击败该波次的所有怪物后，可成功营救对应的NPC",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:442"
+      }
+    },
+    {
+      "text": "营救成功后，触发随机词条老虎机",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:443"
+      }
+    },
+    {
+      "text": "在以上过程中，载具需持续停车等待，至获得词条后才可继续前进",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:444"
+      }
+    },
+    {
+      "text": "在触发老虎机时，游戏需处于暂停状态",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:445"
+      }
+    },
+    {
+      "text": "随机规则",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:446"
+      }
+    },
+    {
+      "text": "词条老虎机共有3个栏位，每个栏位的随机独立计算",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:448"
+      }
+    },
+    {
+      "text": "每个栏位需按顺序进行随机（即先随1号栏的词条、再随2号栏），每个栏位均按照以下流程随机：",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:449"
+      }
+    },
+    {
+      "text": "1️⃣第1步：该栏位有词条or空",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:451"
+      }
+    },
+    {
+      "text": "每个栏位均有概率随机到空词条，即不获得任何词条",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:453"
+      }
+    },
+    {
+      "text": "每个栏位的空词条权重需单独控制",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:454"
+      }
+    },
+    {
+      "text": "配置在System表ID=Gve16_SlotNullWeight，形如:[0,3000,6000]",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:456"
+      }
+    },
+    {
+      "text": "栏位顺序按照数组内的顺序，即：1号栏的空词条权重=0，2号栏=3000",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:457"
+      }
+    },
+    {
+      "text": "总权重=10000，即：每个栏位非空的权重=10000 - 对应栏位的空词条权重",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:458"
+      }
+    },
+    {
+      "text": "若随机结果为空词条，则该栏位=空，并直接进行下一个栏位的随机",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:459"
+      }
+    },
+    {
+      "text": "若随机结果为非空词条，则该栏位进行第2步随机",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:460"
+      }
+    },
+    {
+      "text": "2️⃣第2步：该栏位词条所属的武器系别",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:461"
+      }
+    },
+    {
+      "text": "若该栏位不是空词条，则取玩家当前关卡内已拥有的武器系别（默认+自选）",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:463"
+      }
+    },
+    {
+      "text": "设每个系别的权重相等，并随机取其中的1个武器系别，随后该栏位进行第3步随机",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:464"
+      }
+    },
+    {
+      "text": "3️⃣第3步：该栏位的具体词条ID",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:465"
+      }
+    },
+    {
+      "text": "根据第2步随机到的武器系别，取该系别下所有可获得的词条",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:467"
+      }
+    },
+    {
+      "text": "该词条已解锁，可在关卡内获得",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:469"
+      }
+    },
+    {
+      "text": "该词条未在之前栏位中随机抽取到",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:470"
+      }
+    },
+    {
+      "text": "设每个词条的权重相等，并随机取其中的1个词条",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:471"
+      }
+    },
+    {
+      "text": "当3个栏位全部随机完成后，需将随机结果暂存，并展示给玩家",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:472"
+      }
+    },
+    {
+      "text": "玩家对暂存结果可进行[确认获得]和[重Roll]2种操作",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:473"
+      }
+    },
+    {
+      "text": "确认获得：可获得本次随机出的**所有**词条",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:475"
+      }
+    },
+    {
+      "text": "重Roll：将本次暂存结果清空，并从第1步重新随机",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:476"
+      }
+    },
+    {
+      "text": "重Roll时，需要根据本次关卡内的已重Roll的**总次数**，消耗对应数量的道具",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:477"
+      }
+    },
+    {
+      "text": "配置在System表ID=Gve16_SlotRollCost",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:479"
+      }
+    },
+    {
+      "text": "形如:[{\"min\":0,\"max\":0,\"id\":\"道具ID\",\"count\":0},{\"min\":1,\"max\":3,\"id\":\"道具ID\",\"count\":100},{\"min\":4,\"max\":10,\"id\":\"道具ID\",\"count\":200},{\"min\":11,\"max\":9999,\"id\":\"道具ID\",\"count\":500}]",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:480"
+      }
+    },
+    {
+      "text": "在同一次进行的关卡过程中，重Roll次数继承不重置，直到关卡结束后重置",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:481"
+      }
+    },
+    {
+      "text": "界面表现",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:482"
+      }
+    },
+    {
+      "text": "<grid>",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:484"
+      }
+    },
+    {
+      "text": "<column width-ratio=\"0.482144\">",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:485"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NDk0YzkwYWJkMWRlNzZiMWQ0NWY5YWE5NTgyNWExZGNfMzMyOTBhY2M5NTg0NTEwNjNhOWQxMTA5N2QyZDI1ODVfSUQ6NzY2NDgxODU3Nzc1MjY1NzE2OF8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:486"
+      }
+    },
+    {
+      "text": "</column>",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:487"
+      }
+    },
+    {
+      "text": "<column width-ratio=\"0.258928\">",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:488"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NzUyNDk3ZTk3MDdjOGQ1MzAyYjM4NWM2MTc2YzIxNTlfMjVhZGNlOWQxMWRiZDhkNGQwMjRjZWU1ZWQ5YTQzNTNfSUQ6NzY2NDgxODU3NDU5OTI5NDI1Ml8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:489"
+      }
+    },
+    {
+      "text": "</column>",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:490"
+      }
+    },
+    {
+      "text": "<column width-ratio=\"0.258928\">",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:491"
+      }
+    },
+    {
+      "text": "![图片展示的是游戏界面中“获得技能”环节。界面上方显示“当前技能”及三个技能图标。中间有“获得技能”字样，下方有两条技能描述，均为“新词条：词条名称占位 技能描述技能描述技能描述 +50”，并有三个黄色星星标识。右下角有“消耗 50 重置”字样，旁边有一个带有数字“6”的红色圆角矩形图标。该图片与上下文介绍的获取武器词条、营救NPC等内容相关，展示了获取技能的界面表现。](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=ZjFiYzljZjk2ZTgyNGY4NGYyYjI5NDk3N2JiYWNhNjlfODE0YTk5Y2UxZmM1NTg0MDZiNGRiN2MyZjRjNjY2NjlfSUQ6NzY2NDgxODU3NTM3MDkzMTQ3NF8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:492"
+      }
+    },
+    {
+      "text": "</column>",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:493"
+      }
+    },
+    {
+      "text": "</grid>",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "获取武器词条",
+        "营救NPC-词条老虎机"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:494"
+      }
+    },
+    {
+      "text": "~~每个关卡可支持对应多个元素加成（与怪物和载具的元素增减益一致）~~",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "~~关卡BUFF~~"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:498"
+      }
+    },
+    {
+      "text": "~~正值为该元素造成伤害提高~~",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "~~关卡BUFF~~"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:500"
+      }
+    },
+    {
+      "text": "~~负值为该元素造成伤害降低~~",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "~~关卡BUFF~~"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:501"
+      }
+    },
+    {
+      "text": "~~关卡BUFF对本关卡内所有波次的所有怪物均生效~~",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "~~关卡BUFF~~"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:502"
+      }
+    },
+    {
+      "text": "~~若元素加成配置为空，则对所有元素均无特殊加成~~",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "~~关卡BUFF~~"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:503"
+      }
+    },
+    {
+      "text": "伤害统计需在关卡内和关卡结算界面展示",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:507"
+      }
+    },
+    {
+      "text": "关卡内，点击按钮后弹出伤害统计tips",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:509"
+      }
+    },
+    {
+      "text": "伤害统计需分为两个页签，分别为[总伤]和[秒伤]",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:510"
+      }
+    },
+    {
+      "text": "默认显示[总伤]页签",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:512"
+      }
+    },
+    {
+      "text": "统计信息",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:513"
+      }
+    },
+    {
+      "text": "所有统计信息在**每个关卡开始时**开始统计",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:515"
+      }
+    },
+    {
+      "text": "统计的信息为玩家本次关卡内所选取的武器造成的伤害值",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:516"
+      }
+    },
+    {
+      "text": "统计的单位为**武器类型**，所有所属于同一类武器的子弹、负面效果等造成的伤害均归属于该武器",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:517"
+      }
+    },
+    {
+      "text": "例如：火系武器的伤害 = 武器自身攻击的伤害 + 灼烧效果的伤害 + 武器词条效果的伤害",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:519"
+      }
+    },
+    {
+      "text": "总伤",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:520"
+      }
+    },
+    {
+      "text": "总伤页签内，需按武器类型区分每类武器的伤害占比",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:522"
+      }
+    },
+    {
+      "text": "伤害占比 = 该武器造成的总伤害 / 所有武器造成的总伤害",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:523"
+      }
+    },
+    {
+      "text": "按百分比格式显示",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:524"
+      }
+    },
+    {
+      "text": "按伤害占比从高到低排序",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:525"
+      }
+    },
+    {
+      "text": "进度条的占比长度=伤害占比百分比",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:526"
+      }
+    },
+    {
+      "text": "![图片展示的是关卡结算界面中的伤害统计页签内容。上方有“总伤”和“秒伤”两个页签，当前显示“总伤”页签。下方按武器类型区分了每类武器的伤害占比，机枪占比52.95%，涡流飞刃占比34.82%，3003占比8.69%，压制喷射占比3.54%。各武器下方还显示了其造成的总伤害数值。该图片与文档中关于关卡结算界面展示伤害统计的内容相关，直观呈现了伤害占比情况。](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NGU5M2YxOGQ3ZmMxMGE4Mjk0NmE2OGM0MDQxZDhhYjJfYTdlMGNhNGYyNTQzYjY4ZDBlYTUwZmE3ODVlMThkYjhfSUQ6NzY2NDgxODU3NDE0MjA2NTk1NV8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:528"
+      }
+    },
+    {
+      "text": "秒伤",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:529"
+      }
+    },
+    {
+      "text": "秒伤页签内，需按武器类型区分每类武器的每秒伤害值",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:531"
+      }
+    },
+    {
+      "text": "每秒伤害值 = 该武器造成的总伤害 / 本关卡当前进行时间（s）",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:532"
+      }
+    },
+    {
+      "text": "按正整数格式显示",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:533"
+      }
+    },
+    {
+      "text": "按伤害值从高到低排序",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:534"
+      }
+    },
+    {
+      "text": "进度条的长度按照最高伤害的比例为准",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:535"
+      }
+    },
+    {
+      "text": "例如下图：涡流飞刃=100%，机枪=827/1601≈51.6%，所以进度条显示约一半",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:537"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=ZjljNWM0OWQ3N2QxYmJkMjdhNTkxN2JhMDFiOTgwZTJfMmFkNDE0YTQ5MGY5MzQyNzBkODQzMjYxNjQyMjE1OTRfSUQ6NzY2NDgxODU3NzM5MTk3OTcwNl8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:539"
+      }
+    },
+    {
+      "text": "在战斗过程中，统计Tips界面的伤害百分比需要实时刷新",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:540"
+      }
+    },
+    {
+      "text": "所有的统计信息在关卡结束时重置，重复进入同一关卡或不同关卡时不会继承之前的统计信息",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "伤害统计"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:541"
+      }
+    },
+    {
+      "text": "每个关卡均有时限要求，从进入关卡开始进行倒计时",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡时限"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:545"
+      }
+    },
+    {
+      "text": "倒计时归零时，若仍未击杀本关卡所有怪物，则视为失败",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡时限"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:546"
+      }
+    },
+    {
+      "text": "每个关卡的时限（ms）不同",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡时限"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:547"
+      }
+    },
+    {
+      "text": "配置在GVE16关卡表time字段",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡时限"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:549"
+      }
+    },
+    {
+      "text": "进行倍速播放时，倒计时的速度也需同倍率加快",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡时限"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:550"
+      }
+    },
+    {
+      "text": "关卡处于暂停状态时，倒计时也需暂停",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡时限"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:551"
+      }
+    },
+    {
+      "text": "倍速播放按钮仅在关卡内显示，并分为多个状态",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:555"
+      }
+    },
+    {
+      "text": "x1：默认状态，按正常速度播放",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:557"
+      }
+    },
+    {
+      "text": "x2：按2倍速播放",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:558"
+      }
+    },
+    {
+      "text": "解锁条件",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:559"
+      }
+    },
+    {
+      "text": "x1：初始默认解锁",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:561"
+      }
+    },
+    {
+      "text": "x2：在通关指定关卡后解锁",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:562"
+      }
+    },
+    {
+      "text": "首次解锁时，关卡内界面显示tips弹窗提示功能已解锁，在玩家点击倍速按钮或3秒后隐藏tips",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:564"
+      }
+    },
+    {
+      "text": "解锁关卡：配置在System表id=Gve16PlaySpeedCondition",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:565"
+      }
+    },
+    {
+      "text": "当未解锁时，点击按钮显示toast提示：2倍速功能在完成{level}关后解锁",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:566"
+      }
+    },
+    {
+      "text": "点击按钮后，倍速按钮在已解锁的倍速选项中循环切换",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:567"
+      }
+    },
+    {
+      "text": "例如：x1状态下点击切换至x2，x2状态下点击切换至x1",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:569"
+      }
+    },
+    {
+      "text": "玩家选择的倍速状态需保存在客户端，进入新关卡时同样使用该倍速",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:570"
+      }
+    },
+    {
+      "text": "玩家在新一期的活动开始时，倍速播放重置为x1",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "倍速播放"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:571"
+      }
+    },
+    {
+      "text": "失败条件",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:577"
+      }
+    },
+    {
+      "text": "主角载具的生命值归零or关卡倒计时归零",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:579"
+      }
+    },
+    {
+      "text": "结算奖励",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:580"
+      }
+    },
+    {
+      "text": "根据玩家在本次游玩过程中达到的最高波次，将该波次之前的所有波次奖励累加发放",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:582"
+      }
+    },
+    {
+      "text": "例如：玩家在第20波时失败，则将1-19波的奖励累加起来一并发放",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:584"
+      }
+    },
+    {
+      "text": "发放奖励时，可将每个波次的奖励同道具堆叠起来显示",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:585"
+      }
+    },
+    {
+      "text": "若玩家在失败结算时，仍有过往波次的怪物未击杀，不会影响奖励结算",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:586"
+      }
+    },
+    {
+      "text": "奖励内容包含碎片奖励和道具奖励2个类型，需一同发放",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:587"
+      }
+    },
+    {
+      "text": "分别配置在Gve16Round表的rewardPiece和rewardItem字段",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:589"
+      }
+    },
+    {
+      "text": "界面内容",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:590"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NzU4OTA2YWYwYTA3YjMxYjFmODIyZTcwYTM4YzczOWZfZmE3ZTU1MmI1YzUyZGNhOWUwYWQ0MjZmNTVlZjcwYmNfSUQ6NzY2NDgxODU3NzM3MjY3OTQyN18xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:592"
+      }
+    },
+    {
+      "text": "战斗失败的结算界面内，需包含以下信息",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:594"
+      }
+    },
+    {
+      "text": "结算奖励（碎片奖励+道具奖励）",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:596"
+      }
+    },
+    {
+      "text": "关卡提示文本",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:597"
+      }
+    },
+    {
+      "text": "伤害统计",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:598"
+      }
+    },
+    {
+      "text": "变强途径",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:599"
+      }
+    },
+    {
+      "text": "关卡提示文本",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:600"
+      }
+    },
+    {
+      "text": "状态1：生命值归零",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:602"
+      }
+    },
+    {
+      "text": "文本内容提示本关怪物的元素加成",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:604"
+      }
+    },
+    {
+      "text": "状态2：倒计时归零",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:605"
+      }
+    },
+    {
+      "text": "文本内容显示因关卡倒计时归零失败，并提示本关怪物的元素加成",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:607"
+      }
+    },
+    {
+      "text": "伤害统计",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:608"
+      }
+    },
+    {
+      "text": "与关卡内伤害统计的信息一致，需记录本次挑战过程中所有武器造成的总伤和秒伤",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:610"
+      }
+    },
+    {
+      "text": "变强途径",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:611"
+      }
+    },
+    {
+      "text": "养成",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:613"
+      }
+    },
+    {
+      "text": "战令",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:614"
+      }
+    },
+    {
+      "text": "特权礼包",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:615"
+      }
+    },
+    {
+      "text": "载具升级礼包",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗失败"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:616"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NjIwY2U0YzJkNjhiNWJkMmU2OTVkYzNlZGU1NmYyMWFfNDdiYWNmNjk3ZDlkYjBhOTk5NjJlN2NjYTU1MGEyODlfSUQ6NzY2NDgxODU3NzI4NzE1NDg4N18xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:620"
+      }
+    },
+    {
+      "text": "胜利条件",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:622"
+      }
+    },
+    {
+      "text": "完成本关卡所有波次，并载具剩余生命值＞0",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:624"
+      }
+    },
+    {
+      "text": "结算奖励",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:625"
+      }
+    },
+    {
+      "text": "需将本关卡包含的所有波次奖励累加起来，作为胜利结算奖励",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:627"
+      }
+    },
+    {
+      "text": "界面内容",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:628"
+      }
+    },
+    {
+      "text": "战斗胜利的结算界面内，需包含以下信息",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:630"
+      }
+    },
+    {
+      "text": "结算奖励（碎片奖励+道具奖励）",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:632"
+      }
+    },
+    {
+      "text": "剩余时间",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:633"
+      }
+    },
+    {
+      "text": "伤害统计",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:634"
+      }
+    },
+    {
+      "text": "伤害统计",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:635"
+      }
+    },
+    {
+      "text": "与关卡内伤害统计的信息一致，需记录本次挑战过程中所有武器造成的总伤和秒伤",
+      "chapterPath": [
+        "关卡规则",
+        "内部逻辑",
+        "关卡结算",
+        "战斗胜利"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:637"
+      }
+    },
+    {
+      "text": "关卡归属于章节，章节之间没有逻辑差异，仅在首通奖励界面作为页签区分",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "关卡解锁"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:643"
+      }
+    },
+    {
+      "text": "所有章节的关卡均按线性排列，且关卡之间有线性解锁关系",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "关卡解锁"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:644"
+      }
+    },
+    {
+      "text": "即：通关第1关后，才可挑战第2关",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "关卡解锁"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:646"
+      }
+    },
+    {
+      "text": "玩家仅可挑战当前未通关的首个关卡，已通关的关卡不可重复挑战",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "挑战关卡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:650"
+      }
+    },
+    {
+      "text": "例如：玩家已通过第5关，此时仅可挑战第6关，不可挑战1-5关和7关及后续关卡",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "挑战关卡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:652"
+      }
+    },
+    {
+      "text": "挑战关卡时，需消耗体力才可进入关卡",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "挑战关卡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:653"
+      }
+    },
+    {
+      "text": "每个关卡所需体力数量不同，配置在关卡表",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "挑战关卡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:655"
+      }
+    },
+    {
+      "text": "进入关卡时即消耗体力，而非结算时消耗",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "挑战关卡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:656"
+      }
+    },
+    {
+      "text": "若玩家挑战失败，不会返还体力",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "挑战关卡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:657"
+      }
+    },
+    {
+      "text": "体力不足时，点击挑战按钮弹出体力恢复道具的使用弹窗，无体力恢复道具时弹出获取途径弹窗",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "挑战关卡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:658"
+      }
+    },
+    {
+      "text": "首通奖励",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:662"
+      }
+    },
+    {
+      "text": "首次完成指定关卡时，可领取对应的首通奖励",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:664"
+      }
+    },
+    {
+      "text": "每个首通奖励仅可领取一次，活动结束后重置状态",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:665"
+      }
+    },
+    {
+      "text": "扫荡关卡时，不可重复获得首通奖励",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:666"
+      }
+    },
+    {
+      "text": "进度奖励",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:667"
+      }
+    },
+    {
+      "text": "当通关数量累计到指定值后，可领取进度奖励",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:669"
+      }
+    },
+    {
+      "text": "进度奖励仅可领取一次，活动结束后重置状态",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:670"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NzRlYTY0ZWQyNGRhNDk3ZTNjZTA0MzBkMTg4NzE3ZWZfNTUwM2VlYWIzNmUwZDY5N2VmOTVmYjVmMDFmYTJiMDVfSUQ6NzY2NDgxODU3NDEwMDU5ODA1Ml8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "首通奖励"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:672"
+      }
+    },
+    {
+      "text": "解锁条件",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:676"
+      }
+    },
+    {
+      "text": "在通关指定关卡后解锁",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:678"
+      }
+    },
+    {
+      "text": "配置在System表id=Gve16SweepCondition",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:680"
+      }
+    },
+    {
+      "text": "当未解锁时，点击按钮显示toast提示：扫荡功能在完成{level}关后解锁",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:681"
+      }
+    },
+    {
+      "text": "扫荡消耗",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:682"
+      }
+    },
+    {
+      "text": "玩家可消耗体力，直接扫荡关卡获取奖励",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:684"
+      }
+    },
+    {
+      "text": "消耗体力数 = 关卡所需体力数 \\* 扫荡次数",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:686"
+      }
+    },
+    {
+      "text": "玩家仅可扫荡当前已通关的最高关卡，不可自选扫荡之前的关卡",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:687"
+      }
+    },
+    {
+      "text": "扫荡奖励",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:688"
+      }
+    },
+    {
+      "text": "需将扫荡的关卡包含的所有波次奖励累加起来，作为扫荡奖励",
+      "chapterPath": [
+        "关卡规则",
+        "外部逻辑",
+        "扫荡"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:690"
+      }
+    },
+    {
+      "text": "<sheet sheet-id=\"GWqvZG\" token=\"F2fJsBz3thyXEmtib3MctIQWn9b\"></sheet>",
+      "chapterPath": [
+        "战斗规则",
+        "战斗属性"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:696"
+      }
+    },
+    {
+      "text": "伤害 = (（载具攻击 \\* 武器伤害比例 + 元素伤害） \\* （1.5 + 暴击伤害加成 + 元素暴击伤害加成） \\* （ 1 + 伤害加成 + 元素伤害加成 ） \\* （ 1 + 最终伤害加成 + 元素最终伤害加成 ）- 固定减伤 ) \\* 战力压制系数",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "伤害计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:702"
+      }
+    },
+    {
+      "text": "暴击率 = 基础暴击率 + 元素暴击率（暴击率范围【0-100%】）",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "伤害计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:704"
+      }
+    },
+    {
+      "text": "伤害加成 = 进攻方伤害加成属性 - 防守方伤害减免属性",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "伤害计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:705"
+      }
+    },
+    {
+      "text": "暴击伤害 = 基础暴击伤害 + 元素暴击伤害",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "伤害计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:706"
+      }
+    },
+    {
+      "text": "最低伤害 = 1",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "伤害计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:707"
+      }
+    },
+    {
+      "text": "战力压制系数 = （进攻方战力 / 防守方战力） ^ 1.5",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "战力计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:711"
+      }
+    },
+    {
+      "text": "怪物战力 = 关卡推荐战力",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "战力计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:713"
+      }
+    },
+    {
+      "text": "玩家战力 = 属性战力和",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "战力计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:714"
+      }
+    },
+    {
+      "text": "每个属性的战力计算方式参考GVE12",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "战力计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:715"
+      }
+    },
+    {
+      "text": "每类属性对应一个战力系数，根据属性数值 \\* 战力系数计算得出",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "战力计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:717"
+      }
+    },
+    {
+      "text": "配置在Gve16Attr表powerAdd字段",
+      "chapterPath": [
+        "战斗规则",
+        "战斗计算",
+        "战力计算"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:718"
+      }
+    },
+    {
+      "text": "复用现有的礼包模块",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:730"
+      }
+    },
+    {
+      "text": "箱子礼包分为付费礼包和水晶礼包",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:731"
+      }
+    },
+    {
+      "text": "付费礼包配置在GiftEvent表内，活动期间每日刷新",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:733"
+      }
+    },
+    {
+      "text": "水晶礼包配置在ScoreExchange表内，活动期间每日刷新",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:734"
+      }
+    },
+    {
+      "text": "抽卡券礼包仅有付费礼包",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:735"
+      }
+    },
+    {
+      "text": "配置在GiftEvent表内，活动期间不刷新，每期活动刷新",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:737"
+      }
+    },
+    {
+      "text": "每期活动对应的礼包页签不同",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:738"
+      }
+    },
+    {
+      "text": "体力礼包：配置在GveKingArthur表powerGiftTab字段",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:740"
+      }
+    },
+    {
+      "text": "抽卡礼包：配置在GveKingArthur表drawGiftTab字段",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:741"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=OWZhYzI1ZTVkZGE2NzkxMjg1N2U5YzI5MjE1ZWI4Y2VfY2Y3Y2UwMDU2NmY4ZGY2NzI5MzJlODI4MTc1ZTM1OTlfSUQ6NzY2NDgxODU3OTAxNTI1NzM2MF8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "外围&商业化",
+        "礼包（通用模块复用）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:743"
+      }
+    },
+    {
+      "text": "任务模块配置在GveKingArthur表personalDaily字段",
+      "chapterPath": [
+        "外围&商业化",
+        "任务",
+        "日常任务"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:765"
+      }
+    },
+    {
+      "text": "任务进度以玩家个人进度为指标",
+      "chapterPath": [
+        "外围&商业化",
+        "任务",
+        "日常任务"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:766"
+      }
+    },
+    {
+      "text": "每日重置任务进度及完成状态",
+      "chapterPath": [
+        "外围&商业化",
+        "任务",
+        "日常任务"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:767"
+      }
+    },
+    {
+      "text": "任务模块配置在GveKingArthur表personalTask字段",
+      "chapterPath": [
+        "外围&商业化",
+        "任务",
+        "个人任务"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:771"
+      }
+    },
+    {
+      "text": "任务进度以玩家个人进度为指标",
+      "chapterPath": [
+        "外围&商业化",
+        "任务",
+        "个人任务"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:772"
+      }
+    },
+    {
+      "text": "活动期间不重置任务进度及完成状态，活动结束后重置",
+      "chapterPath": [
+        "外围&商业化",
+        "任务",
+        "个人任务"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:773"
+      }
+    },
+    {
+      "text": "<cite type=\"user\" user-id=\"ou_62722a5802e3cb8af932feb0a36175ec\" user-name=\"十一(王奕文)\"></cite><cite type=\"user\" user-id=\"ou_1603058dd505fae1d43eebc27443249b\" user-name=\"李冬明\"></cite>",
+      "chapterPath": [
+        "外围&商业化",
+        "任务",
+        "新增任务类型"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:777"
+      }
+    },
+    {
+      "text": "每期活动模板id关联不同的战令",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "关联战令"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:783"
+      }
+    },
+    {
+      "text": "配置在GeneralActivity表ActivityBattlePass字段",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "关联战令"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:784"
+      }
+    },
+    {
+      "text": "达成条件可累加战令进度，并提升战令等级",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "战令进度"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:788"
+      }
+    },
+    {
+      "text": "战令指标：开启宝箱数量（GveKingArthur_OpenBox）",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "战令进度"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:790"
+      }
+    },
+    {
+      "text": "提升至指定等级后，可领取对应等级的奖励",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "战令进度"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:791"
+      }
+    },
+    {
+      "text": "普通战令",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "战令特权"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:795"
+      }
+    },
+    {
+      "text": "提升核心装备（角色基础属性）属性值",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "战令特权"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:797"
+      }
+    },
+    {
+      "text": "高级战令",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "战令特权"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:798"
+      }
+    },
+    {
+      "text": "提升核心装备（角色基础属性）属性值",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "战令特权"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:800"
+      }
+    },
+    {
+      "text": "***奖励领取***",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:804"
+      }
+    },
+    {
+      "text": "战令进度达到指定值时，即可领取该档位对应的奖励",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:806"
+      }
+    },
+    {
+      "text": "需玩家手动领取，每个奖励仅可领取一次",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:807"
+      }
+    },
+    {
+      "text": "领取时，一键领取所有未领取状态的奖励",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:808"
+      }
+    },
+    {
+      "text": "领取状态",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:809"
+      }
+    },
+    {
+      "text": "不可领取",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:811"
+      }
+    },
+    {
+      "text": "未领取",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:812"
+      }
+    },
+    {
+      "text": "已领取",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:813"
+      }
+    },
+    {
+      "text": "***奖励类型***",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:814"
+      }
+    },
+    {
+      "text": "免费奖励",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:816"
+      }
+    },
+    {
+      "text": "进度达到对应档位，即可领取",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:818"
+      }
+    },
+    {
+      "text": "配置在ActivityBattlePassLevel表rewardNormal字段",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:819"
+      }
+    },
+    {
+      "text": "初级付费奖励",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:820"
+      }
+    },
+    {
+      "text": "进度达到对应档位，且购买了低档战令礼包才可领取",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:822"
+      }
+    },
+    {
+      "text": "奖励配置在ActivityBattlePassLevel表rewardSpecial字段",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:823"
+      }
+    },
+    {
+      "text": "礼包id配置在ActivityBattlePass表giftID字段",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:824"
+      }
+    },
+    {
+      "text": "高级付费奖励",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:825"
+      }
+    },
+    {
+      "text": "进度达到对应档位，且购买了高档战令礼包才可领取",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:827"
+      }
+    },
+    {
+      "text": "奖励配置在ActivityBattlePassLevel表rewardSpecial02字段",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:828"
+      }
+    },
+    {
+      "text": "礼包id配置在ActivityBattlePass表giftID字段",
+      "chapterPath": [
+        "外围&商业化",
+        "战令",
+        "奖励档位"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:829"
+      }
+    },
+    {
+      "text": "与GveKingArthur类型活动一致，走通用的活动加成逻辑",
+      "chapterPath": [
+        "外围&商业化",
+        "角色加成"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:833"
+      }
+    },
+    {
+      "text": "配置在ActivitySkill及ActivitySkillLevel表",
+      "chapterPath": [
+        "外围&商业化",
+        "角色加成"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:835"
+      }
+    },
+    {
+      "text": "根据活动加成等级，提升活动内的（<cite type=\"user\" user-id=\"ou_1603058dd505fae1d43eebc27443249b\" user-name=\"李冬明\"></cite>）",
+      "chapterPath": [
+        "外围&商业化",
+        "角色加成"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:836"
+      }
+    },
+    {
+      "text": "与GveMedicine类型活动一致，走通用的属性转化逻辑",
+      "chapterPath": [
+        "外围&商业化",
+        "属性转化"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:840"
+      }
+    },
+    {
+      "text": "配置在ActivityOutsideTurn表",
+      "chapterPath": [
+        "外围&商业化",
+        "属性转化"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:842"
+      }
+    },
+    {
+      "text": "根据活动内的载具生命值，激活可转化的资质",
+      "chapterPath": [
+        "外围&商业化",
+        "属性转化"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:843"
+      }
+    },
+    {
+      "text": "每期主活动需支持关联一个或多个CommonLottery活动模板id",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "活动关联"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:849"
+      }
+    },
+    {
+      "text": "配置在PLImmortalConfig表commonLottery字段",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "活动关联"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:851"
+      }
+    },
+    {
+      "text": "当关联多个通用抽奖活动时，默认显示配置的数组中第一位的抽奖活动",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "活动关联"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:852"
+      }
+    },
+    {
+      "text": "活动类型为GveKingArthur时，关联的所有抽奖活动共用一组礼包",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "活动礼包"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:856"
+      }
+    },
+    {
+      "text": "即切换到其他奖池时，对应的礼包不变",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "活动礼包"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:858"
+      }
+    },
+    {
+      "text": "对应的抽奖礼包页签配置在GveKingArthur表drawGiftTab字段",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "活动礼包"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:859"
+      }
+    },
+    {
+      "text": "当期活动若关联了多个通用抽奖活动，则显示[切换奖池]按钮",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "切换奖池"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:863"
+      }
+    },
+    {
+      "text": "按钮图标配置在CommonGacha表switchPoolBtnIcon字段",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "切换奖池"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:865"
+      }
+    },
+    {
+      "text": "切换奖池规则与当前CommonLottery通用规则一致",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "切换奖池"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:866"
+      }
+    },
+    {
+      "text": "点击后打开切换奖池界面",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "切换奖池"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:868"
+      }
+    },
+    {
+      "text": "奖池列表内按顺序显示当前活动关联的所有抽奖活动的角色形象",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "切换奖池"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:869"
+      }
+    },
+    {
+      "text": "配置在CommonGacha表roleItemID字段",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "切换奖池"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:871"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=MDIxNDJlOTFiNjk4M2IyZjVlNzAwMDYxNmYyMTIzOGNfN2JiMjU1YTI5ZDk3M2I3MWJiZTUyMThjYjVhOTM3YjlfSUQ6NzY2NDgxODU4MTE4MzY0NzAxOV8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "切换奖池"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:873"
+      }
+    },
+    {
+      "text": "每个通用抽奖活动的抽奖保底独立计算",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "保底"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:877"
+      }
+    },
+    {
+      "text": "通用抽奖活动的保底数据需要继承",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "保底"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:878"
+      }
+    },
+    {
+      "text": "配置在CommonGacha表isInherited字段",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "保底"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:880"
+      }
+    },
+    {
+      "text": "逻辑规则",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:884"
+      }
+    },
+    {
+      "text": "新增配置控制卡池是否有免费十连功能",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:886"
+      }
+    },
+    {
+      "text": "配置在CommonGacha表isFreeTen字段",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:888"
+      }
+    },
+    {
+      "text": "若该卡池支持免费十连，则该卡池的首次十连抽奖不消耗道具",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:889"
+      }
+    },
+    {
+      "text": "每次开启该卡池活动时，**不重置**免费机会",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:891"
+      }
+    },
+    {
+      "text": "每个卡池id均独立判断是否支持免费十连、及是否已使用免费机会",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:892"
+      }
+    },
+    {
+      "text": "前端展示",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:893"
+      }
+    },
+    {
+      "text": "卡池界面",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:895"
+      }
+    },
+    {
+      "text": "十连按钮：新增[首次免费]标签，原消耗数量划掉，并显示消耗数量为0",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:897"
+      }
+    },
+    {
+      "text": "卡池页签：显示红点",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:898"
+      }
+    },
+    {
+      "text": "![](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NjBhYTFjMTM3NDc5MWQ0YzAxN2I1NWVkYjExNzYxMWNfNWVmOTRmMTEzMmZkZTdiMDBkZGY3YTAxZmYxN2JmMWVfSUQ6NzY2NDgxODU4MTIxMjk0MTUxOV8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:900"
+      }
+    },
+    {
+      "text": "活动封面",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:901"
+      }
+    },
+    {
+      "text": "抽奖入口：当本期活动关联的卡池有未使用的免费十连时，显示[免费十连可用]标签",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:903"
+      }
+    },
+    {
+      "text": "![图片展示的是游戏界面中抽奖入口处的场景。上方显示“进行中：13天3小时”，表明当前活动还有13天3小时。抽奖入口处有“免费十连可用”红点标识，表明本期活动关联的卡池有未使用的免费十连。抽奖入口右侧是“开始冒险”按钮。该图片与文档中关于卡池界面和抽奖入口的展示内容相关，直观呈现了文档中提到的“当本期活动关联的卡池有未使用的免费十连时，显示\\[免费十连可用\\]标签”的界面效果。](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=YzEwMjQ0Y2FjZjE5OTdkNmNkZTQxNjhkNDE5ZGNlMDhfNTE2YjQ0NWFlMTZiMDdhMmM0ZGNlMzYzNDc4OWZiMjhfSUQ6NzY2NDgxODU3OTg0NjA4OTk2NF8xNzg0NjEyODQzOjE3ODQ2MTY0NDNfVjM)",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "免费十连"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:905"
+      }
+    },
+    {
+      "text": "现状：",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:909"
+      }
+    },
+    {
+      "text": "当卡池配置了sPCeilingReward列时，卡池走prd（随抽数提升概率）的逻辑",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:911"
+      }
+    },
+    {
+      "text": "在prd卡池中，所有卡池数据在活动结束后均不保留",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:912"
+      }
+    },
+    {
+      "text": "调整：",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:913"
+      }
+    },
+    {
+      "text": "当卡池配置了sPCeilingReward列时，卡池走prd（随抽数提升概率）的逻辑",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:915"
+      }
+    },
+    {
+      "text": "当卡池走prd逻辑时，增加一步判断：",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:916"
+      }
+    },
+    {
+      "text": "若卡池isInherited=1，则在活动结束后保留卡池数据（与非prd卡池逻辑一致）",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:918"
+      }
+    },
+    {
+      "text": "卡池数据：包括剩余保底次数、是否已使用免费十连等",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:920"
+      }
+    },
+    {
+      "text": "若卡池isInherited=0，则保持原先逻辑，卡池数据在活动结束后均不保留",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:921"
+      }
+    },
+    {
+      "text": "※当前配置中，走sPCeilingReward列的所有卡池中，仅有GVE12的两个卡池（GveKingArthur_CG_01和GveKingArthur_CG_02）配置了isInherited=1，需保证未配置isInherited列的卡池（联动、周年庆等）**不会**保留数据",
+      "chapterPath": [
+        "外围&商业化",
+        "奖池（关联CommonLottery）",
+        "PRD卡池数据继承"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:922"
+      }
+    },
+    {
+      "text": "博物馆中需新增GveKingArthur类型活动的奖杯",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "奖杯"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:928"
+      }
+    },
+    {
+      "text": "解锁条件：个人总榜（subTyp=Power）",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "奖杯"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:930"
+      }
+    },
+    {
+      "text": "需服务器记录该活动相关数据",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "奖杯"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:931"
+      }
+    },
+    {
+      "text": "奖杯相关数值与其他活动一致",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "奖杯"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:932"
+      }
+    },
+    {
+      "text": "获得方式",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:936"
+      }
+    },
+    {
+      "text": "解锁高档位战令后，达到指定进度后获得",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:938"
+      }
+    },
+    {
+      "text": "需在战令界面展示展品道具奖励",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:939"
+      }
+    },
+    {
+      "text": "获得展品道具后，对应在博物馆中的展品自动解锁",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:940"
+      }
+    },
+    {
+      "text": "展品效果",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:941"
+      }
+    },
+    {
+      "text": "无特殊需求，与同品质其余展品一致即可",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:943"
+      }
+    },
+    {
+      "text": "重复获得时自动分解为展品碎片\\*100",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:944"
+      }
+    },
+    {
+      "text": "消耗展品碎片可进行升级，升级后属性提升",
+      "chapterPath": [
+        "外围&商业化",
+        "博物馆相关",
+        "展品（纯配置）"
+      ],
+      "sourceRef": {
+        "sourceType": "document",
+        "sourceId": "gve16",
+        "locator": "line:945"
+      }
+    }
+  ],
+  "media": [
+    {
+      "type": "whiteboard",
+      "token": "O4a6w2TxVhmpIkbKDAUcppXynKc",
+      "locator": "UE流转图 / UX设计"
+    },
+    {
+      "type": "whiteboard",
+      "token": "TxnEwoPmSh60Ddb5wbpcm26Rnlb",
+      "locator": "UE流转图 / 策划草图"
+    },
+    {
+      "type": "whiteboard",
+      "token": "BMDSwflcdhMA1sbt7uIcjRCknyd",
+      "locator": "UE流转图 / 竞品参考"
+    }
+  ],
+  "metadata": {
+    "documentId": "INwudhSMyozEWKxv5TCcPR3Xnih",
+    "revisionId": 1
+  }
+}

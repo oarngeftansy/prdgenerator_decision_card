@@ -1,0 +1,5 @@
+interface:
+  display_name: GVE16 飞书画板
+  short_description: 生成与检查截图优先的 GVE16 原生飞书 UE 流转图
+  default_prompt: 使用 $gve16-feishu-whiteboard 将已确认的视频证据生成为原生飞书 Section、截图标注、规则说明和标准直线箭头。
+

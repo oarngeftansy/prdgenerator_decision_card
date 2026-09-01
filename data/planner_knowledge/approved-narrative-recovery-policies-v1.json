@@ -1,0 +1,38 @@
+{
+  "version": "approved-narrative-recovery-v1",
+  "authority": {
+    "reviewStatuses": ["approved", "confirmed"],
+    "directoryStatuses": ["confirmed", "approved"],
+    "requireExplicitConfirmationForChapterNarrative": true
+  },
+  "intentCorrections": [
+    {
+      "policyId": "taxonomy.rule_intent_responsibility",
+      "lessonRefs": ["LESSON-RULE-INTENT-RESPONSIBILITY"],
+      "intent": "AttackMode",
+      "schemaSlot": "attack_method",
+      "sourceIntents": ["TargetSelection", "AttackTrigger"],
+      "patterns": ["发射", "喷射", "投射物", "持续伤害区域", "无需.{0,8}(?:手动)?瞄准"]
+    }
+  ],
+  "semanticRules": [
+    {
+      "intent": "VictoryCondition",
+      "schemaSlot": "victory_condition",
+      "subject": "关卡",
+      "patterns": ["(?:当|若|如果|只要).{1,80}(?:时|后|则).{0,40}(?:胜利|成功|通关|关卡完成|任务完成)", ".{1,60}(?:后|且).{0,60}才(?:胜利|成功|通关|完成)", "(?:胜利|成功|通关|完成)(?:条件|判定)[：:为是]"]
+    },
+    {
+      "intent": "FailureCondition",
+      "schemaSlot": "failure_condition",
+      "subject": "关卡",
+      "patterns": ["(?:当|若|如果|只要).{1,80}(?:时|后|则).{0,40}(?:失败|挑战失败)", ".{1,60}(?:后|且).{0,60}才(?:失败|挑战失败)", "失败(?:条件|判定)[：:为是]"]
+    },
+    {
+      "intent": "ResultTransition",
+      "schemaSlot": "result_transition",
+      "subject": "关卡",
+      "patterns": ["(?:胜利|失败|成功|完成).{0,24}(?:进入|转入|跳转|结束).{0,20}(?:结算|结果|后续流程)"]
+    }
+  ]
+}

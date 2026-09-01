@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "system-lessons-v1",
+  "contentAuthority": "policy_activation_only",
+  "lessons": [
+    {
+      "lessonId": "LESSON-RULE-INTENT-RESPONSIBILITY",
+      "sourceFeedbackIds": ["PF-20260820-01"],
+      "lessonType": "rule_intent_classification",
+      "problemPattern": "Rules are grouped by nearby entity or chapter instead of the question each rule answers.",
+      "decisionLogic": [
+        "Who is affected maps to target selection.",
+        "How an action is executed maps to action mode or direction.",
+        "When it starts maps to trigger; how often maps to interval; how far maps to range; the outcome maps to damage or effect."
+      ],
+      "applicableScope": ["structured_rule_classification", "approved_narrative_recovery"],
+      "nonApplicableScope": ["presentation_only_content"],
+      "affectedPipelineStages": ["rule_intelligence", "approved_information_recovery"],
+      "policyRefs": ["taxonomy.rule_intent_responsibility"],
+      "testRefs": ["tests/test_rule_intelligence_pipeline.py::test_attack_mode_semantic_correction_also_repairs_legacy_schema_slot"],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-EVIDENCE-BOUNDED-LIFECYCLE",
+      "sourceFeedbackIds": ["PF-20260820-02"],
+      "lessonType": "lifecycle_closure",
+      "problemPattern": "A lifecycle template either hides missing stages or invents unsupported stages and low-value final questions.",
+      "decisionLogic": [
+        "Check existence, entry, persistent behavior, interaction, state change, death, exit, and removal only when applicable.",
+        "Create rules only for supported stages and distinguish internal closure semantics from player-facing planning decisions."
+      ],
+      "applicableScope": ["entity_lifecycle", "schema_closure", "final_gap_classification"],
+      "nonApplicableScope": ["confirmed_not_applicable_stage"],
+      "affectedPipelineStages": ["schema_closure", "mechanic_reconstruction"],
+      "policyRefs": ["closure.lifecycle_evidence_bound"],
+      "testRefs": [
+        "tests/test_final_mechanic_reconstruction.py::test_default_death_count_and_clear_timing_stays_internal_without_becoming_final_gap",
+        "tests/test_final_mechanic_reconstruction.py::test_special_death_state_behavior_remains_a_publishable_planning_gap"
+      ],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-PERSISTENT-TEMPORAL-STATE",
+      "sourceFeedbackIds": ["PF-20260820-03", "PF-20260824-11"],
+      "lessonType": "temporal_state_tracking",
+      "problemPattern": "A persistent state is treated as constant because analysis focuses on isolated events or frames.",
+      "decisionLogic": [
+        "Compare the same eligible state property across bounded time windows.",
+        "Visual change creates an unreviewed candidate; it cannot become a configured rule or published fact without review."
+      ],
+      "applicableScope": ["persistent_state", "temporal_probe"],
+      "nonApplicableScope": ["ambiguous_identity", "camera_motion_only"],
+      "affectedPipelineStages": ["temporal_probe", "temporal_review"],
+      "policyRefs": ["temporal.persistent_state"],
+      "testRefs": [
+        "tests/test_requirement_temporal_probe.py::test_stable_low_then_high_rate_creates_speed_change_candidate_without_config_or_trigger",
+        "tests/test_temporal_probe_production_integration.py::test_t2_generate_gameplay_review_executes_and_persists_temporal_evidence"
+      ],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-EVIDENCE-PARAMETER-AUTHORITY",
+      "sourceFeedbackIds": ["PF-20260820-04"],
+      "lessonType": "evidence_authority",
+      "problemPattern": "Observed values, patterns, randomness, and hidden parameters are promoted into stronger rules without evidence.",
+      "decisionLogic": [
+        "Keep observed value, inferred pattern, configured value, explicit formula, and unknown distinct.",
+        "Random observation does not imply equal probability, replacement mode, weight, priority, or guarantee."
+      ],
+      "applicableScope": ["parameter_projection", "publication_guard"],
+      "nonApplicableScope": ["explicit_formula_source", "planner_confirmed_probability"],
+      "affectedPipelineStages": ["evidence_guard", "publication_guard"],
+      "policyRefs": ["guard.pattern_formula", "guard.random_strength"],
+      "testRefs": ["tests/test_rule_intelligence_pipeline.py::test_observed_sequence_is_inferred_pattern_not_formula"],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-CANDIDATE-TYPE-RESOLUTION",
+      "sourceFeedbackIds": ["PF-20260820-05"],
+      "lessonType": "ontology_resolution",
+      "problemPattern": "Heterogeneous selectable objects are collapsed into a generic candidate pool and assumed to share rules.",
+      "decisionLogic": [
+        "Resolve candidate types before rendering a candidate mechanism.",
+        "Do not share eligibility, sampling, weight, capacity, or limits across types without explicit evidence."
+      ],
+      "applicableScope": ["candidate_generation", "random_draw", "selection"],
+      "nonApplicableScope": ["single_confirmed_candidate_type"],
+      "affectedPipelineStages": ["mechanic_reconstruction", "schema_closure"],
+      "policyRefs": ["ontology.candidate_type_resolution"],
+      "testRefs": ["tests/test_final_mechanic_reconstruction.py::test_candidate_types_are_explicit_and_generic_candidate_nouns_are_not_a_complete_mechanism"],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-CANONICAL-OWNERSHIP-GLOBAL-RECOVERY",
+      "sourceFeedbackIds": ["PF-20260820-06"],
+      "lessonType": "canonical_ownership",
+      "problemPattern": "The same semantic rule is fully defined in multiple chapters or reported missing before approved information is searched globally.",
+      "decisionLogic": [
+        "Assign one canonical full definition and render other uses as references or summaries.",
+        "Before opening a closure gap, search all approved information for the same semantic responsibility."
+      ],
+      "applicableScope": ["rule_ownership", "schema_closure", "result_rules"],
+      "nonApplicableScope": ["semantically_distinct_conditions"],
+      "affectedPipelineStages": ["rule_intelligence", "canonical_ownership", "schema_closure"],
+      "policyRefs": ["ownership.canonical_global_recovery"],
+      "testRefs": [
+        "tests/test_rule_intelligence_pipeline.py::test_ownerless_result_transition_uses_unique_outcome_schema_owner",
+        "tests/test_rule_intelligence_pipeline.py::test_victory_rule_has_one_full_definition_and_other_uses_are_references"
+      ],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-APPROVED-NARRATIVE-RECOVERY",
+      "sourceFeedbackIds": ["PF-20260824-07"],
+      "lessonType": "approved_information_recovery",
+      "problemPattern": "A missing structured rule is mistaken for an unknown project rule even when confirmed narrative contains the rule.",
+      "decisionLogic": [
+        "Search confirmed overview, basic flow, chapter summaries, approved facts, approved rules, and planner-confirmed feedback.",
+        "Unreviewed narrative cannot become a project fact or close a required slot."
+      ],
+      "applicableScope": ["required_slot_recovery", "confirmed_narrative"],
+      "nonApplicableScope": ["unreviewed_narrative"],
+      "affectedPipelineStages": ["approved_information_recovery", "schema_closure"],
+      "policyRefs": ["recovery.approved_narrative"],
+      "testRefs": [
+        "tests/test_final_mechanic_reconstruction.py::test_confirmed_overview_result_rule_recovers_required_slot_once_and_closes_gap",
+        "tests/test_final_mechanic_reconstruction.py::test_unreviewed_overview_cannot_recover_project_rule_or_close_required_slot"
+      ],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-RECOVERED-DEPENDENCY-CLOSURE",
+      "sourceFeedbackIds": ["PF-20260824-08"],
+      "lessonType": "dependency_closure",
+      "problemPattern": "A recovered rule is considered complete while its referenced entity, state, result, or mechanic remains undefined.",
+      "decisionLogic": [
+        "Resolve every referenced entity, state, result, and mechanic to an approved definition or a concrete applicable gap.",
+        "Do not publish dangling mechanic references."
+      ],
+      "applicableScope": ["recovered_rule", "cross_mechanic_dependency"],
+      "nonApplicableScope": ["non_semantic_text_reference"],
+      "affectedPipelineStages": ["dependency_closure", "publication_guard"],
+      "policyRefs": ["closure.recovered_dependencies"],
+      "testRefs": ["tests/test_final_mechanic_reconstruction.py::test_recovered_victory_rule_closes_referenced_mechanics_instead_of_dangling"],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-RULE-PUBLICATION-VALUE",
+      "sourceFeedbackIds": ["PF-20260824-09"],
+      "lessonType": "rule_value_classification",
+      "problemPattern": "Logically inevitable consequences with no additional execution value pollute the final planning document.",
+      "decisionLogic": [
+        "Decompose composite rules into atomic clauses and classify execution, player-visible, exception, trivial, and redundant value.",
+        "Suppress trivial and redundant clauses while preserving explicit exceptions."
+      ],
+      "applicableScope": ["composite_rule", "final_projection"],
+      "nonApplicableScope": ["explicit_special_exception"],
+      "affectedPipelineStages": ["mechanic_reconstruction", "publication_projection"],
+      "policyRefs": ["publication.rule_value"],
+      "testRefs": ["tests/test_final_mechanic_reconstruction.py::test_trivial_target_clause_is_removed_without_dropping_non_trivial_death_processing"],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-RUN-SPECIFIC-EVIDENCE-BOUNDARY",
+      "sourceFeedbackIds": ["PF-20260824-10"],
+      "lessonType": "scope_authority",
+      "problemPattern": "A value observed in one run is promoted into a general gameplay rule or configuration.",
+      "decisionLogic": [
+        "Keep single-run values as run-scoped evidence by default.",
+        "Publish a general rule only when configuration, repeated evidence, explicit formula, or planner confirmation supplies general authority."
+      ],
+      "applicableScope": ["observed_run_value", "publication_projection"],
+      "nonApplicableScope": ["planner_confirmed_general_rule"],
+      "affectedPipelineStages": ["publication_guard", "mechanic_reconstruction"],
+      "policyRefs": ["authority.run_specific_observation"],
+      "testRefs": ["tests/test_final_mechanic_reconstruction.py::test_run_specific_reward_value_is_not_promoted_to_general_rule"],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-MECHANIC-NARRATIVE-ORDERING",
+      "sourceFeedbackIds": ["PF-20260824-12"],
+      "lessonType": "narrative_ordering",
+      "problemPattern": "Atomic rules are rendered in creation or evidence order instead of mechanic semantics and execution order.",
+      "decisionLogic": [
+        "Group rules by semantic responsibility before rendering.",
+        "Order selection mechanics as trigger, state entry, generation, type resolution, selection, effect, exit, refresh, and numeric examples."
+      ],
+      "applicableScope": ["mechanic_flow", "final_renderer"],
+      "nonApplicableScope": ["single_atomic_rule"],
+      "affectedPipelineStages": ["mechanic_reconstruction", "planning_renderer"],
+      "policyRefs": ["renderer.mechanic_narrative_order"],
+      "testRefs": ["tests/test_final_mechanic_reconstruction.py::test_compound_trigger_generation_is_decomposed_into_stable_narrative_order"],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-EVIDENCE-MODALITY-IS-NOT-PLAYER-STATE",
+      "sourceFeedbackIds": ["PF-20260825-13"],
+      "lessonType": "evidence_modality_boundary",
+      "problemPattern": "A static screenshot is treated as proof that the game or player is in a static no-action state.",
+      "decisionLogic": [
+        "The input medium describes available evidence, not player behavior or game state.",
+        "When a screenshot cannot prove an operation, keep the player action unknown and create a planner decision card with explicit operation choices and a custom answer; never publish no-action as a conclusion.",
+        "Only describe a static display state when the game content itself explicitly supports that state."
+      ],
+      "applicableScope": ["screenshot_sequence", "interaction_analysis", "interaction_renderer"],
+      "nonApplicableScope": ["explicit_game_idle_state"],
+      "affectedPipelineStages": ["interaction_analysis", "interaction_renderer"],
+      "policyRefs": ["interaction.evidence_modality_boundary"],
+      "testRefs": [
+        "tests/test_analysis_batch_policy.py::test_static_screenshot_wording_is_not_stored_as_a_player_action",
+        "tests/test_review_model_seed.py::test_unknown_screenshot_action_becomes_a_planner_decision_card_for_every_project",
+        "tests/test_review_service.py::test_resolving_interaction_decision_card_updates_transition_stage_and_source_atomically"
+      ],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-SKELETON-IS-NOT-DELIVERABLE",
+      "sourceFeedbackIds": ["PF-20260825-14"],
+      "lessonType": "delivery_readiness_gate",
+      "problemPattern": "A confirmed chapter directory is mistaken for completed gameplay content, so downstream review and export show polished headings with empty or screenshot-caption bodies.",
+      "decisionLogic": [
+        "Directory confirmation proves information architecture only; it does not prove that detailed rules exist.",
+        "P4 through P7 require a detailed gameplay model or an explicitly preserved last valid detailed revision.",
+        "When detailed generation fails, preserve the confirmed directory, expose the exact failure and retry action, and never export the skeleton as a document.",
+        "Long-running chapter generation must expose determinate progress and the latest safe milestone; timeout measures continuous inactivity rather than total elapsed work so a large valid directory is not killed while chapters are still completing."
+      ],
+      "applicableScope": ["existing_projects", "new_projects", "all_input_types", "gameplay_review", "final_export"],
+      "nonApplicableScope": ["directory_review_only"],
+      "affectedPipelineStages": ["gameplay_detail_generation", "generation_lifecycle", "progress_renderer", "review_navigation", "final_preview"],
+      "policyRefs": ["delivery.detailed_content_gate"],
+      "testRefs": [
+        "tests/test_review_api.py::test_final_preview_blocks_confirmed_directory_skeleton_until_details_exist",
+        "tests/test_gameplay_model_lifecycle_regression.py::test_gameplay_generation_timeout_waits_until_the_latest_inactivity_deadline"
+      ],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-INTERFACE-TAXONOMY-IS-NOT-GAMEPLAY-HIERARCHY",
+      "sourceFeedbackIds": ["PF-20260825-15"],
+      "lessonType": "gameplay_structure_quality",
+      "problemPattern": "Screenshot page names, UI labels, duplicate nouns and unrelated template concepts are flattened into gameplay chapters or one oversized subsystem.",
+      "decisionLogic": [
+        "Build the directory as gameplay system to subsystem to independently auditable mechanism, with distinct names at every level.",
+        "Treat pages, panels, popups, display states and buttons as evidence or interaction artifacts, never as gameplay mechanisms by themselves.",
+        "Reject duplicate mechanisms and split an overloaded subsystem by real business responsibility before asking the planner to review it.",
+        "Isolate generation cache by project and summarize structure only from the current project's accepted hierarchy."
+      ],
+      "applicableScope": ["existing_projects", "new_projects", "all_input_types", "gameplay_directory", "gameplay_understanding"],
+      "nonApplicableScope": ["interaction_page_inventory"],
+      "affectedPipelineStages": ["structure_generation", "structure_validation", "directory_migration", "directory_renderer"],
+      "policyRefs": ["gameplay.structure_hierarchy_quality"],
+      "testRefs": ["tests/test_gameplay_analysis.py::test_structure_validator_rejects_duplicate_and_overloaded_directory_shapes"],
+      "status": "approved"
+    },
+    {
+      "lessonId": "LESSON-GAMEPLAY-FLOW-SEMANTIC-OWNERSHIP-AND-ISOLATION",
+      "sourceFeedbackIds": ["PF-20260825-16"],
+      "lessonType": "gameplay_flow_semantic_ownership",
+      "problemPattern": "Static evidence, numeric facts and presentation rules are treated as gameplay flow, while cached or recovered model data can cross task boundaries.",
+      "decisionLogic": [
+        "Route approved rules by semantic responsibility before rendering: flow and interaction may enter gameplay flow, while presentation, numeric and configuration rules keep separate owners.",
+        "A declared flow must contain a causal initiation and outcome; static UI evidence or a current value alone cannot satisfy that contract.",
+        "Store structure quality and detailed semantic quality separately, and block downstream review whenever detailed quality explicitly fails.",
+        "Apply the same validator to every task and isolate models and caches by task identity, evidence or interaction revision, and approved gameplay revision."
+      ],
+      "applicableScope": ["existing_projects", "new_projects", "all_input_types", "gameplay_detail_generation", "gameplay_rule_review"],
+      "nonApplicableScope": ["structure_directory_only"],
+      "affectedPipelineStages": ["rule_projection", "detail_quality", "review_navigation", "cache_and_recovery"],
+      "policyRefs": ["gameplay.flow_semantic_ownership_and_isolation"],
+      "testRefs": [
+        "tests/test_gameplay_flow_semantics.py::test_four_projects_use_one_flow_contract_without_project_specific_branches",
+        "tests/test_gameplay_copy.py::test_legacy_static_and_numeric_observations_are_removed_from_gameplay_flow_without_losing_copy"
+      ],
+      "status": "approved"
+    }
+  ]
+}

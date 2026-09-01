@@ -1,0 +1,22 @@
+{
+  "schema": "ddit-skills.marketplace/v1",
+  "slug": "@lexie/game-video-reverse-design",
+  "author": "lexie",
+  "author_name": "Lexie",
+  "name": "game-video-reverse-design",
+  "version": "0.1.0",
+  "business_domain": "game-design",
+  "business_subdomain": "gameplay-reverse-engineering",
+  "category": "game-development",
+  "tags": [
+    "game-design",
+    "reverse-engineering",
+    "video-analysis",
+    "gameplay",
+    "state-machine",
+    "level-design",
+    "prototype",
+    "prd"
+  ],
+  "uploaded_at": "2026-07-15T00:00:00.000Z"
+}

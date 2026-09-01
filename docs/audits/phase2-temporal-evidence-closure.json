@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "phase2-temporal-evidence-closure-v1",
+  "result": "pass",
+  "authorityChain": "Gap -> TargetedTemporalProbe -> Temporal AtomicFact -> Existing Rule Intelligence Pipeline -> Existing Review -> Guard -> Publication -> Final",
+  "contracts": {
+    "visualChangeDoesNotConfirmMovement": true,
+    "stableReferenceAllowsCandidateOnly": true,
+    "cameraMotionBlocksEntityMovement": true,
+    "firstAppearanceDoesNotCreateSpawnRule": true,
+    "observedIntervalsDoNotCreateConfiguration": true,
+    "probeIsGapDriven": true,
+    "hiddenLogicIsProbeIneligible": true,
+    "ambiguousIdentityBlocksRuleCandidate": true,
+    "temporalFactLineageRequired": true,
+    "existingRulePipelineIsReused": true,
+    "unreviewedTemporalEvidencePublishedCount": 0,
+    "secondRuleAuthorityCount": 0
+  },
+  "coverage": {
+    "frameAnalysisCoverage": "existing metric retained",
+    "mechanicClosureCoverageDenominator": "applicable required responsibilities only",
+    "temporalEvidenceCoverage": [
+      "eligibleProbeCount",
+      "completedProbeCount",
+      "unresolvedProbeCount",
+      "exhaustedProbeCount",
+      "ineligibleGapCount"
+    ]
+  },
+  "fullSuite": {"passed": 1468, "failed": 0, "warnings": 3}
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "视觉参考拆解"
+  short_description: "拆解视觉基础、场景拓扑、组件行为和复刻验收"
+  default_prompt: "使用 $visual-reference-decomposer 将参考视频或截图拆成可验证的视觉与交互规格。"

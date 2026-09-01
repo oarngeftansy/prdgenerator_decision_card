@@ -1,0 +1,12 @@
+{
+  "P4": [
+    "BM-WEAPON:weapon.damage_attribution",
+    "BM-WEAPON:weapon.slot_full",
+    "BM-DRAW:draw.pool",
+    "BM-STATS:statistics.attribution",
+    "BM-STATS:statistics.aggregation",
+    "BM-STATS:statistics.period",
+    "BM-OUTCOME:settlement.reward_calculation"
+  ],
+  "P6": []
+}

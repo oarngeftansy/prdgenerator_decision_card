@@ -1,0 +1,4 @@
+interface:
+  display_name: "�߻�����У׼"
+  short_description: "Learn reusable planning standards from benchmark examples"
+  default_prompt: "Use $planning-sample-calibrator to derive reusable planning standards from these benchmark examples."

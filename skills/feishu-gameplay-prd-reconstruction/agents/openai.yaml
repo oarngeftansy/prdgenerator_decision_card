@@ -1,0 +1,7 @@
+interface:
+  display_name: "飞书玩法策划案反向重建"
+  short_description: "从截图、视频、表格和参考文档重建执行级玩法策划案"
+  brand_color: "#315EFB"
+  default_prompt: "Use $feishu-gameplay-prd-reconstruction to reconstruct an evidence-grounded game design document at Feishu sample depth."
+policy:
+  allow_implicit_invocation: true

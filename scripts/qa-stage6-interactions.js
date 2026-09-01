@@ -1,0 +1,42 @@
+const fs = require("node:fs");
+const path = require("node:path");
+const { chromium } = require("playwright");
+
+const jobId = "8312a91c89e144e6a59f81b982f14c06";
+const origin = process.env.STAGE6_ORIGIN || "http://127.0.0.1:8009";
+const output = path.resolve(__dirname, "..", "artifacts", "stage6-browser-acceptance");
+
+(async () => {
+  fs.mkdirSync(output, { recursive: true });
+  const browser = await chromium.launch({ headless: true, executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" });
+  const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });
+  const errors = [];
+  page.on("pageerror", error => errors.push(error.message));
+  page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
+  await page.goto(`${origin}/?job=${jobId}&ui=interaction_preview`, { waitUntil: "networkidle" });
+  await page.locator("#reviewWorkspace").waitFor({ state: "visible" });
+  await page.locator('[data-workbench-step="p3"]').click();
+  await page.locator("#exportPreviewView:visible .export-preview-board").waitFor({ state: "visible" });
+  const zoom = page.locator("#exportPreviewView:visible .export-preview-board-zoom");
+  const before = await zoom.innerText();
+  await page.locator("#exportPreviewView:visible .export-preview-board-toolbar button").filter({ hasText: "放大" }).click();
+  const changed = await zoom.innerText();
+  const board = page.locator("#exportPreviewView:visible .export-preview-board");
+  await board.evaluate(node => { node.scrollLeft = Math.min(360, node.scrollWidth - node.clientWidth); node.scrollTop = 24; node.dispatchEvent(new Event("scroll")); });
+  await page.locator('[data-workbench-step="p4"]').click();
+  await page.locator('[data-workbench-step="p3"]').click();
+  const afterSwitch = await zoom.innerText();
+  const scrollAfterSwitch = await board.evaluate(node => ({ left: node.scrollLeft, top: node.scrollTop }));
+  await page.reload({ waitUntil: "networkidle" });
+  await page.locator('[data-workbench-step="p3"]').click();
+  const afterRefresh = await page.locator("#exportPreviewView:visible .export-preview-board-zoom").innerText();
+  const scrollAfterRefresh = await page.locator("#exportPreviewView:visible .export-preview-board").evaluate(node => ({ left: node.scrollLeft, top: node.scrollTop }));
+  const result = { before, changed, afterSwitch, afterRefresh, scrollAfterSwitch, scrollAfterRefresh, errors };
+  if (before === changed || changed !== afterSwitch || changed !== afterRefresh) throw new Error(`zoom reset: ${JSON.stringify(result)}`);
+  if (scrollAfterSwitch.left < 1 || scrollAfterRefresh.left < 1) throw new Error(`pan reset: ${JSON.stringify(result)}`);
+  if (errors.length) throw new Error(errors.join("\n"));
+  await page.screenshot({ path: path.join(output, "s6-tc04-p3-zoom-pan-refresh.png"), fullPage: false });
+  fs.writeFileSync(path.join(output, "interaction-result.json"), JSON.stringify(result, null, 2));
+  console.log(JSON.stringify(result, null, 2));
+  await browser.close();
+})().catch(error => { console.error(error); process.exitCode = 1; });

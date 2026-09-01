@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "principle": "evidence-conditioned, not template-conditioned",
+  "causalOrder": ["goal_or_trigger", "eligibility", "system_processing", "player_choice_or_feedback", "failure_repeat_reset"],
+  "axes": ["contentInventory", "configuration", "executionSequence", "formula", "boundary", "lifecycle", "interactionFeedback", "runtimeResponsibility", "presentationContract"],
+  "headingRules": {
+    "mergeSparseSiblings": true,
+    "numberOnlyOrderedAlgorithms": true,
+    "forbiddenFixedHeadings": ["正常怎么玩", "关键规则", "特殊情况", "怎么验证", "配置来源", "计算公式", "计算示例"]
+  },
+  "carrierRules": {
+    "prose": ["intent", "behavior", "causal_rule"],
+    "list": ["distinct_objects", "parallel_boundaries"],
+    "table": ["repeated_fields", "configuration"],
+    "board": ["spatial_relation", "page_transition", "state_relation"],
+    "formula": ["sourced_expression"]
+  },
+  "sentenceGrammar": {
+    "defaultOrder": ["condition", "actor_action", "system_result", "scope_or_boundary"],
+    "exceptionOrder": ["normal_rule", "contrast_or_failure", "fallback"],
+    "certaintyLanguage": {"confirmed": "direct_declarative", "inferred": "decision_card_not_body_copy"},
+    "numericEmbedding": "place value, unit and source next to the affected behavior"
+  },
+  "subjectRules": {
+    "player": "use for input, choice and resource commitment",
+    "system": "use for automatic state change and feedback",
+    "runtime_owner": "name frontend, backend or client when ownership changes implementation",
+    "game_object": "use when the object's state transition is the rule focus"
+  },
+  "paragraphGrammar": {
+    "mergeSparseSiblings": true,
+    "splitWhen": ["independent_rule_groups", "different_carrier", "real_ordered_algorithm"],
+    "closeWith": ["failure_result", "repeat_limit", "reset_or_retention"]
+  },
+  "chapterGrammar": {
+    "fixedTemplateForbidden": true,
+    "leadChoice": {"overview": "player_goal", "interaction": "trigger_or_input", "configuration": "behavior_meaning", "algorithm": "global_invariants"},
+    "crossReferenceInsteadOfRepeat": true
+  },
+  "omissionRules": {
+    "noEvidence": "omit_or_decision_card",
+    "noImplementationValue": "omit",
+    "alreadyCarriedElsewhere": "do_not_repeat"
+  }
+}

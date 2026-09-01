@@ -1,0 +1,16 @@
+:root { color-scheme: dark; --bg:#101318; --panel:#171b22; --line:#2a303a; --text:#edf1f6; --muted:#9aa5b4; --accent:#a9e34b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:15px/1.75 "Microsoft YaHei",sans-serif; }
+.topbar { position:sticky; top:0; z-index:2; display:flex; justify-content:space-between; align-items:center; padding:20px max(24px,calc((100vw - 1040px)/2)); background:rgba(16,19,24,.94); border-bottom:1px solid var(--line); backdrop-filter:blur(12px); }
+h1 { margin:0; font-size:24px; } .eyebrow { margin:0 0 3px; color:var(--accent); font-size:11px; letter-spacing:.15em; text-transform:uppercase; }
+.score { color:var(--muted); } .score strong { color:var(--accent); font-size:24px; }
+.tabs { display:flex; gap:8px; max-width:1040px; margin:24px auto 0; padding:0 24px; }
+.tabs button { padding:9px 15px; color:var(--muted); background:transparent; border:1px solid var(--line); border-radius:9px; cursor:pointer; }
+.tabs button.active { color:#101318; background:var(--accent); border-color:var(--accent); }
+main { max-width:1040px; margin:16px auto 80px; padding:0 24px; }
+main.flow-wide { max-width:1480px; }
+.document { padding:34px 46px; background:var(--panel); border:1px solid var(--line); border-radius:16px; }
+.document h1 { margin:0 0 28px; font-size:30px; }.document h2 { margin:34px 0 13px; padding-bottom:8px; border-bottom:1px solid var(--line); }.document h3 { margin:26px 0 10px; }.document h4,.document h5 { margin:20px 0 8px; }
+.document ul,.document ol { padding-left:24px; }.document li { margin:7px 0; }.document table { width:100%; border-collapse:collapse; }.document th,.document td { padding:8px 10px; border:1px solid var(--line); text-align:left; }
+.table-scroll,.diagram-canvas,.native-board-canvas{overflow:auto}.diagram-card,.native-board-card{margin:0 0 28px}.diagram-canvas,.native-board-canvas{padding:16px;border:1px solid var(--line);border-radius:14px;background:#fbfaff}.diagram-canvas svg,.native-board-canvas svg{display:block;width:100%;height:auto}.native-board-canvas{max-height:78vh}.native-board-canvas svg{min-width:1180px}
+@media(max-width:700px){.document{padding:24px 20px}.topbar{padding:16px 20px}.score{display:none}.diagram-canvas svg{width:980px}}

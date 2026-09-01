@@ -1,0 +1,4 @@
+interface:
+  display_name: "����֤�ݶ���"
+  short_description: "Align speech, subtitles, sound cues, frames, and video events"
+  default_prompt: "Use $video-audio-evidence-aligner to align audio, subtitle, and visual evidence on one timeline."

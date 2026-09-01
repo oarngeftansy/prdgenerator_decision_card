@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "feedback-regression-baseline-v1",
+  "projectId": "yilu-kuangbiao",
+  "records": [
+    {
+      "feedbackId": "PF-20260820-01",
+      "feedback": "攻击职责边界",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_rule_intelligence_pipeline.py::test_attack_mode_semantic_correction_also_repairs_legacy_schema_slot"]
+    },
+    {
+      "feedbackId": "PF-20260820-02",
+      "feedback": "普通怪生命周期",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_final_mechanic_reconstruction.py::test_default_death_count_and_clear_timing_stays_internal_without_becoming_final_gap", "tests/test_final_mechanic_reconstruction.py::test_special_death_state_behavior_remains_a_publishable_planning_gap", "tests/test_final_mechanic_reconstruction.py::test_contact_damage_rewrites_attack_exit_template_into_specific_planning_decision"]
+    },
+    {
+      "feedbackId": "PF-20260820-03",
+      "feedback": "载具持续 Movement 与 SpeedChange",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_requirement_temporal_probe.py::test_stable_low_then_high_rate_creates_speed_change_candidate_without_config_or_trigger", "tests/test_gameplay_review_service.py::test_speed_change_review_promotes_fact_and_rule_then_keeps_trigger_gap_specific"]
+    },
+    {
+      "feedbackId": "PF-20260820-04",
+      "feedback": "Pattern 不得升级为 Formula",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_rule_intelligence_pipeline.py::test_observed_sequence_is_inferred_pattern_not_formula"]
+    },
+    {
+      "feedbackId": "PF-20260820-05",
+      "feedback": "CandidateType 边界",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_final_mechanic_reconstruction.py::test_candidate_types_are_explicit_and_generic_candidate_nouns_are_not_a_complete_mechanism"]
+    },
+    {
+      "feedbackId": "PF-20260820-06",
+      "feedback": "Victory Owner 与 Result Closure",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_rule_intelligence_pipeline.py::test_ownerless_result_transition_uses_unique_outcome_schema_owner", "tests/test_rule_intelligence_pipeline.py::test_victory_rule_has_one_full_definition_and_other_uses_are_references"]
+    },
+    {
+      "feedbackId": "PF-20260824-07",
+      "feedback": "Approved Narrative 到 Structured Rule Recovery",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_final_mechanic_reconstruction.py::test_confirmed_overview_result_rule_recovers_required_slot_once_and_closes_gap", "tests/test_final_mechanic_reconstruction.py::test_unreviewed_overview_cannot_recover_project_rule_or_close_required_slot"]
+    },
+    {
+      "feedbackId": "PF-20260824-08",
+      "feedback": "Recovered Rule Dependency Closure",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_final_mechanic_reconstruction.py::test_recovered_victory_rule_closes_referenced_mechanics_instead_of_dangling"]
+    },
+    {
+      "feedbackId": "PF-20260824-09",
+      "feedback": "Derived Trivial Consequence",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_final_mechanic_reconstruction.py::test_trivial_target_clause_is_removed_without_dropping_non_trivial_death_processing"]
+    },
+    {
+      "feedbackId": "PF-20260824-10",
+      "feedback": "Run-specific Observation 不得升级为 General Rule",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_final_mechanic_reconstruction.py::test_run_specific_reward_value_is_not_promoted_to_general_rule"]
+    },
+    {
+      "feedbackId": "PF-20260824-11",
+      "feedback": "Temporal Mechanic Completeness",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_temporal_probe_production_integration.py::test_t2_generate_gameplay_review_executes_and_persists_temporal_evidence"]
+    },
+    {
+      "feedbackId": "PF-20260824-12",
+      "feedback": "Mechanic Semantic Grouping 与 Narrative Ordering",
+      "expectedStatus": "fully_reflected",
+      "testIds": ["tests/test_final_mechanic_reconstruction.py::test_compound_trigger_generation_is_decomposed_into_stable_narrative_order"]
+    }
+  ]
+}

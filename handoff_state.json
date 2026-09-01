@@ -1,0 +1,27 @@
+{
+  "updatedAt": "2026-08-26T20:00:00+08:00",
+  "authoritativeContext": "docs/handoff/CURRENT_SESSION_HANDOFF.md",
+  "workspace": "C:\\Users\\momoca\\Documents\\ai策划案\\prdgenerator_decision_card",
+  "branch": "codex/planner-decision-card",
+  "applicationCandidateCommit": "3c3d954a677eacdd7f720bb1e990d8af14d131c4",
+  "applicationCandidateParent": "b80870d248c1ae9470ebdffa218f6f8502db6e56",
+  "phase": "planner-tool-stabilization-awaiting-formal-deploy-verification",
+  "verification": {"python": "1652 passed", "frontend": "492 passed", "focused": "137 passed", "formalDesktopQa": "pending"},
+  "github": {"branch": "codex/planner-decision-card", "treeEquivalent": true, "status": "handoff HEAD pushed and tree-verified through controlled GitHub API; re-read exact remote SHA"},
+  "svn": {"status": "handoff synced; re-read manifest revision/sourceCommit", "applicationCandidate": "3c3d954"},
+  "deployment": {
+    "url": "http://192.168.50.210:8010/",
+    "scope": "desktop",
+    "status": "not proven live",
+    "missingCapability": "evidence-grounded-gameplay-review-v1",
+    "missingFrontendMarkers": ["当前环节缺少已确认的玩家操作", "当前环节尚未满足确认条件"],
+    "brandUpdatePath": "artifacts/deploy-brand-update-20260825-15bfa38/3c3d954/brand-update-3c3d954.exe",
+    "brandUpdateSha256": "E05D52515B8D49C8B21788F44C35B464585F34D40BC54EE0853724E737F81CD3"
+  },
+  "sultanAcceptance": {"materialFolder": "C:\\Users\\momoca\\Desktop\\苏丹的游戏", "images": 18, "videos": 1, "status": "not started"},
+  "legacyYilu": {"status": "out of current iteration scope; read-only regression fixture only", "contentMutationAllowed": false},
+  "protectedFile": "scripts/publish_current_alignment_to_feishu.py",
+  "planningSketchPaused": true,
+  "phase3Started": false,
+  "secretsIncluded": false
+}

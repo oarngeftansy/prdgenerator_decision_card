@@ -1,0 +1,4 @@
+interface:
+  display_name: "�糡���¼�Э��"
+  short_description: "Reconcile events, states, and conflicts across video scenes"
+  default_prompt: "Use $temporal-event-reconciler to reconcile this video analysis into one consistent timeline and fact table."

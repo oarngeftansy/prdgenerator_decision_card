@@ -1,0 +1,166 @@
+{
+  "version": "mechanic-reconstruction-v1",
+  "policyBindings": {
+    "candidateTypeResolution": {
+      "policyId": "ontology.candidate_type_resolution",
+      "lessonRefs": ["LESSON-CANDIDATE-TYPE-RESOLUTION"]
+    },
+    "ruleValue": {
+      "policyId": "publication.rule_value",
+      "lessonRefs": ["LESSON-RULE-PUBLICATION-VALUE"]
+    },
+    "runSpecificObservation": {
+      "policyId": "authority.run_specific_observation",
+      "lessonRefs": ["LESSON-RUN-SPECIFIC-EVIDENCE-BOUNDARY"]
+    },
+    "narrativeOrdering": {
+      "policyId": "renderer.mechanic_narrative_order",
+      "lessonRefs": ["LESSON-MECHANIC-NARRATIVE-ORDERING"]
+    }
+  },
+  "intentOrder": [
+    "Spawn", "Movement", "TargetSelection", "AttackDirection", "AttackMode",
+    "AttackTrigger", "AttackInterval", "Range", "Damage", "Death", "Reward",
+    "CandidateGeneration", "VictoryCondition", "FailureCondition", "ResultTransition"
+  ],
+  "slotOrder": [
+    "spawn_trigger", "spawn_source", "movement_trigger", "movement_direction", "movement_control",
+    "attack_target", "attack_direction", "attack_method", "attack_trigger", "attack_frequency", "attack_range", "damage",
+    "selection_pause", "random_trigger", "candidate_pool_source", "candidate_selection", "candidate_effect", "effect_parameter", "selection_exit",
+    "refresh_rule", "refresh_cost", "victory_condition", "failure_condition", "result_transition"
+  ],
+  "semanticGroupOrder": [
+    "trigger", "state_entry", "candidate_generation", "candidate_types", "selection",
+    "effect", "state_exit", "refresh", "numeric_examples", "other"
+  ],
+  "semanticGroupBySlot": {
+    "random_trigger": "trigger",
+    "selection_pause": "state_entry",
+    "candidate_pool_source": "candidate_generation",
+    "candidate_selection": "selection",
+    "candidate_effect": "effect",
+    "selection_exit": "state_exit",
+    "selection_interface_exit": "state_exit",
+    "refresh_rule": "refresh",
+    "refresh_cost": "refresh",
+    "effect_parameter": "numeric_examples"
+  },
+  "compoundSemanticClauses": [
+    {
+      "sourceGroup": "trigger",
+      "patterns": [
+        {
+          "pattern": "^(.+?)升级触发时(生成.+)$",
+          "captures": [
+            {"group": 1, "semanticGroup": "trigger", "template": "{0}升级时触发选择"},
+            {"group": 2, "semanticGroup": "candidate_generation"}
+          ]
+        },
+        {
+          "pattern": "^(.+?触发选择)(?:并|后)(生成.+)$",
+          "captures": [
+            {"group": 1, "semanticGroup": "trigger"},
+            {"group": 2, "semanticGroup": "candidate_generation"}
+          ]
+        }
+      ]
+    }
+  ],
+  "inlineInteractionGroups": ["selection", "effect", "state_exit", "refresh"],
+  "interactionJoiner": "，随后",
+  "actorSubjects": ["系统", "玩家", "界面"],
+  "finalExcludedRuleTypes": ["presentation"],
+  "nonExecutableRulePatterns": ["存在消耗或替代条件", "核心规则", "根据既定规则", "正常情况下"],
+  "canonicalOwnerFamilies": [
+    {
+      "intents": ["VictoryCondition", "FailureCondition", "ResultTransition"],
+      "anchorIntents": ["FailureCondition", "ResultTransition"],
+      "sameSystem": true
+    }
+  ],
+  "mechanicVariants": [
+    {
+      "variantId": "contact_damage_flow",
+      "requiredIntents": ["Spawn", "Movement", "Damage"],
+      "evidencePatterns": ["接触.*(?:伤害|扣除生命)"],
+      "notApplicableSlots": ["attack_target", "AttackTrigger"],
+      "gapRewrites": [
+        {
+          "sourceSlots": ["attack_exit", "attack_exit_condition", "AttackExit"],
+          "targetSlot": "contact_resolution",
+          "question": "接触造成伤害后，怪物是继续移动、停留攻击，还是离开战场？"
+        }
+      ]
+    }
+  ],
+  "candidateTypes": [
+    {"candidateType": "NewWeapon", "patterns": ["新武器", "获得武器"]},
+    {"candidateType": "Weapon", "patterns": ["候选卡.*(?:对应|显示).*武器", "玩家选择武器后"]},
+    {"candidateType": "WeaponUpgradeOrModifier", "patterns": ["武器强化", "武器升级", "强化或武器", "词条"]}
+  ],
+  "candidateTypeLabels": {
+    "NewWeapon": "新武器",
+    "Weapon": "武器",
+    "WeaponUpgradeOrModifier": "武器强化 / 词条"
+  },
+  "schemaQuestionPatterns": [
+    "核心规则是什么", "依次执行哪些", "读取哪项配置", "结果传递给哪个对象",
+    "内容清单的核心规则是什么"
+  ],
+  "technicalQuestionPatterns": [
+    "配置字段", "读取哪项配置", "传递给哪个对象", "接口", "表名", "数据源"
+  ],
+  "finalGapRequirementPolicy": {
+    "publishableClasses": [
+      "player_visible_design_decision",
+      "planner_choice_required",
+      "special_project_behavior"
+    ],
+    "implicitSystemReferenceKinds": ["remaining_count_zero"],
+    "implicitSystemPatterns": [
+      "(?:死亡|被击败)后何时(?:移除|从.{0,12}扣除|计入).{0,24}(?:存活|剩余|数量|清空)",
+      "最后.{0,12}(?:死亡|移除)后何时.{0,20}(?:检查|判定).{0,12}清空"
+    ],
+    "playerVisibleDecisionPatterns": [
+      "接触.{0,20}(?:继续移动|停留|消失|离开战场)",
+      "(?:继续移动|停留攻击|立即消失|离开战场)"
+    ],
+    "specialProjectBehaviorPatterns": [
+      "延迟计数", "复活", "尸体", "死亡动画.{0,16}(?:占位|存活)", "死亡后仍"
+    ]
+  },
+  "planningGapSpecificityRules": [
+    {
+      "sourceSlots": ["victory_condition", "VictoryCondition"],
+      "decisionKey": "victory_condition",
+      "questionTemplate": "当前已确认失败条件；{subject}以什么事件判定胜利？"
+    },
+    {
+      "sourceSlots": ["pool_entry_condition"],
+      "decisionKey": "candidate_type_eligibility",
+      "requiresCandidateTypes": true,
+      "questionTemplate": "{candidateTypes}是否共用同一入选条件；若不共用，分别是什么？",
+      "singleTypeQuestionTemplate": "{candidateTypes}进入抽取范围需要满足什么条件？"
+    },
+    {
+      "sourceSlots": ["confirm_effect_timing", "selection_exit"],
+      "decisionKey": "selection_result_transition",
+      "questionTemplate": "选择完成后，效果何时生效，战斗何时恢复？"
+    },
+    {
+      "sourceSlots": ["refresh_cost"],
+      "decisionKey": "refresh_cost",
+      "questionTemplate": "刷新是否消耗资源或需要其他条件；若存在，具体消耗与扣除时点是什么？"
+    },
+    {
+      "sourceSlots": ["roulette_stop"],
+      "decisionKey": "roulette_result_timing",
+      "questionTemplate": "滚动在什么条件下停止，最终获得结果在什么时点确定？"
+    },
+    {
+      "sourceSlots": ["spawn_trigger", "spawn_stop_condition"],
+      "decisionKey": "spawn_window",
+      "questionTemplate": "{subject}在当前阶段何时开始生成，满足什么条件后停止生成？"
+    }
+  ]
+}

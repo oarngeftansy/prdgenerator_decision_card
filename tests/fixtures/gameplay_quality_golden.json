@@ -1,0 +1,32 @@
+[
+  {
+    "name": "可制作的战斗机制",
+    "expectedPassed": true,
+    "model": {
+      "systems": [{"name": "战斗系统"}],
+      "directory": {"understanding": {"summary": "玩家控制单位战斗并推进。"}, "entries": []},
+      "chapters": [{
+        "id": "GCH-001", "scope": "战斗处理", "sourceFrameIds": ["F0001"],
+        "mechanism": {"type": "custom", "rules": "攻击有效目标并处理结果。"},
+        "plannerSummary": "单位攻击有效目标，目标失效后继续推进。",
+        "plannerSections": {
+          "normalFlow": ["选择有效目标并攻击。"],
+          "keyRules": ["目标失效后重新选择目标。"],
+          "specialCases": ["没有目标时保持当前状态。"],
+          "acceptanceExamples": ["击败目标后能够继续推进。"]
+        },
+        "acceptanceCases": [{"scene": "正常战斗", "action": "击败目标", "expected": "继续推进"}],
+        "dependencies": []
+      }]
+    }
+  },
+  {
+    "name": "空泛看图描述",
+    "expectedPassed": false,
+    "model": {
+      "systems": [{"name": "玩法系统"}],
+      "directory": {"understanding": {"summary": "这是一个玩法。"}, "entries": []},
+      "chapters": [{"id": "GCH-001", "plannerSummary": "画面中出现一个按钮。", "plannerSections": {}}]
+    }
+  }
+]

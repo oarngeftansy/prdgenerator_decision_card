@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "stage": 3,
+  "status": "in_progress",
+  "evidenceStatus": "invalidated_for_rebuild",
+  "invalidationReasons": [
+    "旧证据把九类后台审核日志平铺成重复卡片，不能证明对应验收目标",
+    "部分正例依赖自我声明或过弱测试数据，未达到飞书样例的实际颗粒度",
+    "配置型机制曾允许正文替代配置表完成载体校验，门禁结论不可信",
+    "必须逐用例重新核对测试输入、预期失败方式、真实门禁输出和可读截图"
+  ],
+  "rules": {
+    "caseCount": 30,
+    "allowMergedCaseIds": false,
+    "allowInjectedAuditResult": false,
+    "requireUniqueInput": true,
+    "requireUniqueBodyHash": true,
+    "requireUniqueScreenshotHash": true,
+    "requireVisibleCaseIdentity": true,
+    "requireHumanImageInspection": true,
+    "requireOfficialJobRestoration": true
+    ,"requireActionableRemediationOnFailure": true
+  },
+  "cases": [
+    {"id":"S3-TC01","group":"provenance","title":"两份样例完整覆盖","input":"两份样例的完整章节、表格、公式、画板与图片节点","assertions":["两份样例均有修订号","章节类型覆盖不局限于生命周期","所有载体均进入清单"]},
+    {"id":"S3-TC02","group":"provenance","title":"十条样例原句逐句溯源","input":"跨两份样例选择的十条原句","assertions":["策划可读字段全部为中文","每句包含原文块ID","每句包含依据、内容作用、语言组织与省略逻辑"]},
+    {"id":"S3-TC03","group":"provenance","title":"直接事实与推断分离","input":"截图、视频、参考文档和推断各一组","assertions":["四类来源分别呈现","推断不得伪装成直接事实"]},
+    {"id":"S3-TC04","group":"provenance","title":"上下文推断链","input":"存在两个合理解释的时序素材","assertions":["包含前提和步骤","包含替代解释及排除理由","包含可信度与发布许可"]},
+    {"id":"S3-TC05","group":"provenance","title":"越界推断反例","input":"只有页面截图的稀疏素材","assertions":["不得推出公式概率","不得推出存储与服务端职责","不得推出重置或刷新规则"]},
+    {"id":"S3-TC06","group":"provenance","title":"作者省略逻辑","input":"无证据、无制作价值、表格承载、画板承载四组事实","assertions":["四类省略原因可区分","省略不等于信息缺失"]},
+    {"id":"S3-TC07","group":"provenance","title":"载体分工","input":"同时含空间关系、配置值与行为规则的机制","assertions":["画板承载空间关系","表格承载字段值","正文承载行为与因果","公式只承载计算关系"]},
+    {"id":"S3-TC08","group":"provenance","title":"样例专属内容隔离","input":"蒸馏后的规则与Skill","assertions":["不存在矿坑或组队等撤销归因","不存在样例专属数值和固定目录"]},
+    {"id":"S3-TC09","group":"granularity","title":"章节内容构成逆向","input":"三个结构不同的样例章节","assertions":["逐部分解释回答的问题","逐部分解释出现依据与位置"]},
+    {"id":"S3-TC10","group":"granularity","title":"九类信息完整覆盖","input":"覆盖九类信息的复杂机制","assertions":["九个维度逐项输出","每项绑定来源与正文位置"]},
+    {"id":"S3-TC11","group":"granularity","title":"适用与不适用判定","input":"仅部分维度有证据的机制","assertions":["每项为需要、缺失或不适用","不适用包含依据","不按空字段机械判缺失"]},
+    {"id":"S3-TC12","group":"granularity","title":"复杂章节等价颗粒度","input":"证据充分的完整复杂机制","assertions":["由真实审核链放行","达到样例的信息密度、因果链和执行深度","禁止预设通过结果"]},
+    {"id":"S3-TC13","group":"granularity","title":"复杂章节浅写阻断","input":"有充分证据但只写概述和三步列表的机制","assertions":["真实审核器自行阻断","指出具体缺失事实而非内部字段名","逐项给出来源、补写位置、改善动作、影响范围和复验条件"]},
+    {"id":"S3-TC14","group":"granularity","title":"简单章节不过度扩写","input":"载具自动前进与横向拖动","assertions":["保持自然短文","只保留有依据的边界","不生成公式配置或生命周期模板"]},
+    {"id":"S3-TC15","group":"granularity","title":"配置型机制","input":"正文行为依据与独立配置表","assertions":["正文解释字段用途","具体值只在表格","审核器识别载体分工"]},
+    {"id":"S3-TC16","group":"granularity","title":"顺序型机制","input":"顺序影响结果且含异常中断的流程","assertions":["输入、步骤、结果和异常完整","仅真实步骤使用编号"]},
+    {"id":"S3-TC17","group":"granularity","title":"计算型机制","input":"完整公式依据与缺少操作数两组计算素材","assertions":["完整组包含变量、顺序、取整和算例","不完整组不编造算例"]},
+    {"id":"S3-TC18","group":"granularity","title":"生命周期型机制","input":"涉及暂存、保存、中断恢复和结束重置的素材","assertions":["只核对证据涉及的阶段","各阶段范围清晰"]},
+    {"id":"S3-TC19","group":"granularity","title":"边界与失败分支","input":"含资源不足、候选不足和状态冲突的机制","assertions":["边界贴近受影响规则","结果可执行且不含空泛提示"]},
+    {"id":"S3-TC20","group":"granularity","title":"跨章节去重","input":"同一事实被多个章节引用的模型","assertions":["主章节完整说明","其他章节仅作短引用","无整段复制"]},
+    {"id":"S3-TC21","group":"language","title":"章节结构动态选择","input":"简单、顺序、配置、计算四类机制","assertions":["四种输出结构不同","不存在固定标题序列"]},
+    {"id":"S3-TC22","group":"language","title":"小标题合并","input":"多个仅一两句的相邻规则","assertions":["稀疏内容合并到业务大节","充足独立主题才保留小标题"]},
+    {"id":"S3-TC23","group":"language","title":"句子组织顺序","input":"包含条件、主体、动作、反馈、结果和边界的事实链","assertions":["条件前置","主体和动作明确","结果与边界顺序自然"]},
+    {"id":"S3-TC24","group":"language","title":"主语与责任表达","input":"玩家、系统、客户端和服务端共同参与的时序","assertions":["各动作主语与职责一致","不存在无主体机器式描述"]},
+    {"id":"S3-TC25","group":"language","title":"废话和内部术语阻断","input":"含无信息开场、总结和内部术语的正文","assertions":["真实语言审核器阻断","逐句指出问题","提供可直接执行的删改建议和复验标准"]},
+    {"id":"S3-TC26","group":"language","title":"表格与正文重复阻断","input":"正文逐项复述配置表的章节","assertions":["真实审核器定位重复内容","明确保留载体、删除位置和去重后的复验条件"]},
+    {"id":"S3-TC27","group":"transfer","title":"三类非样例双盲迁移","input":"简单、交互、算法三份非样例素材","assertions":["先事实建模再语言组织","三份结构不同","无样例专属内容"]},
+    {"id":"S3-TC28","group":"delivery","title":"P7与飞书同源","input":"同一确认模型的浏览器和飞书渲染","assertions":["章节顺序一致","规则结论一致","表格分工与措辞一致"]},
+    {"id":"S3-TC29","group":"delivery","title":"真实门禁闭环","input":"真实通过、颗粒度缺失、语言退化三份独立模型","assertions":["审核结果由真实链计算","导出状态随结果变化","禁止审核结果注入","每个失败状态均显示改善路径并说明修复后重新检查的位置"]},
+    {"id":"S3-TC30","group":"integrity","title":"证据完整性与任务恢复","input":"全部二十九条用例产物和正式任务哈希","assertions":["每条输入、正文和截图哈希唯一","无错图与重复图","正式任务前后哈希一致"]}
+  ]
+}

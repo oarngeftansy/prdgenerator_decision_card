@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "S3-TC12", "expectedPassed": true,
+      "model": {"chapters": [{"id":"TC12","scope":"奖励候选生成","mechanism":{"type":"random_pool"},"granularityEvidence":{"contentInventory":{"sourceIds":["DOC-R1"],"requiredFacts":["候选池由普通奖励和稀有奖励组成","同一奖励只保留一个候选记录"]},"executionSequence":{"sourceIds":["DOC-R2"],"requiredFacts":["排除未解锁奖励","排除本局已经出现的奖励","来源优先级相同时按配置顺序排序","依次填充两个候选位"]},"boundary":{"sourceIds":["DOC-R3"],"requiredFacts":["候选不足两个时只展示实际可用结果","候选池为空时不打开选择页"]},"lifecycle":{"sourceIds":["DOC-R4"],"sourceType":"reference_document","requiredFacts":["候选结果在确认前暂存","确认后清空","退出选择页时保留本轮候选"]},"runtimeResponsibility":{"sourceIds":["DOC-R5"],"sourceType":"reference_document","requiredFacts":["服务端生成候选","客户端按候选位顺序展示","客户端不得自行补位"]}},"contentInventory":["候选池由普通奖励和稀有奖励组成","同一奖励只保留一个候选记录"],"executionSequence":["排除未解锁奖励","排除本局已经出现的奖励","来源优先级相同时按配置顺序排序","依次填充两个候选位"],"boundaryRules":["候选不足两个时只展示实际可用结果","候选池为空时不打开选择页"],"lifecycle":["候选结果在确认前暂存","退出选择页时保留本轮候选","确认后清空"],"runtimeResponsibilities":["服务端生成候选","客户端按候选位顺序展示","客户端不得自行补位"],"plannerSections":{"summary":"系统从普通奖励和稀有奖励中生成本轮候选。"}}]}
+    },
+    {
+      "id": "S3-TC13", "expectedPassed": false,
+      "model": {"chapters": [{"id":"TC13","scope":"奖励候选浅写","mechanism":{"type":"random_pool"},"granularityEvidence":{"executionSequence":{"sourceIds":["DOC-S1"],"requiredFacts":["排除未解锁奖励","排除本局已经出现的奖励","按来源表优先级排序"]},"boundary":{"sourceIds":["DOC-S2"],"requiredFacts":["候选不足时只展示已有结果"]}},"executionSequence":["系统筛选奖励","生成候选","展示结果"],"plannerSections":{"summary":"系统筛选奖励后展示候选。"}}]}
+    },
+    {
+      "id": "S3-TC14", "expectedPassed": true,
+      "model": {"chapters": [{"id":"TC14","scope":"载具移动","mechanism":{"type":"simple_state"},"granularityEvidence":{"boundary":{"sourceIds":["FRAME-M2"],"requiredFacts":["拖动超出可移动范围时停在边界"]},"formula":{"applicable":false,"notApplicableReason":"画面没有提供计算关系"},"configuration":{"applicable":false,"notApplicableReason":"素材没有配置字段"}},"boundaryRules":["拖动超出可移动范围时停在边界"],"plannerSections":{"summary":"进入战斗后，载具沿路线自动前进；玩家拖动载具时，只改变横向位置。"}}]}
+    },
+    {
+      "id": "S3-TC15", "expectedPassed": true,
+      "model": {"chapters": [{"id":"TC15","scope":"挑战消耗","mechanism":{"type":"configuration"},"granularityEvidence":{"configuration":{"sourceIds":["TABLE-C1"],"sourceType":"configuration_table","requiredFacts":["确认进入挑战时扣除","挑战失败时返还"],"requiredColumns":["字段","单位","默认值","范围","扣除时机","失败处理","配置来源"]}},"parameterSchema":[{"name":"挑战券消耗","unit":"张","defaultValue":"1","range":"1–10","deductionTiming":"确认进入挑战时扣除","failurePolicy":"挑战失败时返还","sourceId":"TABLE-C1"}],"plannerSections":{"summary":"玩家确认进入挑战时扣除挑战券；挑战失败时返还本次消耗。"}}],"tables":[{"id":"TABLE-C1","chapterIds":["TC15"],"status":"reviewed","rows":[["字段","单位","默认值","范围","扣除时机","失败处理","配置来源"],["挑战券消耗","张","1","1–10","确认","返还","挑战配置表"]]}]}
+    },
+    {
+      "id": "S3-TC16", "expectedPassed": true,
+      "model": {"chapters": [{"id":"TC16","scope":"波次生成","mechanism":{"type":"ordered_sequence"},"granularityEvidence":{"executionSequence":{"sourceIds":["DOC-W1"],"ordered":true,"requiredFacts":["读取本波怪物组","按组内顺序生成怪物","等待配置间隔后生成下一只","怪物组为空时结束本波"]}},"executionSequence":["读取本波怪物组","按组内顺序生成怪物","等待配置间隔后生成下一只","怪物组为空时结束本波"],"plannerSections":{"summary":"系统读取本波怪物组，按组内顺序逐只生成；每只之间等待配置间隔，怪物组为空时结束本波。"}}]}
+    },
+    {
+      "id": "S3-TC17", "expectedPassed": true,
+      "model": {"chapters": [{"id":"TC17","scope":"伤害展示比例","mechanism":{"type":"calculation"},"granularityEvidence":{"formula":{"sourceIds":["DOC-D1","TABLE-D2"],"sourceType":"reference_document","requiredFacts":["先计算每个单位的每秒伤害","显示比例=当前单位每秒伤害÷本组最高每秒伤害×100%","显示比例向下取整","向下取整后显示51%"]}},"formulae":[{"variables":["当前单位每秒伤害","本组最高每秒伤害"],"sequence":"先计算每个单位的每秒伤害","expression":"显示比例=当前单位每秒伤害÷本组最高每秒伤害×100%","rounding":"显示比例向下取整","example":"当前单位每秒伤害为827且最高值为1601时，827÷1601×100%=51.65%，向下取整后显示51%","sources":["DOC-D1","TABLE-D2"]}],"plannerSections":{"summary":"系统先计算每个单位的每秒伤害，再以最高每秒伤害为百分之百换算显示比例，结果向下取整。"}}]}
+    },
+    {
+      "id": "S3-TC18", "expectedPassed": true,
+      "model": {"chapters": [{"id":"TC18","scope":"局内货币保存","mechanism":{"type":"lifecycle"},"granularityEvidence":{"lifecycle":{"sourceIds":["DOC-L1"],"sourceType":"reference_document","requiredFacts":["获得后立即计入本局余额","中断后恢复本局余额","正常结算后清空","异常退出不清空本局余额"]}},"lifecycle":["获得后立即计入本局余额","中断后恢复本局余额","异常退出不清空本局余额","正常结算后清空"],"plannerSections":{"summary":"局内货币获得后立即计入本局余额；中断重进时恢复该余额；异常退出不清空，正常结算后清空。"}}]}
+    },
+    {
+      "id": "S3-TC19", "expectedPassed": true,
+      "model": {"chapters": [{"id":"TC19","scope":"奖励刷新边界","mechanism":{"type":"boundary"},"granularityEvidence":{"boundary":{"sourceIds":["DOC-B1"],"requiredFacts":["刷新次数为零时按钮不可用","候选池为空时保留当前结果","资源不足时不扣除资源"]}},"boundaryRules":["刷新次数为零时按钮不可用","候选池为空时保留当前结果","资源不足时不扣除资源"],"plannerSections":{"summary":"玩家点击刷新后重新生成候选；刷新次数为零时按钮不可用，候选池为空时保留当前结果，资源不足时不扣除资源。"}}]}
+    }
+  ]
+}

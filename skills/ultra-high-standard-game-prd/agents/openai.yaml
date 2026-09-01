@@ -1,0 +1,4 @@
+interface:
+  display_name: "超高标准游戏策划案"
+  short_description: "将证据草稿升级为可执行、可验收的 GVE16 策划案"
+  default_prompt: "使用 $ultra-high-standard-game-prd 将当前视频分析升级为样例颗粒度的高标准策划案。"

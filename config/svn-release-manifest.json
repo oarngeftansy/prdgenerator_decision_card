@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "svn-release-manifest-v1",
+  "sourceMode": "git_head_plus_dependency_whitelist",
+  "targetDirectoryName": "ai_gamedesigntool",
+  "dependencyRoots": [
+    "runtime_packages_server",
+    "runtime_packages_pytest"
+  ],
+  "excludeNames": [
+    ".git",
+    ".svn",
+    ".pytest_cache",
+    "__pycache__",
+    ".test-tmp",
+    ".tmp",
+    "node_modules"
+  ],
+  "secretPatterns": [
+    "credentials.json",
+    "credential*.json",
+    ".env",
+    ".env.*",
+    "id_rsa",
+    "id_ed25519",
+    "*.pfx",
+    "*.p12"
+  ],
+  "allowedSecretTemplateNames": [
+    ".env.example"
+  ],
+  "requiredEntryPoints": [
+    "index.html",
+    "backend/server.py",
+    "scripts/run-isolated-server.py"
+  ],
+  "releaseMetadataFiles": [
+    "release-manifest.json",
+    "sha256sums.json"
+  ]
+}

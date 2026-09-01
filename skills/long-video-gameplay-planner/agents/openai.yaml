@@ -1,0 +1,4 @@
+interface:
+  display_name: "����Ƶ�淨�߻�"
+  short_description: "Analyze long gameplay videos into evidence-backed game plans"
+  default_prompt: "Use $long-video-gameplay-planner to analyze this gameplay video and produce an evidence-backed design document."

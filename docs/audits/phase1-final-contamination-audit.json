@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "phase1-final-contamination-audit-v1",
+  "baselineHead": "95e89483261846c8c133812c038c5d8dc9287cde",
+  "result": "pass",
+  "publicationSources": {
+    "web": "PublicationProjection",
+    "feishu": "PublicationProjection",
+    "sameSourceContract": true
+  },
+  "contaminationCounts": {
+    "plannerSectionsOnlyContent": 0,
+    "unreviewedProposal": 0,
+    "blockedRule": 0,
+    "candidateKnowledgeAnswer": 0,
+    "presentationOnlyEvidence": 0,
+    "duplicateFullDefinition": 0,
+    "unsupportedFormula": 0,
+    "unsupportedProbability": 0,
+    "internalIdsOrDebugMetadata": 0
+  },
+  "contractTests": [
+    "tests/test_rule_intelligence_pipeline.py::test_ownerless_and_guard_blocked_rules_never_enter_publication",
+    "tests/test_stage3_delivery_integrity.py::test_web_and_feishu_use_the_same_publication_projection_without_final_pollution",
+    "tests/test_gameplay_review_service.py::test_v2_rule_review_undo_and_redo_keep_projection_confirmation_in_sync",
+    "tests/test_current_native_whiteboard_delivery.py::test_current_native_whiteboard_delivery_is_planning_only",
+    "tests/test_full_mechanic_accepted_publication.py",
+    "tests/test_gve16_delivery_alignment_regression.py"
+  ],
+  "fullSuite": {
+    "passed": 1449,
+    "failed": 0,
+    "warnings": 4,
+    "command": "python -m pytest tests -q --basetemp=.pytest_tmp_phase1_closure_final_20260821"
+  }
+}

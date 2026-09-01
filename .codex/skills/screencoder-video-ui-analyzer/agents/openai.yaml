@@ -1,0 +1,4 @@
+interface:
+  display_name: "ScreenCoder 视频 UI 分析"
+  short_description: "从关键帧提取界面结构、组件轨迹与状态变化"
+  default_prompt: "使用 $screencoder-video-ui-analyzer 分析这些视频关键帧，并输出可回链时间戳的 UI 结构证据。"

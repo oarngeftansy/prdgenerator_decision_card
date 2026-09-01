@@ -1,0 +1,4 @@
+interface:
+  display_name: "��Ƶ֤����ȡ"
+  short_description: "Extract traceable scenes, events, components, and timestamps"
+  default_prompt: "Use $video-evidence-extractor to build a traceable scene and event evidence set from this video."

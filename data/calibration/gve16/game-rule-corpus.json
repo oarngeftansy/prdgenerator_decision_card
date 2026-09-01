@@ -1,0 +1,33 @@
+{
+  "corpusId": "GVE16-GAME-RULE-CORPUS-V1",
+  "provisional": true,
+  "contentAuthority": "none",
+  "allowedUse": "identify player-facing rule dimensions only",
+  "forbidden": ["project answers", "project values", "project fields", "project objects", "chapter tree", "gap closure"],
+  "templates": {
+    "movement": {
+      "gameRuleDimensions": ["usage_rule", "state_rule", "limitation_rule", "level_flow_rule", "system_dependency"],
+      "ruleChecks": ["movement_action", "player_control", "movement_boundary", "level_flow_relation", "movement_parameter_basis"]
+    },
+    "attack": {
+      "gameRuleDimensions": ["acquisition_rule", "unlock_rule", "usage_rule", "combat_rule", "progression_rule", "limitation_rule", "system_dependency"],
+      "ruleChecks": ["acquisition", "unlock", "loadout_capacity", "duplicate_acquisition", "replacement", "weapon_types", "attack_method", "targeting", "progression", "modifier_application", "combat_parameter_basis", "combat_limit", "target_system_relation"]
+    },
+    "monster_attack": {
+      "gameRuleDimensions": ["combat_rule", "state_rule", "limitation_rule", "system_dependency"],
+      "ruleChecks": ["attack_trigger", "contact_effect", "damage_mode", "sustained_contact_damage", "combat_limit", "target_system_relation"]
+    },
+    "randomization": {
+      "gameRuleDimensions": ["randomization_rule", "progression_rule", "resource_rule", "state_rule", "limitation_rule", "lifecycle_rule", "system_dependency"],
+      "ruleChecks": ["trigger", "candidate_scope", "owned_content_effect", "prerequisite", "max_level", "duplicate", "weight", "selection_count", "refresh", "refresh_cost", "refresh_count", "effect_application", "run_reset"]
+    },
+    "level_flow": {
+      "gameRuleDimensions": ["level_flow_rule", "progression_rule", "victory_rule", "failure_rule", "reward_rule", "state_rule", "lifecycle_rule", "system_dependency"],
+      "ruleChecks": ["entry", "stage_or_wave", "wave_progress", "spawn_timing", "stop_continue", "player_level_up", "growth_choice_trigger", "victory", "failure", "time_limit", "reward_basis", "run_reset"]
+    },
+    "settlement": {
+      "gameRuleDimensions": ["victory_rule", "failure_rule", "reward_rule", "state_rule", "lifecycle_rule", "system_dependency"],
+      "ruleChecks": ["victory_trigger", "failure_trigger", "reward_calculation", "progress_settlement", "displayed_data", "recorded_data", "run_data_clear"]
+    }
+  }
+}

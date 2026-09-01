@@ -1,0 +1,4 @@
+interface:
+  display_name: "策划案到视觉交付"
+  short_description: "生成 UE 流程、飞书画板和 Figma 可消费结构"
+  default_prompt: "使用 $planning-to-design-handoff 将已校验的 GVE16 模型转换为 schema-ready 视觉交付数据。"

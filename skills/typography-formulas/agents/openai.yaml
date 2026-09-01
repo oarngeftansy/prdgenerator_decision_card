@@ -1,0 +1,3 @@
+display_name: 排版公式
+short_description: 用 54 个排版公式分析、复刻和生成视觉版式
+default_prompt: 使用 54 个排版公式分析这个页面/图片/视频，并给出可复刻的版式建议。

@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ai策划案工具｜移动端交互与玩法策划案</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%23365cff%22/><circle cx=%2232%22 cy=%2232%22 r=%2212%22 fill=%22white%22/></svg>" />
+  <link rel="stylesheet" href="css/style.css?v=ux32" />
+  <link rel="stylesheet" href="css/review-workspace.css?v=review26" />
+  <link rel="stylesheet" href="css/gameplay-review.css?v=gameplay19" />
+  <link rel="stylesheet" href="css/gameplay-diagrams.css?v=gameplay6" />
+  <link rel="stylesheet" href="css/gameplay-tables.css?v=gameplay12" />
+</head>
+<body>
+  <header>
+    <div class="maintenance-announcement" role="status" aria-label="代码重构维护公告">
+      <strong>维护公告：</strong>
+      <span>自 2026/8/26 起，工具将进行代码重构，期间可能出现无法正常使用的情况，属于正常现象。如有优化需求或 Bug，请前往</span>
+      <a href="https://hjjxo8h8vu.feishu.cn/wiki/MQOWwHokkimZakkoa2ycUGwZnib?table=tblpdxq33mhp9eWW&amp;view=vewRNAggZL" target="_blank" rel="noopener noreferrer">Bug 列表 - 0.5 期</a>
+      <span>编辑；紧急问题请反馈至 <strong>@岛岛</strong>。</span>
+    </div>
+    <div class="topbar">
+      <div class="brand">
+        <div>
+          <b>ai策划案工具</b>
+          <span>上传有序截图 → 审核交互流程 → 审核玩法章节 → 导出完整飞书文档</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn secondary-exit" id="copyBtn" type="button">复制策划案</button>
+        <button class="btn secondary-exit" id="downloadBtn" type="button">下载 Markdown</button>
+        <button class="btn warn" id="clearBtn" type="button">清空</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <aside class="left">
+      <section class="panel">
+        <div class="panel-head"><h2>1. 上传交互截图</h2></div>
+        <div class="panel-body">
+          <div class="dropzone" id="dropzone">
+            <strong>选择一组有顺序的交互截图</strong>
+            <p>读取所选文件夹第一层的 JPG、PNG、WebP；默认按文件名自然排序，可在下方调整。</p>
+            <input class="file-input" id="screenshotFolderInput" type="file" accept="image/jpeg,image/png,image/webp" multiple webkitdirectory directory />
+            <button class="btn primary folder-picker" id="selectScreenshotFolderBtn" type="button">选择截图文件夹</button>
+            <div class="folder-meta" id="screenshotFolderMeta">请选择 2–50 张截图</div>
+          </div>
+          <div class="screenshot-validation" id="screenshotValidation" aria-live="polite">请至少选择 2 张截图。</div>
+          <div class="screenshot-preview-list" id="screenshotPreviewList" aria-label="截图顺序"></div>
+          <details class="aux-video-picker">
+            <summary>添加辅助视频（可选）</summary>
+            <p>不改变截图主顺序，仅补充动效与过渡。</p>
+            <input class="file-input" id="auxVideoInput" type="file" accept="video/*" />
+            <button class="btn" id="selectAuxVideoBtn" type="button">选择辅助视频</button>
+            <button class="btn" id="removeAuxVideoBtn" type="button">移除</button>
+            <div id="auxVideoMeta">未添加；不影响截图分析。</div>
+          </details>
+          <div class="stats">
+            <div class="stat"><b id="fileCount">0</b><span>素材</span></div>
+            <div class="stat"><b id="frameCount">0</b><span>关键画面</span></div>
+            <div class="stat"><b id="confirmedCount">0</b><span>已确认</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2>2. 基本信息</h2></div>
+        <div class="panel-body">
+          <div class="field">
+            <label for="projectName">项目名</label>
+            <input id="projectName" type="text" value="移动端交互与玩法策划案" />
+          </div>
+          <div class="field locked-field">
+            <label for="platform">目标平台</label>
+            <select id="platform">
+              <option>Web</option>
+              <option selected>Mobile Web</option>
+              <option>iOS / Android</option>
+              <option>未指定</option>
+            </select>
+          </div>
+          <div class="field locked-field">
+            <span class="field-label">策划流程</span>
+            <input id="projectType" type="hidden" value="interaction" />
+            <div class="mode-help" id="modeHelp">统一生成交互与玩法策划案：先确认玩家操作顺序和页面反馈，再按章节审核玩法规则、数值及必要图示，最终导出一份完整飞书文档。</div>
+          </div>
+          <div class="field">
+            <label for="scope">分析目标 / 补充要求</label>
+            <textarea id="scope">根据有序截图还原玩家操作流程和玩法规则，视频只用于补充截图前后的信息；先确认页面反馈和操作顺序，再按章节审核玩法规则与数值，最终导出一份包含策划草图和玩法正文的飞书文档。</textarea>
+          </div>
+        </div>
+      </section>
+
+      <details class="panel config-details" id="apiConfigPanel" hidden>
+        <summary class="panel-head"><h2>首次配置 · 模型 API</h2><span id="apiConfigSummary">首次使用需填写</span></summary>
+        <div class="panel-body">
+          <div class="notice" id="apiConfigNotice">首次进入请填写视觉模型 API。勾选“仅在本浏览器保存 Key”后，之后重复打开会自动回填，不需要再输入。</div>
+          <div class="field" style="margin-top:12px">
+            <label for="apiKey">API Key</label>
+            <input id="apiKey" type="password" placeholder="sk-..." value="" />
+          </div>
+          <div class="field">
+            <label for="apiUrl">兼容接口 Base URL</label>
+            <input id="apiUrl" type="text" value="https://dashscope.aliyuncs.com/compatible-mode/v1" />
+          </div>
+          <div class="field">
+            <label for="model">模型</label>
+            <input id="model" type="text" value="qwen3.6-plus" />
+          </div>
+          <div class="field">
+            <label for="transcriptionModel">语音转写模型</label>
+            <input id="transcriptionModel" type="text" value="whisper-1" />
+          </div>
+          <div class="field">
+            <label for="transcriptionApiUrl">语音转写 Base URL（留空则同视觉接口）</label>
+            <input id="transcriptionApiUrl" type="text" placeholder="https://api.example.com/v1" />
+          </div>
+          <div class="field">
+            <label for="transcriptionApiKey">语音转写 API Key（留空则同视觉 Key）</label>
+            <input id="transcriptionApiKey" type="password" placeholder="sk-..." />
+          </div>
+          <div class="field">
+            <label for="standardSelect">策划规范版本</label>
+            <select id="standardSelect"><option value="">不使用规范样例</option></select>
+          </div>
+          <div class="confirm-row">
+            <label><input id="rememberKey" type="checkbox" checked> 仅在本浏览器保存 Key</label>
+          </div>
+          <div class="confirm-row" style="margin-top:8px">
+            <label><input id="systematicMode" type="checkbox" checked> 截图序列批量解读（单页事实 → 相邻状态 → 交互链路）</label>
+          </div>
+          <button class="btn primary" id="returnToLastJobBtn" type="button" style="margin-top:12px">保存配置并返回当前工作台</button>
+        </div>
+      </details>
+      <details class="panel config-details standard-library">
+        <summary class="panel-head"><h2>规范样例库</h2><span>按需展开</span></summary>
+        <div class="panel-body compact-form">
+          <input id="standardName" placeholder="规范名称，例如：玩法策划案 V1" />
+          <input id="standardVersion" value="1.0" placeholder="版本" />
+          <textarea id="standardDescription" placeholder="写作要求、术语、章节规范"></textarea>
+          <textarea id="standardPlanExample" placeholder="粘贴理想策划案示例"></textarea>
+          <button class="btn" id="saveStandardBtn" type="button">保存当前方向规范</button>
+        </div>
+      </details>
+    </aside>
+
+    <section class="workspace">
+      <section class="panel" id="historyPanel" hidden>
+        <div class="panel-head"><h2>任务历史</h2><button class="btn" id="refreshHistoryBtn" type="button">刷新</button></div>
+        <div class="history-list" id="historyList"><div class="notice">正在读取任务历史…</div></div>
+      </section>
+      <section class="panel timeline-workbench" id="timelineWorkbench" hidden>
+        <div class="panel-head">
+          <h2>视频时间轴与证据审核</h2>
+          <div class="timeline-meta" id="timelineMeta"></div>
+        </div>
+        <div class="timeline-body">
+          <video id="sourceVideo" controls preload="metadata"></video>
+          <div class="timeline-track" id="sceneTimeline" aria-label="场景时间轴"></div>
+          <div class="timeline-track evidence-track" id="evidenceTimeline" aria-label="证据时间轴"></div>
+          <div class="review-layout">
+            <div><h3>场景</h3><div class="scene-summary-list" id="sceneSummaryList"></div></div>
+            <div><h3>优先审核</h3><div class="review-queue" id="reviewQueue"></div></div>
+          </div>
+        </div>
+      </section>
+      <section class="panel review-workspace" id="reviewWorkspace" hidden aria-labelledby="reviewWorkspaceTitle">
+        <header class="review-workspace-header">
+          <div class="review-workspace-title">
+            <h2 id="reviewWorkspaceTitle">交互与玩法审核工作台</h2>
+            <span id="reviewSaveStatus" aria-live="polite">已保存</span>
+          </div>
+          <div class="review-workspace-actions">
+            <button class="btn" id="reviewProjectDrawerToggle" type="button" aria-expanded="false" aria-controls="reviewProjectDrawer">项目</button>
+            <nav class="review-step-nav" aria-label="审核步骤">
+              <span class="review-step-static is-done"><span class="review-step-number">✓</span>AI理解</span><i>›</i>
+              <button type="button" data-review-view="gameplay_directory" data-workbench-step="p1"><span class="review-step-number">1</span>玩法目录</button><i>›</i>
+              <button type="button" data-review-view="flow" data-workbench-step="p2" data-workbench-substep="flow"><span class="review-step-number">2</span>交互审核</button><i>›</i>
+              <button type="button" data-review-view="interaction_preview" data-workbench-step="p3"><span class="review-step-number">3</span>交付物预览</button><i>›</i>
+              <button type="button" data-review-view="gameplay" data-workbench-step="p4"><span class="review-step-number">4</span>规则审核</button><i>›</i>
+              <button type="button" data-review-view="diagrams" data-workbench-step="p5"><span class="review-step-number">5</span>图解审核</button><i>›</i>
+              <button type="button" data-review-view="tables" data-workbench-step="p6"><span class="review-step-number">6</span>参数审核</button><i>›</i>
+              <button type="button" data-review-view="final_preview" data-workbench-step="p7"><span class="review-step-number">7</span>文档导出</button>
+            </nav>
+            <button class="btn primary" id="reviewConfirmFlowBtn" type="button" aria-describedby="reviewValidationError">确认流程</button>
+            <button class="btn primary" id="reviewConfirmStageBtn" type="button" aria-describedby="reviewValidationError" hidden>确认当前阶段</button>
+            <span id="reviewConfirmStatus" class="review-confirm-status" role="status" aria-live="polite"></span>
+            <button class="btn" id="reviewUndoBtn" type="button" aria-label="撤销最近的审核修改">撤销</button>
+            <button class="btn" id="reviewRedoBtn" type="button" aria-label="重做最近撤销的审核修改">重做</button>
+          </div>
+        </header>
+        <p id="reviewValidationError" class="notice" role="alert" aria-live="assertive" hidden></p>
+        <div class="review-workspace-body">
+          <aside class="review-project-drawer" id="reviewProjectDrawer" aria-label="项目摘要">
+            <h3>项目摘要</h3>
+            <dl>
+              <div><dt>交互环节</dt><dd id="reviewStageCount">—</dd></div>
+              <div><dt>当前步骤</dt><dd id="reviewRouteLabel">确认玩家操作顺序</dd></div>
+            </dl>
+          </aside>
+          <div class="review-canvas" tabindex="-1" role="region" aria-label="审核内容">
+            <section class="review-view" id="gameplayDirectoryView" aria-label="玩法理解与目录确认" hidden></section>
+            <section class="review-view" id="flowReviewView" aria-labelledby="flowReviewHeading">
+              <div class="review-view-card"><h3 id="flowReviewHeading">确认玩家操作顺序</h3><p>检查玩家如何进入每个环节，以及操作后页面发生什么变化。</p></div>
+            </section>
+            <section class="review-view" id="stageReviewView" aria-labelledby="stageReviewHeading" hidden>
+              <div class="review-view-card"><h3 id="stageReviewHeading">逐步检查页面反馈</h3><p>按照操作前、玩家操作、系统反馈和操作结果逐步确认。</p></div>
+            </section>
+            <section class="review-view" id="exportPreviewView" aria-labelledby="exportPreviewHeading" hidden>
+              <div class="review-view-card"><h3 id="exportPreviewHeading">预览策划草图</h3><p>检查新增或改造页面及其交互关系，确认后继续审核玩法规则。</p></div>
+            </section>
+            <section class="review-view" id="gameplayReviewView" aria-label="玩法审核" hidden></section>
+            <section class="review-view" id="gameplayDiagramView" aria-label="玩法图解审核" hidden></section>
+            <section class="review-view" id="gameplayTableView" aria-label="玩法表格审核" hidden></section>
+            <section class="review-view" id="finalExportPreviewView" aria-label="最终导出预览" hidden></section>
+            <section class="review-view" id="analysisFailedView" aria-labelledby="analysisFailedHeading" hidden>
+              <div class="review-view-card">
+                <h3 id="analysisFailedHeading">分析未通过</h3>
+                <p id="analysisFailedMessage">当前分析草稿未满足审核条件。请重新分析素材后再继续审核。</p>
+                <p id="analysisFailedEvidence">已保留本次上传的素材与可用分析结果。</p>
+                <div class="actions">
+                  <button class="btn" id="analysisFailedConfigBtn" type="button">配置模型</button>
+                  <button class="btn primary" id="analysisFailedRetryBtn" type="button">重试任务</button>
+                  <button class="btn" id="analysisFailedAssetsBtn" type="button">返回素材</button>
+                </div>
+              </div>
+            </section>
+            <section class="review-view" id="ueFlowReviewView" aria-label="UE 流转图审核" hidden></section>
+          </div>
+        </div>
+        <details class="raw-analysis-disclosure" id="rawAnalysisDisclosure">
+          <summary>查看原始分析记录</summary>
+          <p>原始分析只用于追溯，不参与最终导出；技术错误和模型原文不会进入策划正文。</p>
+          <div id="rawAnalysisRecords"></div>
+        </details>
+      </section>
+      <div class="stepbar">
+        <div class="step"><b>第一步：确认素材顺序</b><span>读取文件夹第一层图片并按文件名顺序排列；辅助视频只补充截图前后的信息。</span></div>
+        <div class="step"><b>第二步：自动识别交互与玩法线索</b><span>根据关键截图梳理页面反馈和操作顺序，并结合前后视频片段补充玩法规则。</span></div>
+        <div class="step"><b>第三步：审核交互流程与玩法章节</b><span>先确认策划草图，再按章节审核玩法规则、数值、待确认事项及必要图示。</span></div>
+        <div class="step"><b>第四步：导出完整飞书策划案</b><span>将已确认的策划草图和玩法正文写入同一份飞书文档。</span></div>
+      </div>
+
+      <div class="analysis-area">
+        <section class="analysis-panel panel">
+          <div class="panel-head">
+            <h2>场景、事件链与关键画面</h2>
+            <div class="actions">
+              <button class="btn primary" id="extractBtn" type="button">开始截图分析</button>
+              <button class="btn" id="aiBtn" type="button">重新 AI 解读</button>
+              <button class="btn" id="reanalyzeAllBtn" type="button">复用证据整片重解读</button>
+              <button class="btn" id="confirmAllBtn" type="button">全部确认</button>
+              <button class="btn warn" id="cancelJobBtn" type="button" disabled>取消任务</button>
+              <button class="btn" id="retryJobBtn" type="button" disabled>重试任务</button>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="review-progress" id="reviewProgress">审核进度：0/0</div>
+            <div class="status" id="statusText">等待上传素材。</div>
+            <div class="progress" aria-label="解读进度"><div class="progress-bar" id="progressBar"></div></div>
+            <div class="progress-meta"><span id="progressStage">未开始</span><span id="progressPercent">0%</span></div>
+            <div class="frame-list" id="frameList"></div>
+          </div>
+        </section>
+
+        <section class="export-ready-panel panel" aria-labelledby="outputTitle">
+          <div class="panel-head">
+            <div><h2 id="outputTitle">完成审核后导出</h2><p>分析结果会进入审核工作台；确认交互、玩法、图解和表格后，再生成完整飞书文档。</p></div>
+            <div class="export-ready-actions">
+              <button class="btn primary" id="enterWorkbenchBtn" type="button">进入工作台</button>
+              <button class="btn" id="prdBtn" type="button">生成完整策划案</button>
+            </div>
+          </div>
+          <textarea class="output-state" id="output" spellcheck="false" hidden aria-hidden="true"></textarea>
+          <div class="feishu-publication" id="feishuPublication" aria-live="polite"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- 按依赖顺序加载：state → utils → config → assets → frames → ai → prd → app -->
+  <script src="js/state.js?v=ux7"></script>
+  <script src="js/screenshot-input.js?v=ux2"></script>
+  <script src="js/utils.js?v=ux3"></script>
+  <script src="js/config.js?v=ux8"></script>
+  <script src="js/assets.js?v=ux5"></script>
+  <script src="js/frame-reviewer.js?v=ux10"></script>
+  <script src="js/frames-models.js?v=ux15"></script>
+  <script src="js/review-client.js?v=review3"></script>
+  <script src="js/review-workspace.js?v=review8"></script>
+  <script src="js/gameplay-review-client.js?v=gameplay4"></script>
+  <script src="js/planner-decision-cards.js?v=decision2"></script>
+  <script src="js/gameplay-directory.js?v=directory10"></script>
+  <script src="js/gameplay-workspace.js?v=gameplay1"></script>
+  <script src="js/gameplay-mechanism-forms.js?v=gameplay2"></script>
+  <script src="js/gameplay-review.js?v=gameplay27"></script>
+  <script src="js/gameplay-diagrams.js?v=gameplay9"></script>
+  <script src="js/gameplay-tables.js?v=gameplay8"></script>
+  <script src="js/reference-board-assets.js?v=review1"></script>
+  <script src="js/export-preview.js?v=review14"></script>
+  <script src="js/final-document-preview.js?v=p7-16"></script>
+  <script src="js/flow-review.js?v=review19"></script>
+  <script src="js/ue-flow-review.js?v=ue2"></script>
+  <script src="js/stage-review.js?v=review22"></script>
+  <script src="js/ai.js?v=ux4"></script>
+  <script src="js/prd.js?v=ux3"></script>
+  <script src="js/feishu-publish.js?v=ux16"></script>
+  <script src="js/backend.js?v=ux103"></script>
+  <script src="js/client-cache.js?v=cache1"></script>
+  <script src="js/app.js?v=ux18"></script>
+</body>
+</html>

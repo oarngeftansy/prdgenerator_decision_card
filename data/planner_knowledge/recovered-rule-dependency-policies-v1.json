@@ -1,0 +1,47 @@
+{
+  "version": "recovered-rule-dependency-v1",
+  "policyId": "closure.recovered_dependencies",
+  "lessonRefs": ["LESSON-RECOVERED-DEPENDENCY-CLOSURE"],
+  "dependencies": {
+    "defeated_state": {
+      "intent": "Death",
+      "schemaSlot": "death",
+      "referencePatterns": ["当(?P<name>[^、，。]{1,20}?)(?:已)?被击败"],
+      "supportPatterns": ["被击败", "死亡", "生命值归零", "耐久归零"],
+      "supportTemplates": ["{name}生命值归零后", "{name}耐久归零后", "{name}被击败后", "{name}生命值归零", "{name}耐久归零"],
+      "strongSupportTemplates": ["{name}生命值归零后", "{name}耐久归零后", "{name}被击败后"],
+      "ownerTitleTerms": ["死亡", "受击", "首领"]
+      ,"gapQuestionTemplate": "{name}达到击败条件后，何时停止行为并退出战场？"
+    },
+    "remaining_count_zero": {
+      "intent": "RemainingCount",
+      "schemaSlot": "remaining_count",
+      "referencePatterns": ["场上(?:存活|剩余)?(?P<name>[^、，。且]{1,20}?)(?:数量)?为0", "(?P<name>[^、，。]{1,20}?)清空"],
+      "supportPatterns": ["数量为0", "清空", "全部离场", "剩余"],
+      "supportTemplates": ["剩余{name}", "存活{name}数量为0", "{name}清空", "{name}全部离场"],
+      "strongSupportTemplates": ["存活{name}数量为0", "{name}清空", "{name}全部离场"],
+      "ownerTitleTerms": ["死亡", "受击", "移除", "清场"]
+      ,"gapQuestionTemplate": "{name}被击败后何时移除并计入剩余数量，确保清空条件可以判定？"
+    },
+    "alive_state": {
+      "intent": "HealthState",
+      "schemaSlot": "health_state",
+      "referencePatterns": ["(?P<name>[^、，。且]{1,20}?)仍存活"],
+      "supportPatterns": ["存活", "生命值", "耐久", "生命归零"],
+      "supportTemplates": ["{name}仍存活", "{name}生命值", "{name}耐久", "{name}拥有耐久"],
+      "ownerTitleTerms": ["生命", "受击", "死亡", "耐久"]
+      ,"gapQuestionTemplate": "{name}以什么已确认状态区分存活与失效？"
+    },
+    "settlement": {
+      "intent": "Settlement",
+      "schemaSlot": "settlement_flow",
+      "referencePatterns": ["进入(?P<name>成功结算|失败结算|结算)"],
+      "supportPatterns": ["进入成功结算", "进入失败结算", "结算本次", "结算结果", "成功页", "失败页", "发放"],
+      "supportTemplates": ["{name}"],
+      "strongSupportTemplates": ["{state}页", "{name}发放", "结算本次", "结算结果"],
+      "excludedSupportTemplates": ["不进入{name}"],
+      "ownerTitleTerms": ["结算", "结果"]
+      ,"gapQuestionTemplate": "进入{name}后，战斗何时停止并展示哪些已确认结果？"
+    }
+  }
+}

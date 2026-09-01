@@ -1,0 +1,30 @@
+{
+  "goldSetId": "full_mechanic_reconstruction_gold_v1",
+  "purpose": "Independent benchmark assertions for current fixture conditions; contains no project rule answers.",
+  "expectedCoreResponsibilities": {
+    "MDES-CHOICE": [
+      "choice.trigger", "choice.pause_scope", "choice.candidate_pool", "choice.eligibility",
+      "choice.pool_shortage", "choice.candidate_generation", "choice.candidate_stability",
+      "choice.commit_boundary", "choice.apply_consumer", "choice.cleanup", "choice.resume", "choice.reset"
+    ],
+    "MDES-WEAPON": [
+      "weapon.acquire", "weapon.instance_identity", "weapon.result_classification", "weapon.slot_branches",
+      "weapon.activation", "weapon.target_validity", "weapon.attack_cycle", "weapon.damage_handoff",
+      "weapon.interrupt", "weapon.cleanup", "weapon.parameter_contract", "weapon.statistics_dependency"
+    ],
+    "MDES-MONSTER": [
+      "monster.enter", "monster.target", "monster.move", "monster.contact_evaluation",
+      "monster.first_damage", "monster.movement_lock", "monster.exit_resume",
+      "monster.death_interrupt", "monster.pending_damage", "monster.cleanup", "monster.parameter_contract"
+    ]
+  },
+  "conditionalActivationAssertions": {
+    "choice.refresh_invalidation": "refresh_exists",
+    "choice.consecutive_level": "multi_level_signal",
+    "weapon.full_slot": "slot_capacity_reached_signal",
+    "weapon.upgrade": "duplicate_weapon_signal",
+    "monster.repeat": "periodic_contact_damage_signal",
+    "monster.multiple_attackers": "multiple_monster_signal",
+    "monster.pause_resume": "choice_pause_signal"
+  }
+}

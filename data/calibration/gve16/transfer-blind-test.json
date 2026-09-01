@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "method": "fact pass and language pass are performed independently",
+  "cases": [
+    {
+      "id": "BLIND-SPARSE-01",
+      "shape": "sparse",
+      "source": "non-sample current-project frame facts",
+      "factPass": {
+        "claims": ["载具沿预设路线自动前进", "玩家可在允许范围内调整载具横向位置", "载具受到有效伤害时扣减生命", "生命归零后本局失败", "无效攻击不扣减生命"],
+        "excludedInferences": ["移动速度配置值", "伤害公式", "跨局生命继承", "服务端存储职责"]
+      },
+      "languagePass": {
+        "carrier": "merged_prose",
+        "sectionCount": 1,
+        "organizationReason": "两个短机制共同描述核心战斗状态，分别只需一条条件—动作—结果链，不需要独立多级标题",
+        "output": "核心战斗\n载具移动：载具沿预设路线自动前进，玩家可在允许范围内调整横向位置。\n生命值：载具受到有效伤害时扣减生命；无效攻击不扣血，生命归零后本局失败。"
+      }
+    },
+    {
+      "id": "BLIND-INTERACTION-01",
+      "shape": "interaction",
+      "source": "non-sample current-project ordered page evidence",
+      "factPass": {
+        "claims": ["升级选择页展示三个候选项", "玩家点击一个候选项后该项生效", "选择完成后页面关闭并返回战斗", "页面存在一次可用的刷新入口"],
+        "excludedInferences": ["升级页的唯一触发条件", "刷新后的抽取算法", "候选项概率", "刷新次数跨关卡恢复方式"]
+      },
+      "languagePass": {
+        "carrier": "planning_board_plus_causal_prose",
+        "sectionCount": 2,
+        "organizationReason": "页面节点和返回关系由策划草图承担，正文只解释玩家选择、即时反馈和证据不足的刷新边界",
+        "output": "升级选择\n页面同时展示三个候选项。玩家点击其中一项后，该效果立即生效，选择页关闭并返回战斗。当前素材只能确认页面存在一次可用的刷新入口，不能据此确定刷新算法或后续恢复规则。"
+      }
+    },
+    {
+      "id": "BLIND-ALGORITHM-01",
+      "shape": "algorithm",
+      "source": "synthetic non-sample evidence contract",
+      "factPass": {
+        "claims": ["系统先筛除未解锁奖励", "再按本局已出现记录排除重复项", "剩余候选按来源表中的优先级排序", "依次填充两个展示位", "候选不足时只展示已有结果"],
+        "excludedInferences": ["随机概率", "无来源的保底值", "刷新消耗", "跨局重置"]
+      },
+      "languagePass": {
+        "carrier": "ordered_algorithm_plus_source_table",
+        "sectionCount": 3,
+        "organizationReason": "结果取决于真实执行顺序，因此使用编号；优先级字段由来源表承载，正文不重复表值",
+        "output": "奖励候选生成\n1. 筛除尚未解锁的奖励。\n2. 根据本局已出现记录排除重复项。\n3. 按奖励来源表中的优先级排序，依次填充两个展示位。\n剩余候选不足两个时，仅展示实际可用结果，不补造空白奖励。"
+      }
+    }
+  ]
+}

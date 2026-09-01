@@ -1,0 +1,4 @@
+interface:
+  display_name: "�߻����������"
+  short_description: "Audit planning documents for evidence, coverage, and consistency"
+  default_prompt: "Use $planning-quality-auditor to audit this planning document and its timestamped evidence."
