@@ -6,35 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  python-regression:
-    name: python-regression (${{ matrix.shard }})
+  python-core-regression:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - { shard: a, pattern: 'tests/test_a*.py' }
-          - { shard: b, pattern: 'tests/test_b*.py' }
-          - { shard: c, pattern: 'tests/test_c*.py' }
-          - { shard: d, pattern: 'tests/test_d*.py' }
-          - { shard: e, pattern: 'tests/test_e*.py' }
-          - { shard: f, pattern: 'tests/test_f*.py' }
-          - { shard: g, pattern: 'tests/test_g*.py' }
-          - { shard: h, pattern: 'tests/test_h*.py' }
-          - { shard: i, pattern: 'tests/test_i*.py' }
-          - { shard: j-l, pattern: 'tests/test_[j-l]*.py' }
-          - { shard: m, pattern: 'tests/test_m*.py' }
-          - { shard: n, pattern: 'tests/test_n*.py' }
-          - { shard: o, pattern: 'tests/test_o*.py' }
-          - { shard: p, pattern: 'tests/test_p*.py' }
-          - { shard: q, pattern: 'tests/test_q*.py' }
-          - { shard: r, pattern: 'tests/test_r*.py' }
-          - { shard: s, pattern: 'tests/test_s*.py' }
-          - { shard: t, pattern: 'tests/test_t*.py' }
-          - { shard: u, pattern: 'tests/test_u*.py' }
-          - { shard: v-z, pattern: 'tests/test_[v-z]*.py' }
-          - { shard: calibration, pattern: 'tests/calibration' }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -47,25 +21,38 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-backend.txt pytest
       - name: Compile backend
-        run: python -m compileall -q backend
-      - name: Run Python regression shard
+        run: python -m compileall -q backend api_server.py
+      - name: Report regression scope
         env:
           PYTHONPATH: .
-          TEST_PATTERN: ${{ matrix.pattern }}
-        shell: bash
+        run: python scripts/ci_regression_scope.py list
+      - name: Run reproducible Python regression suite
+        env:
+          PYTHONPATH: .
+        run: python scripts/ci_regression_scope.py core
+      - name: Run calibration tests
+        env:
+          PYTHONPATH: .
+        run: python -m pytest -q tests/calibration
+
+  historical-workspace-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-backend.txt
+      - name: Install backend and test dependencies
         run: |
-          set -euo pipefail
-          if [[ "$TEST_PATTERN" == "tests/calibration" ]]; then
-            python -m pytest -q tests/calibration
-            exit 0
-          fi
-          shopt -s nullglob
-          files=( $TEST_PATTERN )
-          if [ ${#files[@]} -eq 0 ]; then
-            echo "No tests matched shard ${{ matrix.shard }}; skipping."
-            exit 0
-          fi
-          python -m pytest -q "${files[@]}"
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-backend.txt pytest
+      - name: Check historical workspace audits
+        env:
+          PYTHONPATH: .
+        run: python scripts/ci_regression_scope.py historical
 
   javascript-regression:
     runs-on: ubuntu-latest
