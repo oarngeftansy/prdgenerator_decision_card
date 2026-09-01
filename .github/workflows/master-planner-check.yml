@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  focused-regression:
+  regression:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,3 +32,5 @@ jobs:
         run: node --check js/config.js
       - name: Master planner policy tests
         run: python -m pytest -q tests/test_master_planner_policy.py tests/test_api_server_import.py tests/test_builtin_api_config.py
+      - name: Full Python regression
+        run: python -m pytest -q tests
