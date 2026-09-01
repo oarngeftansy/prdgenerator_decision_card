@@ -17,7 +17,7 @@ def test_master_publication_guard_accepts_master_authority_without_legacy_gamepl
     job = {
         "masterPlanning": {
             "gameplayRevision": 8,
-            "interactionRevision": 3,
+            "interactionRevision": None,
             "p7Gate": {"ready": True},
             "qualityJudge": {"ready": True},
         },
