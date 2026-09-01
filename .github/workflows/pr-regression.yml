@@ -35,6 +35,65 @@ jobs:
           PYTHONPATH: .
         run: python -m pytest -q tests/calibration
 
+  production-api-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-backend.txt
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-backend.txt
+      - name: Start production API
+        env:
+          PYTHONPATH: .
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m uvicorn api_server:app --host 127.0.0.1 --port 8765 > /tmp/prdgenerator-api.log 2>&1 &
+          echo $! > /tmp/prdgenerator-api.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:8765/openapi.json -o /tmp/openapi.json; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/prdgenerator-api.log
+          exit 1
+      - name: Verify Master Planner production routes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          schema = json.loads(Path('/tmp/openapi.json').read_text())
+          paths = schema['paths']
+          required = {
+              '/api/config/validate',
+              '/api/jobs/{job_id}/master-plan/final-preview',
+              '/api/jobs/{job_id}/feishu/publish',
+              '/api/jobs/{job_id}/master-plan',
+          }
+          missing = sorted(required - set(paths))
+          assert not missing, f'missing production routes: {missing}'
+          assert 'post' in paths['/api/jobs/{job_id}/feishu/publish']
+          print('Master Planner production routes OK')
+          PY
+      - name: Stop production API
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/prdgenerator-api.pid ]; then
+            kill "$(cat /tmp/prdgenerator-api.pid)" || true
+          fi
+          if [ -f /tmp/prdgenerator-api.log ]; then
+            tail -n 80 /tmp/prdgenerator-api.log
+          fi
+
   historical-workspace-audit:
     runs-on: ubuntu-latest
     timeout-minutes: 10
