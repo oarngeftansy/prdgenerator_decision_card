@@ -21,21 +21,25 @@ GROUPS = (
 )
 
 
+def _normalized_text(value: Any) -> str:
+    text = strip_status_caveat(value)
+    return re.sub(r"[\s，。；：、,.!?！？:()（）\-—_]", "", text).casefold()
+
+
 def _semantic_fingerprint(item: dict[str, Any]) -> str:
     key = str(item.get("semanticKey") or "").strip().casefold()
     if key:
         return f"key:{key}"
+    text = _normalized_text(item.get("text"))
+    if text:
+        return f"text:{text}"
     rule_ids = [str(value) for value in item.get("sourceRuleIds") or [] if value]
-    if rule_ids:
-        return "rule:" + "|".join(sorted(rule_ids))
-    text = strip_status_caveat(item.get("text"))
-    return "text:" + re.sub(r"[\s，。；：、,.!?！？:()（）\-—_]", "", text).casefold()
+    return "rule:" + "|".join(sorted(rule_ids))
 
 
 def _merge_sentence(target: dict[str, Any], item: dict[str, Any]) -> None:
     for field in ("sourceRuleIds", "sourceFactIds", "evidenceIds", "ruleTypes", "schemaSlots"):
         target[field] = list(dict.fromkeys(list(target.get(field) or []) + list(item.get(field) or [])))
-    # Never downgrade warning visibility when duplicate sources disagree about provenance.
     tones = {str(target.get("visualTone") or "confirmed"), str(item.get("visualTone") or "confirmed")}
     if "conflict" in tones:
         target["visualTone"] = "conflict"
@@ -44,6 +48,32 @@ def _merge_sentence(target: dict[str, Any], item: dict[str, Any]) -> None:
         target["visualTone"] = "inference"
         if target.get("knowledgeStatus") == "CONFIRMED":
             target["knowledgeStatus"] = item.get("knowledgeStatus") or "INFERRED"
+
+
+def _proposal_sentences(gaps: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    result = []
+    seen: set[str] = set()
+    for gap in gaps:
+        proposal = strip_status_caveat(gap.get("proposal"))
+        if not proposal:
+            continue
+        text = proposal.rstrip("。") + "。"
+        fingerprint = _normalized_text(text)
+        if not fingerprint or fingerprint in seen:
+            continue
+        seen.add(fingerprint)
+        result.append({
+            "text": text,
+            "sourceRuleIds": [],
+            "sourceFactIds": list(gap.get("sourceFactIds") or []),
+            "evidenceIds": list(gap.get("evidenceIds") or []),
+            "ruleTypes": ["logic"],
+            "schemaSlots": [gap.get("schemaSlot")],
+            "semanticKey": str(gap.get("semanticKey") or f"proposal:{gap.get('gapId') or fingerprint}"),
+            "knowledgeStatus": "PROPOSED",
+            "visualTone": "inference",
+        })
+    return result
 
 
 def assemble_chapter(chapter: dict[str, Any], rules: list[dict[str, Any]], reviewed_gaps: list[dict[str, Any]], style_profile: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -73,6 +103,9 @@ def assemble_chapter(chapter: dict[str, Any], rules: list[dict[str, Any]], revie
         and gap.get("specificity") == "concrete_decision"
         and not any(pattern in str(gap.get("question") or "") for pattern in _SCHEMA_QUESTION_PATTERNS)
     ]
+    proposals = _proposal_sentences(gaps)
+    if proposals:
+        groups.append({"title": "策划补全", "sentences": proposals})
     return {**chapter, "groups": groups, "reviewedGaps": gaps}
 
 
@@ -91,7 +124,27 @@ def _flow_sentence(step: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_final_document(approved_data: dict[str, Any], style_profile: dict[str, Any] | None = None, title: str = "执行策划案") -> dict[str, Any]:
+def _candidate_summary_sentence(flow: dict[str, Any]) -> dict[str, Any] | None:
+    text = strip_status_caveat(flow.get("candidateTypeSummary"))
+    if not text:
+        return None
+    steps = list(flow.get("steps") or [])
+    statuses = [normalize_rule_status(step.get("knowledgeStatus"), inference_level=step.get("inferenceLevel"), source_type=step.get("sourceType")) for step in steps]
+    status = "CONFLICT" if "CONFLICT" in statuses else ("PROPOSED" if "PROPOSED" in statuses else ("INFERRED" if "INFERRED" in statuses else "CONFIRMED"))
+    return {
+        "text": text.rstrip("。") + "。",
+        "sourceRuleIds": [step.get("ruleId") for step in steps if step.get("ruleId")],
+        "sourceFactIds": list(dict.fromkeys(fid for step in steps for fid in step.get("sourceFactIds") or [])),
+        "evidenceIds": list(dict.fromkeys(eid for step in steps for eid in step.get("evidenceIds") or [])),
+        "ruleTypes": ["logic"],
+        "schemaSlots": ["candidate_type"],
+        "semanticKey": str(flow.get("candidateTypeSemanticKey") or ""),
+        "knowledgeStatus": status,
+        "visualTone": status_visual_tone(status),
+    }
+
+
+def build_final_document(approved_data: dict[str, Any], style_profile: dict[str, Any] | None = None, title: str = "执行策划案 B 版") -> dict[str, Any]:
     rules = [dict(rule) for rule in approved_data.get("rules", [])]
     consumed: set[str] = set()
     for condition in rules:
@@ -125,14 +178,26 @@ def build_final_document(approved_data: dict[str, Any], style_profile: dict[str,
                     and gap.get("specificity") == "concrete_decision"
                     and gap.get("gapDomain", "planning") == "planning"
                 ]
-                chapters.append({**chapter, "groups": [], "reviewedGaps": gaps})
+                proposals = _proposal_sentences(gaps)
+                chapters.append({**chapter, "groups": ([{"title": "策划补全", "sentences": proposals}] if proposals else []), "reviewedGaps": gaps})
             else:
                 chapters.append(assemble_chapter(chapter, rules, approved_data.get("gaps", []), style_profile))
             continue
         for flow_index, flow in enumerate(chapter_flows):
             sentences: list[dict[str, Any]] = []
             seen_flow: dict[str, dict[str, Any]] = {}
-            for step in list(flow.get("steps") or []):
+            summary = _candidate_summary_sentence(flow)
+            steps = list(flow.get("steps") or [])
+            summary_before = next((
+                index for index, step in enumerate(steps)
+                if step.get("semanticGroup") in {"selection", "effect", "state_exit", "refresh", "numeric_examples", "other"}
+            ), len(steps))
+            for index, step in enumerate(steps):
+                if summary is not None and index == summary_before:
+                    fingerprint = _semantic_fingerprint(summary)
+                    if fingerprint not in seen_flow:
+                        seen_flow[fingerprint] = summary
+                        sentences.append(summary)
                 sentence = _flow_sentence(step)
                 fingerprint = _semantic_fingerprint(sentence)
                 if fingerprint in seen_flow:
@@ -140,6 +205,10 @@ def build_final_document(approved_data: dict[str, Any], style_profile: dict[str,
                     continue
                 seen_flow[fingerprint] = sentence
                 sentences.append(sentence)
+            if summary is not None and summary_before == len(steps):
+                fingerprint = _semantic_fingerprint(summary)
+                if fingerprint not in seen_flow:
+                    sentences.append(summary)
             gaps = [
                 gap for gap in approved_data.get("gaps", [])
                 if flow_index == 0
@@ -147,6 +216,12 @@ def build_final_document(approved_data: dict[str, Any], style_profile: dict[str,
                 and gap.get("specificity") == "concrete_decision"
                 and gap.get("gapDomain", "planning") == "planning"
             ]
+            proposals = _proposal_sentences(gaps)
+            groups = []
+            if sentences:
+                groups.append({"title": "机制流程", "sentences": sentences})
+            if proposals:
+                groups.append({"title": "策划补全", "sentences": proposals})
             subject = str(flow.get("subject") or chapter.get("object") or "规则")
             reconstructed_title = subject if len(flow.get("sourceChapterIds") or []) > 1 else chapter.get("title")
             chapters.append({
@@ -154,7 +229,7 @@ def build_final_document(approved_data: dict[str, Any], style_profile: dict[str,
                 "chapterId": f"{chapter.get('chapterId')}::{flow.get('mechanicId')}",
                 "object": subject,
                 "title": reconstructed_title,
-                "groups": [{"title": "机制流程", "sentences": sentences}] if sentences else [],
+                "groups": groups,
                 "reviewedGaps": gaps,
             })
 
@@ -165,7 +240,8 @@ def build_final_document(approved_data: dict[str, Any], style_profile: dict[str,
         systems[chapter.get("system") or "未分类"][chapter.get("object") or "通用"].append(chapter)
     return {
         "title": title,
-        "status": "publishable_with_explicit_knowledge_status",
+        "status": "reference_preview_with_open_gaps",
+        "knowledgePolicy": "no_hidden_inference",
         "systems": [
             {"title": system, "objects": [{"title": obj, "chapters": items} for obj, items in objects.items()]}
             for system, objects in systems.items()
@@ -188,7 +264,6 @@ def document_to_markdown(document: dict[str, Any]) -> str:
                         lines += [f"**{group['title']}**", ""]
                     lines += [f"- {sentence['text']}" for sentence in group["sentences"]]
                     lines.append("")
-                # Unresolved gaps remain review data, not pseudo-rules in the main prose.
                 questions = [gap for gap in chapter["reviewedGaps"] if not gap.get("proposal")]
                 if questions:
                     lines += ["**待人工处理的冲突/缺口**", ""]
