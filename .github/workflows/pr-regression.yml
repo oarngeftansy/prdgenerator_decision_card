@@ -1,0 +1,47 @@
+name: PR Regression
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  python-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install backend and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-backend.txt pytest
+      - name: Compile backend
+        run: python -m compileall -q backend
+      - name: Run Python regression suite
+        run: pytest -q
+
+  javascript-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run dependency-free JavaScript tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(tests/js/*.test.js tests/js/test_*.js)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo 'No dependency-free JS tests found; skipping.'
+            exit 0
+          fi
+          for file in "${files[@]}"; do
+            node "$file"
+          done
