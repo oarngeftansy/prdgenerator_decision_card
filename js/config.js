@@ -102,6 +102,26 @@ function loadApiConfig() {
   renderApiConfigGate();
 }
 
+async function validateApiConnection() {
+  const payload = {
+    apiBase: $("apiUrl").value.trim() || DEFAULT_AI_API_BASE,
+    model: $("model").value.trim() || DEFAULT_AI_MODEL,
+    apiKey: $("apiKey").value.trim(),
+  };
+  const response = await fetch(`${BACKEND_BASE}/api/config/validate`, {
+    method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload),
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const detail = result.detail || result;
+    const error = new Error(detail.message || `模型连接失败（HTTP ${response.status}）`);
+    error.kind = detail.kind || "request";
+    error.retryable = Boolean(detail.retryable);
+    throw error;
+  }
+  return result;
+}
+
 async function checkLocalProxy() {
   const configuredUrl = $("apiUrl").value.trim();
   const isLocal = configuredUrl.includes("127.0.0.1") || configuredUrl.includes("localhost");
@@ -133,3 +153,52 @@ async function checkLocalProxy() {
       : "已自动切换为后端直连；请填写自己的 API Key。");
   }
 }
+
+function installKnowledgeStatusPreviewPatch() {
+  if (!window.FinalDocumentPreview || window.FinalDocumentPreview.__knowledgeStatusPatched) return;
+  const originalRender = window.FinalDocumentPreview.render;
+  const normalize = (value) => String(value || "").toLowerCase().replace(/[\s，。；：、,.!?！？“”'"（）()\-—]/g, "");
+  const statusOf = (item) => {
+    const explicit = String(item?.knowledgeStatus || "").toUpperCase();
+    if (["CONFIRMED", "INFERRED", "PROPOSED", "CONFLICT"].includes(explicit)) return explicit;
+    const level = String(item?.inferenceLevel || item?.sourceType || item?.evidenceLevel || "").toLowerCase();
+    if (/conflict|contradict|冲突/.test(level)) return "CONFLICT";
+    if (/proposal|proposed|planner|方案/.test(level)) return "PROPOSED";
+    if (/inference|inferred|reasonable|合理推断|推断/.test(level)) return "INFERRED";
+    return "CONFIRMED";
+  };
+  const collect = (value, inherited = "CONFIRMED", result = {inference: new Set(), conflict: new Set()}) => {
+    if (!value || typeof value !== "object") return result;
+    const own = statusOf(value) || inherited;
+    const target = own === "CONFLICT" ? result.conflict : (["INFERRED", "PROPOSED"].includes(own) ? result.inference : null);
+    if (target) [value.text, value.behavior, value.result, value.description, value.value, value.rule, value.expected]
+      .map(normalize).filter((text) => text.length >= 4).forEach((text) => target.add(text));
+    Object.values(value).forEach((child) => {
+      if (child && typeof child === "object") collect(child, own, result);
+    });
+    return result;
+  };
+  const applyTone = (root, model) => {
+    const texts = collect(model);
+    root.querySelectorAll("p, li, td, th, figcaption, .final-document-merged-rule").forEach((node) => {
+      const copy = normalize(node.textContent);
+      if (!copy) return;
+      if ([...texts.conflict].some((text) => copy.includes(text) || text.includes(copy))) node.classList.add("knowledge-conflict");
+      else if ([...texts.inference].some((text) => copy.includes(text) || text.includes(copy))) node.classList.add("knowledge-inference");
+    });
+  };
+  window.FinalDocumentPreview.render = (options) => {
+    const result = originalRender(options);
+    applyTone(options.root, options.model || {});
+    return result;
+  };
+  window.FinalDocumentPreview.__knowledgeStatusPatched = true;
+  if (!document.getElementById("knowledge-status-style")) {
+    const style = document.createElement("style");
+    style.id = "knowledge-status-style";
+    style.textContent = `.knowledge-inference{background:rgba(255,214,64,.28);border-radius:4px;padding-inline:2px}.knowledge-conflict{background:rgba(255,82,82,.18);border-left:3px solid #d93025;padding-left:8px}`;
+    document.head.append(style);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => setTimeout(installKnowledgeStatusPreviewPatch, 0));
