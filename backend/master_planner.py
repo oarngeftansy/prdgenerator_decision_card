@@ -54,6 +54,7 @@ def _gap_id(gap: dict[str, Any], index: int) -> str:
 
 
 def _compact_context(projection: dict[str, Any], understanding: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Keep the dynamic gameplay structure; never collapse it to a sample schema."""
     publication = projection.get("publication") if isinstance(projection.get("publication"), dict) else projection
     chapters = []
     for chapter in publication.get("chapters") or []:
@@ -61,6 +62,7 @@ def _compact_context(projection: dict[str, Any], understanding: dict[str, Any] |
             "chapterId": chapter.get("chapterId"),
             "system": chapter.get("system"),
             "subsystem": chapter.get("subsystem"),
+            "mechanism": chapter.get("mechanism") or chapter.get("mechanic"),
             "object": chapter.get("object"),
             "title": chapter.get("title"),
             "schemaResponsibilities": chapter.get("schemaResponsibilities") or [],
@@ -70,18 +72,40 @@ def _compact_context(projection: dict[str, Any], understanding: dict[str, Any] |
         rules.append({
             "ruleId": rule.get("ruleId"),
             "ownerChapterId": rule.get("canonicalOwner") or rule.get("ownerChapterId"),
+            "ownerMechanicId": rule.get("ownerMechanicId"),
             "intent": rule.get("intent"),
             "schemaSlot": rule.get("schemaSlot"),
             "behavior": rule.get("behavior"),
             "trigger": rule.get("trigger"),
             "conditions": rule.get("conditions") or [],
             "result": rule.get("result"),
+            "stateChange": rule.get("stateChange") or rule.get("resultState"),
+            "dependencies": rule.get("dependencies") or [],
+            "persistence": rule.get("persistence"),
+            "reset": rule.get("reset"),
         })
     understood = understanding or {}
+    dynamic_graph = (
+        understood.get("SystemGraph")
+        or understood.get("systemGraph")
+        or publication.get("systemGraph")
+        or publication.get("dynamicSystemGraph")
+        or {}
+    )
+    mechanisms = (
+        understood.get("Mechanisms")
+        or understood.get("mechanisms")
+        or publication.get("mechanisms")
+        or []
+    )
+    rule_groups = publication.get("ruleGroups") or understood.get("RuleGroups") or understood.get("ruleGroups") or []
     return {
         "gameplaySummary": understood.get("Summary") or understood.get("summary") or "",
         "coreLoop": understood.get("CoreLoop") or understood.get("coreLoop") or [],
         "systems": understood.get("Systems") or understood.get("systems") or [],
+        "systemGraph": dynamic_graph,
+        "mechanisms": mechanisms,
+        "ruleGroups": rule_groups,
         "chapters": chapters,
         "existingRules": rules,
     }
@@ -97,7 +121,7 @@ def _prompt(context: dict[str, Any], gaps: list[dict[str, Any]]) -> str:
         "question": gap.get("question"),
         "knownContext": gap.get("knownContext") or gap.get("evidenceSummary") or "",
     } for gap in gaps]
-    return """你是商业游戏项目的主策划。上游已经完成证据还原，你现在只负责把剩余执行缺口闭合成程序、数值、UI和QA都能直接使用的明确规则。
+    return """你是商业游戏项目的主策划。上游已经完成玩法理解与证据还原，你现在只负责把剩余执行缺口闭合成程序、数值、UI和QA都能直接使用的明确规则。
 
 硬性要求：
 1. 每个 gapId 必须且只能返回一个 decision。
@@ -105,15 +129,17 @@ def _prompt(context: dict[str, Any], gaps: list[dict[str, Any]]) -> str:
 3. 如果答案更像是在还原原玩法，publicationState=inferred；如果是为了闭合实现缺口而做的主策决定，publicationState=proposed。
 4. decision 必须直接写最终规则，不得出现“待确认、未知待确认、可能、或许、根据素材推测、根据画面推测、建议可以、【推断】、【建议】”等审核话术。
 5. 不要虚构正式配置表名、字段名或ID。没有既有命名时，用“配置项/对应配置”描述。
-6. 随机机制要明确候选池、资格过滤、抽取数量、重复规则、刷新/重抽、空池处理、确认时机、持久化/重置中实际相关的部分。
-7. 生命周期要明确初始化、生效、变化、继承/重置；状态机制要明确触发、条件、执行、结果和异常边界。
-8. 保持已有已确认规则，不得用新决定推翻它们。若 gap 与已有规则冲突，选择与已有规则一致的方案。
-9. 只返回 JSON 对象，不写解释。
+6. 不套用任何固定玩法模板。先识别当前 gap 属于什么机制，再只闭合该机制实际需要的维度。可用维度包括但不限于：触发/前置条件、玩家或系统动作、状态与生命周期、资源与消耗、选择或随机、空间/目标关系、时序/回合/波次、计算与结算、奖励、持久化/重置、异常/失败/恢复、交互反馈。某维度与当前机制无关时不得为了凑完整而强行生成。
+7. 对选择/随机机制，仅在当前玩法确实存在选择或随机时，明确其实际需要的候选来源、资格、数量、重复/互斥、重抽/刷新、空集合、确认与重置等规则；对移动、战斗、经营、建造、解谜、对话、回合、模拟等其他机制，应按其自身状态机和依赖关系闭合，禁止注入“技能/武器/怪物/候选池”等无关概念。
+8. 生命周期要明确初始化、生效、变化、继承/重置；状态机制要明确触发、条件、执行、结果和异常边界。只覆盖实际相关项。
+9. 保持已有已确认规则，不得用新决定推翻它们。若 gap 与已有规则冲突，选择与已有规则一致的方案。
+10. Golden Sample 只用于判断执行深度、规则闭合度和文档质量，不是当前项目的目录、机制清单、对象命名或字段模板。
+11. 只返回 JSON 对象，不写解释。
 
 返回格式：
 {"decisions":[{"gapId":"...","publicationState":"inferred|proposed","decision":"确定性规则正文","ruleType":"logic|flow|numeric|config|presentation","trigger":"可为空","conditions":[],"result":"可为空","exception":"可为空","persistence":"可为空","reset":"可为空","dependencies":[],"acceptanceCases":[]}]}。
 
-项目结构与已确认规则：
+项目动态结构与已确认规则：
 """ + json.dumps(context, ensure_ascii=False) + "\n\n待闭合缺口：\n" + json.dumps(gap_payload, ensure_ascii=False)
 
 
@@ -177,7 +203,8 @@ def _decision_rule(decision: dict[str, Any], gap: dict[str, Any]) -> dict[str, A
         "schemaSlot": gap.get("schemaSlot") or "planner_completion",
         "ruleType": decision["ruleType"],
         "ownerChapterId": gap.get("chapterId"),
-        "canonicalOwner": gap.get("chapterId"),
+        "ownerMechanicId": gap.get("mechanicId") or gap.get("ownerMechanicId"),
+        "canonicalOwner": gap.get("chapterId") or gap.get("mechanicId") or gap.get("ownerMechanicId"),
         "definitionMode": "full_definition",
         "semanticValidity": "valid",
         "reviewStatus": state,
