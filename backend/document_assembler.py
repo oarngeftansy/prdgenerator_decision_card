@@ -86,7 +86,6 @@ def assemble_chapter(chapter: dict[str, Any], rules: list[dict[str, Any]], revie
                 target = seen[key]
                 for field in ("sourceRuleIds", "sourceFactIds", "evidenceIds", "ruleTypes", "schemaSlots"):
                     target[field] = list(dict.fromkeys(target[field] + item[field]))
-                # Preserve the more conservative visible state when duplicates merge.
                 states = {target.get("publicationState"), item.get("publicationState")}
                 if "conflict" in states:
                     target.update(decorate_publication_item(target | {"publicationState": "conflict"}))
@@ -115,6 +114,15 @@ def assemble_chapter(chapter: dict[str, Any], rules: list[dict[str, Any]], revie
     if completions:
         groups.append({"title": "补全规则", "sentences": completions})
     return {**chapter, "groups": groups, "reviewedGaps": [], "unresolvedDiagnostics": unresolved}
+
+
+def _flow_summary(flow: dict[str, Any]) -> str:
+    """Read only generic summaries; never privilege one sample mechanic family."""
+    for key in ("flowSummary", "mechanicSummary", "summary"):
+        value = str(flow.get(key) or "").strip()
+        if value:
+            return value
+    return ""
 
 
 def build_final_document(approved_data: dict[str, Any], style_profile: dict[str, Any] | None = None, title: str = "执行策划案 B 版") -> dict[str, Any]:
@@ -165,35 +173,32 @@ def build_final_document(approved_data: dict[str, Any], style_profile: dict[str,
             continue
 
         for flow_index, flow in enumerate(chapter_flows):
-            sentences = []
-            candidate_summary = None
             flow_state = normalize_publication_state(flow)
-            if flow.get("candidateTypeSummary"):
-                candidate_summary = _sentence(
-                    flow["candidateTypeSummary"], state=flow_state,
+            sentences = []
+            summary = _flow_summary(flow)
+            if summary:
+                sentences.append(_sentence(
+                    summary,
+                    state=flow_state,
                     source_rule_ids=[step.get("ruleId") for step in flow.get("steps") or [] if step.get("ruleId")],
                     source_fact_ids=[fid for step in flow.get("steps") or [] for fid in step.get("sourceFactIds") or []],
                     evidence_ids=[eid for step in flow.get("steps") or [] for eid in step.get("evidenceIds") or []],
-                    rule_types=["logic"], schema_slots=["candidate_type"],
-                )
-            steps = list(flow.get("steps") or [])
-            summary_before = next((
-                index for index, step in enumerate(steps)
-                if step.get("semanticGroup") in {"selection", "effect", "state_exit", "refresh", "numeric_examples", "other"}
-            ), len(steps))
-            for index, step in enumerate(steps):
-                if candidate_summary is not None and index == summary_before:
-                    sentences.append(candidate_summary)
+                    rule_types=["logic"],
+                    schema_slots=["mechanic_summary"],
+                ))
+            for step in flow.get("steps") or []:
+                text = str(step.get("text") or "").strip()
+                if not text:
+                    continue
                 sentences.append(_sentence(
-                    str(step.get("text") or ""),
+                    text,
                     state=normalize_publication_state(step, default=flow_state),
                     source_rule_ids=list(step.get("sourceRuleIds") or ([step.get("ruleId")] if step.get("ruleId") else [])),
                     source_fact_ids=list(step.get("sourceFactIds") or []),
                     evidence_ids=list(step.get("evidenceIds") or []),
-                    rule_types=["logic"], schema_slots=[str(step.get("intent") or "")],
+                    rule_types=[str(step.get("ruleType") or "logic")],
+                    schema_slots=[str(step.get("intent") or step.get("schemaSlot") or "mechanic_step")],
                 ))
-            if candidate_summary is not None and summary_before == len(steps):
-                sentences.append(candidate_summary)
 
             completions = []
             if flow_index == 0:
@@ -205,14 +210,14 @@ def build_final_document(approved_data: dict[str, Any], style_profile: dict[str,
                         completions.append(item)
                     else:
                         unresolved_diagnostics.append(gap)
-            subject = str(flow.get("subject") or chapter.get("object") or "规则")
+            subject = str(flow.get("subject") or flow.get("mechanism") or chapter.get("object") or "规则")
             reconstructed_title = subject if len(flow.get("sourceChapterIds") or []) > 1 else chapter.get("title")
             groups = [{"title": "机制流程", "sentences": sentences}] if sentences else []
             if completions:
                 groups.append({"title": "补全规则", "sentences": completions})
             chapters.append({
                 **chapter,
-                "chapterId": f"{chapter.get('chapterId')}::{flow.get('mechanicId')}",
+                "chapterId": f"{chapter.get('chapterId')}::{flow.get('mechanicId') or flow_index + 1}",
                 "object": subject,
                 "title": reconstructed_title,
                 "groups": groups,
@@ -228,18 +233,12 @@ def build_final_document(approved_data: dict[str, Any], style_profile: dict[str,
         "title": title,
         "status": "publication_ready" if not unresolved_diagnostics else "publication_ready_with_diagnostics",
         "systems": [{"title": system, "objects": [{"title": obj, "chapters": items} for obj, items in objects.items()]} for system, objects in systems.items()],
-        # Diagnostics stay machine-readable and out of user-facing Final prose.
         "unresolvedDiagnostics": unresolved_diagnostics,
     }
 
 
 def document_to_markdown(document: dict[str, Any]) -> str:
-    """Plain markdown fallback.
-
-    Markdown cannot faithfully preserve background highlight. We retain state as
-    structure in the document object; HTML/Feishu renderers should consume `visual`.
-    Crucially, no provenance label is injected into the visible sentence.
-    """
+    """Plain markdown fallback; rich renderers preserve publication-state highlight."""
     lines = [f"# {document['title']}", ""]
     for system in document["systems"]:
         lines += [f"## {system['title']}", ""]
