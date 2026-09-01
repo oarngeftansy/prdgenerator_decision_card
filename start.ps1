@@ -39,4 +39,7 @@ if ($LarkCliPath -and (Test-Path -LiteralPath $LarkCliPath)) {
     $env:LARK_CLI_EXECUTABLE = $LarkCliPath
 }
 
-& $pythonPath -m uvicorn backend.server:app --host $HostAddress --port $Port
+# api_server owns the production Master Planner / P7 / Feishu routes and wraps
+# the stable backend.server infrastructure. Starting backend.server directly
+# would bypass the new planning authority.
+& $pythonPath -m uvicorn api_server:app --host $HostAddress --port $Port
