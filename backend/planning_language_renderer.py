@@ -1,9 +1,15 @@
-"""Deterministic Phase 4 renderer. It may reorganize approved semantics, never invent them."""
+"""Deterministic Phase 4 renderer over canonical structured rules.
+
+The renderer may reorganize approved semantics, but never invent business rules. Knowledge
+status is carried as metadata and mapped to visual tone; it must never leak into prose.
+"""
 
 from __future__ import annotations
 
 import re
 from typing import Any
+
+from .rule_status import normalize_rule_status, status_visual_tone, strip_status_caveat
 
 
 APPROVED_STATUSES = {"approved", "confirmed"}
@@ -25,8 +31,23 @@ def _controlled_variant(text: str) -> str:
     return text
 
 
+def _clean_business_text(value: Any) -> str:
+    """Keep planner prose decisive while removing legacy provenance/audit prefixes."""
+    return strip_status_caveat(value).strip().rstrip("。；")
+
+
 def render_rule(rule: dict[str, Any], style_profile: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Render one approved rule without changing its business semantics."""
+    """Render one canonical rule without changing its business semantics.
+
+    CONFIRMED renders normally. INFERRED and PROPOSED render normally in prose but carry
+    ``visualTone=inference`` so web/Feishu can highlight them yellow. CONFLICT carries a
+    conflict tone. The knowledge status is never verbalized inside ``text``.
+    """
+    knowledge_status = normalize_rule_status(
+        rule.get("knowledgeStatus"),
+        inference_level=rule.get("inferenceLevel"),
+        source_type=rule.get("sourceType"),
+    )
     base = {
         "sentenceId": f"S-{rule.get('ruleId', 'UNKNOWN')}",
         "sourceRuleIds": list(dict.fromkeys(([rule.get("ruleId")] if rule.get("ruleId") else []) + list(rule.get("mergedSourceRuleIds") or []))),
@@ -34,6 +55,9 @@ def render_rule(rule: dict[str, Any], style_profile: dict[str, Any] | None = Non
         "evidenceIds": list(rule.get("evidenceIds") or []),
         "ruleTypes": [rule.get("ruleType")] if rule.get("ruleType") else [],
         "schemaSlots": [rule.get("schemaSlot")] if rule.get("schemaSlot") else [],
+        "semanticKey": str(rule.get("semanticKey") or ""),
+        "knowledgeStatus": knowledge_status,
+        "visualTone": status_visual_tone(knowledge_status),
     }
     if rule.get("reviewStatus") not in APPROVED_STATUSES:
         return {**base, "status": "rejected", "reason": "rule_not_approved", "text": ""}
@@ -41,12 +65,13 @@ def render_rule(rule: dict[str, Any], style_profile: dict[str, Any] | None = Non
         return {**base, "status": "rejected", "reason": "invalid_semantics", "text": ""}
 
     parts: list[str] = []
-    trigger = str(rule.get("trigger") or "").strip()
-    conditions = [str(item).strip() for item in (rule.get("conditions") or []) if str(item).strip()]
-    behavior = _controlled_variant(str(rule["behavior"]).strip().rstrip("。；"))
-    result = str(rule.get("result") or "").strip().rstrip("。；")
-    exit_condition = str(rule.get("exitCondition") or "").strip().rstrip("。；")
-    exception = str(rule.get("exception") or "").strip().rstrip("。；")
+    trigger = _clean_business_text(rule.get("trigger"))
+    conditions = [_clean_business_text(item) for item in (rule.get("conditions") or [])]
+    conditions = [item for item in conditions if item]
+    behavior = _controlled_variant(_clean_business_text(rule["behavior"]))
+    result = _clean_business_text(rule.get("result"))
+    exit_condition = _clean_business_text(rule.get("exitCondition"))
+    exception = _clean_business_text(rule.get("exception"))
 
     prefix = trigger or ("且".join(conditions) if conditions else "")
     if prefix and prefix not in behavior:

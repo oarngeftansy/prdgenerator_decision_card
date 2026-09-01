@@ -20,3 +20,6 @@ if dependency_root is not None:
 sys.path.insert(0, str(ROOT))
 
 from backend.server import app  # noqa: E402,F401
+from backend.provider_runtime_patch import install_provider_runtime_patch  # noqa: E402
+
+install_provider_runtime_patch(app)
