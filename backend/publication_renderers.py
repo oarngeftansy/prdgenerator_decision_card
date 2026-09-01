@@ -56,6 +56,36 @@ def final_document_to_html(document: dict[str, Any]) -> str:
     return "".join(parts)
 
 
+def final_document_to_annotated_markdown(document: dict[str, Any]) -> str:
+    """Markdown body plus invisible provenance comments for Feishu import.
+
+    The comments are not user-facing labels. They are an internal transport layer
+    consumed by `markdown_to_feishu_xml` and disappear from the resulting doc.
+    """
+    lines = [f"# {document.get('title') or '执行策划案'}", ""]
+    for system in document.get("systems") or []:
+        lines += [f"## {system.get('title') or '未分类'}", ""]
+        for obj in system.get("objects") or []:
+            lines += [f"### {obj.get('title') or '通用'}", ""]
+            for chapter in obj.get("chapters") or []:
+                if not chapter.get("foldIntoObject"):
+                    lines += [f"#### {chapter.get('title') or '规则'}", ""]
+                groups = chapter.get("groups") or []
+                for group in groups:
+                    if len(groups) > 1:
+                        lines += [f"**{group.get('title') or '规则'}**", ""]
+                    for sentence in group.get("sentences") or []:
+                        text = str(sentence.get("text") or "").strip()
+                        if not text:
+                            continue
+                        state = _state(sentence)
+                        if state != "confirmed":
+                            lines.append(f"<!-- PUBLICATION_STATE:{state} -->")
+                        lines.append(f"- {text}")
+                    lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def _feishu_inline(sentence: dict[str, Any]) -> str:
     """Lark XML uses span background-color for native text highlighting."""
     state = _state(sentence)
@@ -68,11 +98,7 @@ def _feishu_inline(sentence: dict[str, Any]) -> str:
 
 
 def final_document_to_feishu_xml(document: dict[str, Any], *, include_title: bool = True) -> str:
-    """Render the exact semantic Final into lark-cli's supported XML subset.
-
-    `span background-color="light-yellow"` is the native text-background syntax,
-    so yellow remains presentation-only and the sentence itself stays decisive.
-    """
+    """Render the exact semantic Final into lark-cli's supported XML subset."""
     parts: list[str] = []
     if include_title:
         parts.append(f'<title>{escape(str(document.get("title") or "执行策划案"))}</title>')
