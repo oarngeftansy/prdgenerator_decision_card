@@ -8,7 +8,11 @@ from typing import Any
 from .ai_provider import ProviderConfig, Transport
 from .document_assembler import build_final_document, document_to_markdown
 from .master_planner import complete_execution_plan
-from .publication_renderers import final_document_to_feishu_xml, final_document_to_html
+from .publication_renderers import (
+    final_document_to_annotated_markdown,
+    final_document_to_feishu_xml,
+    final_document_to_html,
+)
 from .rule_normalizer import build_rule_intelligence_v1
 
 
@@ -47,6 +51,7 @@ def build_master_planning_delivery(
         "publication": deepcopy(publication),
         "document": document,
         "markdown": document_to_markdown(document),
+        "acceptedMarkdown": final_document_to_annotated_markdown(document),
         "previewHtml": final_document_to_html(document),
         "feishuXml": final_document_to_feishu_xml(document),
         "qualityJudge": deepcopy(quality),
