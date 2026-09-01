@@ -1,12 +1,18 @@
-"""Deterministic Phase 4 renderer. It may reorganize approved semantics, never invent them."""
+"""Deterministic planning-language renderer.
+
+The renderer changes syntax only. Provenance is carried as structured metadata so
+user-visible copy never needs labels such as “推断/待确认”.
+"""
 
 from __future__ import annotations
 
 import re
 from typing import Any
 
+from .publication_state import decorate_publication_item, normalize_publication_state
 
-APPROVED_STATUSES = {"approved", "confirmed"}
+
+APPROVED_STATUSES = {"approved", "confirmed", "inferred", "proposed"}
 
 
 def _complete(text: str) -> str:
@@ -26,7 +32,8 @@ def _controlled_variant(text: str) -> str:
 
 
 def render_rule(rule: dict[str, Any], style_profile: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Render one approved rule without changing its business semantics."""
+    """Render one publishable rule without changing its business semantics."""
+    publication_state = normalize_publication_state(rule)
     base = {
         "sentenceId": f"S-{rule.get('ruleId', 'UNKNOWN')}",
         "sourceRuleIds": list(dict.fromkeys(([rule.get("ruleId")] if rule.get("ruleId") else []) + list(rule.get("mergedSourceRuleIds") or []))),
@@ -34,11 +41,15 @@ def render_rule(rule: dict[str, Any], style_profile: dict[str, Any] | None = Non
         "evidenceIds": list(rule.get("evidenceIds") or []),
         "ruleTypes": [rule.get("ruleType")] if rule.get("ruleType") else [],
         "schemaSlots": [rule.get("schemaSlot")] if rule.get("schemaSlot") else [],
+        "publicationState": publication_state,
     }
-    if rule.get("reviewStatus") not in APPROVED_STATUSES:
-        return {**base, "status": "rejected", "reason": "rule_not_approved", "text": ""}
-    if rule.get("semanticValidity") != "valid" or not rule.get("behavior"):
-        return {**base, "status": "rejected", "reason": "invalid_semantics", "text": ""}
+    review_status = str(rule.get("reviewStatus") or "").lower()
+    # Inferred/proposed rules are intentionally publishable. Their uncertainty is
+    # exposed through publicationState/visual metadata rather than hedged prose.
+    if review_status not in APPROVED_STATUSES and publication_state not in {"inferred", "proposed", "conflict"}:
+        return decorate_publication_item({**base, "status": "rejected", "reason": "rule_not_publishable", "text": ""})
+    if rule.get("semanticValidity") not in {None, "valid"} or not rule.get("behavior"):
+        return decorate_publication_item({**base, "status": "rejected", "reason": "invalid_semantics", "text": ""})
 
     parts: list[str] = []
     trigger = str(rule.get("trigger") or "").strip()
@@ -63,4 +74,4 @@ def render_rule(rule: dict[str, Any], style_profile: dict[str, Any] | None = Non
     text = "；".join(part for part in parts if part)
     forbidden = (style_profile or {}).get("forbidden_expressions", [])
     violations = [phrase for phrase in forbidden if phrase and phrase in text]
-    return {**base, "status": "rendered", "text": _complete(text), "lintViolations": violations}
+    return decorate_publication_item({**base, "status": "rendered", "text": _complete(text), "lintViolations": violations})
