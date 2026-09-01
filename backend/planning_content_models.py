@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Literal
 
+from .rule_status import RuleKnowledgeStatus, normalize_rule_status
+
 
 SlotApplicability = Literal["core", "conditional", "optional", "derived", "presentation_only"]
 RuleType = Literal["logic", "presentation", "interaction", "flow", "numeric", "config"]
@@ -197,12 +199,14 @@ class Rule:
     authority_status: str = "unreviewed"
     confidence: float = 0.0
     inference_level: str = "observed"
+    knowledge_status: str = RuleKnowledgeStatus.CONFIRMED.value
     exact_semantic_fingerprint: str = ""
     similarity_group: str = ""
     publication_eligibility: str = "review_required"
     reference_chapter_ids: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
+        status = normalize_rule_status(self.knowledge_status, inference_level=self.inference_level)
         return {
             "ruleId": self.rule_id, "semanticKey": self.semantic_key,
             "ownerChapterId": self.owner_chapter_id, "definitionMode": self.definition_mode,
@@ -214,7 +218,7 @@ class Rule:
             "semanticValidity": self.semantic_validity, "validationErrors": list(self.validation_errors),
             "intent": self.intent, "canonicalOwner": self.canonical_owner,
             "authorityStatus": self.authority_status, "confidence": self.confidence,
-            "inferenceLevel": self.inference_level,
+            "inferenceLevel": self.inference_level, "knowledgeStatus": status,
             "exactSemanticFingerprint": self.exact_semantic_fingerprint,
             "similarityGroup": self.similarity_group,
             "publicationEligibility": self.publication_eligibility,
