@@ -23,9 +23,9 @@ def normalize_rule_status(value: Any, *, inference_level: Any = None, source_typ
 
     inference = str(inference_level or "").strip().casefold()
     source = str(source_type or "").strip().casefold()
-    if inference in {"conflict", "contradiction", "contradicted"}:
+    if source in {"conflict", "contradiction", "contradicted"} or inference in {"conflict", "contradiction", "contradicted"}:
         return RuleKnowledgeStatus.CONFLICT.value
-    if source in {"proposal", "proposed", "planner_proposal"} or inference in {"proposal", "proposed"}:
+    if source in {"proposal", "proposed", "planner", "planner_proposal", "pending"} or inference in {"proposal", "proposed", "planner", "pending"}:
         return RuleKnowledgeStatus.PROPOSED.value
     if source in {"inference", "inferred"} or inference in {
         "inference", "inferred", "derived_inference", "reasonable_inference", "hypothesis"
