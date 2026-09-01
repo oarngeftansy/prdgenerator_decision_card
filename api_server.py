@@ -23,8 +23,11 @@ sys.path.insert(0, str(ROOT))
 from fastapi import Body, HTTPException  # noqa: E402
 from backend import server as server_module  # noqa: E402
 from backend.ai_provider import DEFAULT_API_BASE, DEFAULT_MODEL, ProviderConfig, ProviderError, validate_connectivity  # noqa: E402
+from backend.feishu_render import render_feishu_document  # noqa: E402
 from backend.master_planner import MasterPlannerError  # noqa: E402
+from backend.p7_master_gate import combine_master_p7_gate, merge_completion_snapshot  # noqa: E402
 from backend.production_planning import ProductionPlanningError, build_master_planning_delivery  # noqa: E402
+from backend.review_preview import _delivery_preview_html  # noqa: E402
 
 server_module.BUILT_IN_VISION_API_BASE = DEFAULT_API_BASE
 server_module.BUILT_IN_VISION_MODEL = DEFAULT_MODEL
@@ -62,7 +65,8 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
     if type(expected) is not int or expected != gameplay.get("revision"):
         raise HTTPException(409, {"currentRevision": gameplay.get("revision", 0)})
 
-    # Preserve all non-text P7 safety checks and reusable deliverables.
+    # Keep legacy ownership of revision/media/diagram/table/board safety. The
+    # resulting planner-depth blockers are classified after canonical planning.
     legacy_preview = server_module.create_gameplay_final_preview(job_id, payload)
     job = server_module.load_job(job_id)
     gameplay = copy.deepcopy(job.get("gameplayReviewModel") or {})
@@ -78,11 +82,20 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
 
     quality = delivery.get("qualityJudge") or {}
     master_ready = bool(quality.get("ready")) and not (delivery.get("document") or {}).get("unresolvedDiagnostics")
+    gate = combine_master_p7_gate(legacy_preview, master_ready=master_ready, master_quality=quality)
+    completion = merge_completion_snapshot(
+        legacy_preview.get("completionSnapshot"), gate, master_quality=quality,
+    )
 
     def persist(current: dict) -> None:
         current_gameplay = current.get("gameplayReviewModel") or {}
         if current_gameplay.get("revision") != expected:
             raise HTTPException(409, {"currentRevision": current_gameplay.get("revision", 0)})
+        if gate["ready"]:
+            current_gameplay.setdefault("reviewState", {})["previewRevision"] = expected
+            current_gameplay["reviewState"]["status"] = "preview_ready"
+        else:
+            current_gameplay.setdefault("reviewState", {})["previewRevision"] = None
         current["masterPlanning"] = {
             "gameplayRevision": expected,
             "projection": copy.deepcopy(delivery["projection"]),
@@ -91,11 +104,12 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
             "feishuXml": delivery["feishuXml"],
             "qualityJudge": copy.deepcopy(quality),
             "masterPlanner": copy.deepcopy(delivery.get("masterPlanner") or {}),
+            "p7Gate": copy.deepcopy(gate),
+            "completionSnapshot": copy.deepcopy(completion),
         }
 
-        # This is the publication handoff consumed by the existing Feishu
-        # renderer/publisher. The board and reviewed P5/P6 assets remain owned by
-        # their existing modules; only the textual body authority changes.
+        # Existing Feishu renderer remains responsible for boards/P5/P6. Only
+        # the textual authority is replaced by canonical Master Planner output.
         existing_accepted = current.get("acceptedPublication") if isinstance(current.get("acceptedPublication"), dict) else {}
         accepted_markdown = delivery["acceptedMarkdown"].rstrip() + (
             "\n\n## 策划草图\n\n<!-- EMBED:BOARD:planning -->\n"
@@ -116,8 +130,22 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
     except (FileNotFoundError, ValueError) as exc:
         raise HTTPException(404, "job not found") from exc
 
+    # P7 preview must be byte-semantically aligned with the renderer later used
+    # by Feishu publishing; otherwise preview/Final drift returns.
+    try:
+        persisted_job = server_module.load_job(job_id)
+        exact_render = render_feishu_document(persisted_job, server_module.job_path(job_id))
+        exact_preview_html = _delivery_preview_html(exact_render)
+    except Exception as exc:
+        raise HTTPException(422, f"accepted Final render failed: {exc}") from exc
+
     preview = dict(legacy_preview)
     preview.update({
+        "exportReady": bool(gate["ready"]),
+        "blockerIds": list(gate["blockerIds"]),
+        "legacyBlockerIds": list(gate["legacyBlockerIds"]),
+        "plannerSupersededBlockerIds": list(gate["plannerSupersededBlockerIds"]),
+        "completionSnapshot": completion,
         "masterPlanningReady": master_ready,
         "masterPlanningDocument": delivery["document"],
         "masterPlanningMarkdown": delivery["markdown"],
@@ -125,7 +153,7 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
         "masterPlanningQuality": quality,
         "masterPlanner": delivery.get("masterPlanner") or {},
         "legacyDeliveryPreviewHtml": legacy_preview.get("deliveryPreviewHtml", ""),
-        "deliveryPreviewHtml": delivery["previewHtml"],
+        "deliveryPreviewHtml": exact_preview_html,
     })
     return preview
 
