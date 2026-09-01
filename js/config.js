@@ -126,7 +126,7 @@ async function validateConfiguredApi() {
   }
   return result;
 }
-window.validateConfiguredApi = validateConfiguredApi;
+if (typeof window !== "undefined") window.validateConfiguredApi = validateConfiguredApi;
 
 async function checkLocalProxy() {
   const configuredUrl = $("apiUrl").value.trim();
