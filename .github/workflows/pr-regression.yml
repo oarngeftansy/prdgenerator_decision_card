@@ -23,7 +23,9 @@ jobs:
       - name: Compile backend
         run: python -m compileall -q backend
       - name: Run Python regression suite
-        run: pytest -q
+        env:
+          PYTHONPATH: .
+        run: python -m pytest -q
 
   javascript-regression:
     runs-on: ubuntu-latest
