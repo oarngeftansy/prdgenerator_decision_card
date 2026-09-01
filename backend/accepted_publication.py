@@ -32,11 +32,27 @@ def _table_xml(lines: list[str]) -> str:
     )
 
 
+def _publication_inline(text: str, state: str | None) -> str:
+    escaped = escape(text)
+    if state in {"inferred", "proposed"}:
+        return f'<span background-color="light-yellow">{escaped}</span>'
+    if state == "conflict":
+        return f'<span background-color="light-red" text-color="red">{escaped}</span>'
+    return escaped
+
+
 def markdown_to_feishu_xml(markdown: str) -> AcceptedPublicationRender:
+    """Convert accepted Markdown, including invisible provenance comments.
+
+    `<!-- PUBLICATION_STATE:proposed -->` applies only to the immediately
+    following visible block. The marker never becomes document copy; it exists
+    solely to carry yellow/red presentation semantics through Markdown storage.
+    """
     parts: list[str] = []
     order: list[dict[str, Any]] = []
     list_kind: str | None = None
     table_lines: list[str] = []
+    pending_state: str | None = None
 
     def close_list() -> None:
         nonlocal list_kind
@@ -51,10 +67,15 @@ def markdown_to_feishu_xml(markdown: str) -> AcceptedPublicationRender:
 
     for raw in markdown.splitlines():
         line = raw.strip()
+        state_marker = re.fullmatch(r"<!--\s*PUBLICATION_STATE:(confirmed|inferred|proposed|conflict)\s*-->", line, re.I)
+        if state_marker:
+            pending_state = state_marker.group(1).lower()
+            continue
         embed = re.fullmatch(r"<!--\s*EMBED:(P5|P6|BOARD):([A-Za-z0-9-]+)\s*-->", line)
         if embed:
             close_list()
             close_table()
+            pending_state = None
             kind, artifact_id = embed.groups()
             parts.append(f"<p>__GVE16_EMBED_{kind}_{artifact_id}__</p>")
             order.append({"type": "accepted_embed", "kind": kind, "artifactId": artifact_id})
@@ -62,6 +83,9 @@ def markdown_to_feishu_xml(markdown: str) -> AcceptedPublicationRender:
         if not line or line.startswith("<!--"):
             close_list()
             close_table()
+            # Ordinary comments are separators, not provenance carriers.
+            if line.startswith("<!--"):
+                pending_state = None
             continue
         heading = re.match(r"^(#{1,6})\s+(.+)$", line)
         if heading:
@@ -69,12 +93,14 @@ def markdown_to_feishu_xml(markdown: str) -> AcceptedPublicationRender:
             close_table()
             level = min(6, len(heading.group(1)))
             title = heading.group(2).strip()
-            parts.append(f"<h{level}>{escape(title)}</h{level}>")
+            parts.append(f"<h{level}>{_publication_inline(title, pending_state)}</h{level}>")
             order.append({"type": "accepted_heading", "title": title, "level": level})
+            pending_state = None
             continue
         if line.startswith("|"):
             close_list()
             table_lines.append(line)
+            pending_state = None
             continue
         close_table()
         bullet = re.match(r"^[-*]\s+(.+)$", line)
@@ -87,10 +113,12 @@ def markdown_to_feishu_xml(markdown: str) -> AcceptedPublicationRender:
                 list_kind = wanted
             text = (bullet or numbered).group(1).strip()
             seq = ' seq="auto"' if wanted == "ol" else ""
-            parts.append(f"<li{seq}>{escape(text)}</li>")
+            parts.append(f"<li{seq}>{_publication_inline(text, pending_state)}</li>")
+            pending_state = None
             continue
         close_list()
-        parts.append(f"<p>{escape(line)}</p>")
+        parts.append(f"<p>{_publication_inline(line, pending_state)}</p>")
+        pending_state = None
     close_list()
     close_table()
     return AcceptedPublicationRender("".join(parts), tuple(order))
