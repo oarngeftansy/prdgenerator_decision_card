@@ -41,6 +41,17 @@ server_module.BUILT_IN_VISION_API_KEY = ""
 app = server_module.app  # noqa: E402,F401
 logger = logging.getLogger("mirror-eye.master-planner")
 
+# The browser historically posts to this URL. Remove the legacy handler at
+# startup so the same public URL is owned by Master Planner publication safety.
+_LEGACY_FEISHU_POST_PATH = "/api/jobs/{job_id}/feishu/publish"
+app.router.routes[:] = [
+    route for route in app.router.routes
+    if not (
+        getattr(route, "path", None) == _LEGACY_FEISHU_POST_PATH
+        and "POST" in (getattr(route, "methods", None) or set())
+    )
+]
+
 
 def _provider_config(payload: dict) -> ProviderConfig:
     runtime = server_module._runtime_ai_config(
@@ -282,6 +293,7 @@ def _publish_master_feishu(job_id: str, request_id: str, mode: str, gameplay_rev
 
 
 @app.post("/api/jobs/{job_id}/master-plan/feishu/publish", status_code=202)
+@app.post(_LEGACY_FEISHU_POST_PATH, status_code=202)
 def publish_master_plan_to_feishu(job_id: str, payload: dict = Body(...)):
     request_id = str(payload.get("requestId") or "")
     mode = str(payload.get("mode") or "update")
