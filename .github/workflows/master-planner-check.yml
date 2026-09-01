@@ -1,0 +1,32 @@
+name: master-planner-check
+
+on:
+  push:
+    branches: ["refactor/master-planner-v1"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  focused-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements-backend.txt pytest
+      - name: Compile changed Python modules
+        run: >-
+          python -m py_compile
+          api_server.py
+          backend/rule_status.py
+          backend/provider_adapter.py
+          backend/provider_runtime_patch.py
+          backend/master_planner_sanitizer.py
+          backend/planning_content_models.py
+          backend/planning_language_renderer.py
+          backend/document_assembler.py
+          backend/planner_quality_judge.py
+      - name: Master planner policy tests
+        run: python -m pytest -q tests/test_master_planner_policy.py tests/test_api_server_import.py tests/test_builtin_api_config.py
