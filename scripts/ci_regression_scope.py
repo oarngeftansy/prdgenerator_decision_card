@@ -79,6 +79,8 @@ HISTORICAL_SOURCE_MARKERS = (
 SUPERSEDED_NODEIDS = (
     "tests/test_final_mechanic_reconstruction.py::"
     "test_final_suppresses_schema_question_and_technical_gap_but_keeps_specific_planning_gap",
+    "tests/test_final_mechanic_reconstruction.py::"
+    "test_selection_document_places_candidate_types_and_exit_before_refresh_and_inlines_button_action",
     "tests/test_review_preview.py::test_stale_preview_blocks_publish",
 )
 
