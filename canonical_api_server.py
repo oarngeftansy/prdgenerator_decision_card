@@ -1,12 +1,12 @@
 """Canonical production API entrypoint.
 
 `backend.server` remains the stable infrastructure host. `api_server` owns the
-canonical Final/Feishu routes. This module additionally makes Gameplay
-Understanding Skill v1.2 the production owner of the first semantic generation
-stage.
+canonical Final/Feishu routes. This module makes Gameplay Understanding Skill
+v1.2 the production owner of the first semantic generation stage without
+monkey-patching the legacy worker at import time.
 
-The legacy queue/timeout/storage machinery is reused, but its old interaction-
-first gate and legacy structure prompt are not production authorities.
+Route replacement happens only while this production app is running. Importing
+this module in unit tests therefore does not silently change `backend.server.app`.
 """
 
 from __future__ import annotations
@@ -24,54 +24,120 @@ from backend.ai_provider import DEFAULT_API_BASE, DEFAULT_MODEL
 from backend.gameplay_understanding_runtime import generate_gameplay_understanding
 
 
-def _canonical_generate_gameplay_structure(job: dict, job_dir, runtime_config: dict, progress=lambda *_: None) -> dict:
-    understanding, compatibility_model = generate_gameplay_understanding(
-        job,
-        job_dir,
-        runtime_config,
-        progress,
-    )
-
-    # Persist the first-class understanding independently from the compatibility
-    # review model. The legacy worker subsequently persists the compatibility
-    # shell; downstream canonical stages prefer this first-class object.
-    job_id = str(job.get("id") or "")
-    if job_id:
-        expected_generation = str((job.get("gameplayReviewGeneration") or {}).get("generationId") or "")
-
-        def persist(current: dict[str, Any]) -> None:
-            current_generation = str((current.get("gameplayReviewGeneration") or {}).get("generationId") or "")
-            if expected_generation and current_generation and current_generation != expected_generation:
-                return
-            current["gameplayUnderstandingModel"] = copy.deepcopy(understanding)
-
-        server_module.storage.mutate_job(job_id, persist)
-
-    compatibility_model["gameplayUnderstandingModel"] = copy.deepcopy(understanding)
-    compatibility_model["understandingDigest"] = understanding.get("digest")
-    return compatibility_model
-
-
-# Reuse the stable worker, but redirect only its semantic structure function.
-# This mutation exists only in the explicit production entrypoint; importing
-# backend modules alone does not change legacy test/tool behavior.
-server_module.generate_gameplay_structure = _canonical_generate_gameplay_structure
-
 app = api_server.app
-
-# The old endpoint required a completed interaction review before gameplay
-# understanding could even run. That is the reverse of the canonical sequence.
 _LEGACY_GAMEPLAY_GENERATE_PATH = "/api/jobs/{job_id}/gameplay-review/generate"
-app.router.routes[:] = [
+_CANONICAL_ROUTE_NAME = "generate_canonical_gameplay_understanding"
+_original_gameplay_routes = [
     route for route in app.router.routes
-    if not (
-        getattr(route, "path", None) == _LEGACY_GAMEPLAY_GENERATE_PATH
-        and "POST" in (getattr(route, "methods", None) or set())
-    )
+    if getattr(route, "path", None) == _LEGACY_GAMEPLAY_GENERATE_PATH
+    and "POST" in (getattr(route, "methods", None) or set())
 ]
+_canonical_route_installed = False
 
 
-@app.post(_LEGACY_GAMEPLAY_GENERATE_PATH, status_code=202)
+def _generation_active(current: dict[str, Any], generation_id: str) -> bool:
+    generation = current.get("gameplayReviewGeneration") or {}
+    return generation.get("generationId") in {None, generation_id} and generation.get("status") in {"queued", "running"}
+
+
+def _canonical_progress(job_id: str, generation_id: str, value: int, message: str) -> None:
+    reported = max(0, min(100, int(value)))
+
+    def update(current: dict[str, Any]) -> None:
+        if not _generation_active(current, generation_id):
+            return
+        previous = current.get("gameplayReviewGeneration") or {}
+        current["gameplayReviewGeneration"] = {
+            **previous,
+            "status": "running",
+            "progress": max(int(previous.get("progress") or 0), reported),
+            "message": message[:240] or "Generating gameplay understanding.",
+            "phase": server_module._gameplay_generation_phase(reported),
+            "generationId": generation_id,
+            "lastProgressAt": datetime.now(timezone.utc).isoformat(),
+            "semanticOwner": "gameplay-understanding-v1.2",
+        }
+
+    server_module.storage.mutate_job(job_id, update)
+
+
+def _generate_canonical_understanding_job(
+    job_id: str,
+    runtime_config: dict[str, Any],
+    generation_id: str,
+) -> None:
+    """Stable background worker whose semantic owner is Understanding v1.2."""
+    try:
+        def mark_running(current: dict[str, Any]) -> None:
+            if not _generation_active(current, generation_id):
+                return
+            previous = current.get("gameplayReviewGeneration") or {}
+            current["gameplayReviewGeneration"] = {
+                **previous,
+                "status": "running",
+                "progress": int(previous.get("progress") or 0),
+                "message": "Generating gameplay understanding.",
+                "phase": "understanding",
+                "generationId": generation_id,
+                "semanticOwner": "gameplay-understanding-v1.2",
+                "startedAt": previous.get("startedAt") or datetime.now(timezone.utc).isoformat(),
+            }
+
+        server_module.storage.mutate_job(job_id, mark_running)
+        current = server_module.load_job(job_id)
+        understanding, compatibility_model = generate_gameplay_understanding(
+            current,
+            server_module.job_path(job_id),
+            runtime_config,
+            lambda value, message: _canonical_progress(job_id, generation_id, value, message),
+        )
+        compatibility_model["gameplayUnderstandingModel"] = copy.deepcopy(understanding)
+        compatibility_model["understandingDigest"] = understanding.get("digest")
+        compatibility_model["lifecycleState"] = "ready"
+        compatibility_model["contentState"] = "ready"
+
+        def complete(job: dict[str, Any]) -> None:
+            if not _generation_active(job, generation_id):
+                return
+            previous = job.get("gameplayReviewGeneration") or {}
+            job["gameplayUnderstandingModel"] = copy.deepcopy(understanding)
+            job["gameplayReviewModel"] = copy.deepcopy(compatibility_model)
+            job["gameplayReviewGeneration"] = {
+                **previous,
+                "status": "completed",
+                "progress": 100,
+                "message": "Gameplay Understanding v1.2 ready for interaction review.",
+                "phase": "finalizing",
+                "generationId": generation_id,
+                "semanticOwner": "gameplay-understanding-v1.2",
+                "finishedAt": datetime.now(timezone.utc).isoformat(),
+            }
+
+        server_module.storage.mutate_job(job_id, complete)
+    except Exception as exc:
+        server_module.logger.exception("canonical gameplay understanding failed for job %s", job_id)
+
+        def fail(current: dict[str, Any]) -> None:
+            generation = current.get("gameplayReviewGeneration") or {}
+            if generation.get("generationId") not in {None, generation_id}:
+                return
+            current["gameplayReviewGeneration"] = {
+                **generation,
+                "status": "failed",
+                "progress": int(generation.get("progress") or 0),
+                "message": "Gameplay Understanding generation failed. Please retry.",
+                "error": server_module._safe_gameplay_generation_error(exc),
+                "failureKind": server_module._gameplay_generation_failure_kind(exc),
+                "semanticOwner": "gameplay-understanding-v1.2",
+                "finishedAt": datetime.now(timezone.utc).isoformat(),
+            }
+
+        try:
+            server_module.storage.mutate_job(job_id, fail)
+        except Exception:
+            server_module.logger.exception("failed to persist canonical understanding error for %s", job_id)
+
+
 def generate_canonical_gameplay_understanding(
     job_id: str,
     api_base: str = Form(DEFAULT_API_BASE),
@@ -82,7 +148,7 @@ def generate_canonical_gameplay_understanding(
     """Evidence/Video -> Gameplay Understanding v1.2.
 
     No Interaction Model precondition is allowed here. Interaction is a later
-    canonical stage. Existing review UI state is preserved as compatibility data.
+    canonical stage. Existing review UI state is compatibility data only.
     """
     generation_id = uuid.uuid4().hex
     runtime_config = server_module._runtime_ai_config(api_base, model, api_key)
@@ -94,29 +160,30 @@ def generate_canonical_gameplay_understanding(
         if generation.get("status") in {"queued", "running"}:
             raise HTTPException(409, "gameplay understanding generation is already running")
 
-        existing_understanding = current.get("gameplayUnderstandingModel")
-        if not force and isinstance(existing_understanding, dict) and existing_understanding.get("digest"):
+        existing = current.get("gameplayUnderstandingModel")
+        if not force and isinstance(existing, dict) and existing.get("digest"):
             current["gameplayReviewGeneration"] = {
                 "status": "completed",
                 "progress": 100,
                 "message": "Gameplay Understanding v1.2 already exists.",
                 "phase": "finalizing",
                 "generationId": generation_id,
+                "semanticOwner": "gameplay-understanding-v1.2",
                 "finishedAt": datetime.now(timezone.utc).isoformat(),
             }
             return server_module._public_gameplay_review_generation(current["gameplayReviewGeneration"])
 
-        existing = current.get("gameplayReviewModel")
-        if isinstance(existing, dict):
-            existing["contentState"] = "pending"
-            if server_module.gameplay_model_has_content(existing):
-                existing["lastValidRevision"] = existing.get("revision")
+        previous_model = current.get("gameplayReviewModel")
+        if isinstance(previous_model, dict):
+            previous_model["contentState"] = "pending"
+            if server_module.gameplay_model_has_content(previous_model):
+                previous_model["lastValidRevision"] = previous_model.get("revision")
 
         started_at = datetime.now(timezone.utc)
         current["gameplayReviewGeneration"] = {
             "status": "queued",
             "progress": 0,
-            "message": "Queued gameplay review generation.",
+            "message": "Queued Gameplay Understanding v1.2.",
             "phase": "queued",
             "generationId": generation_id,
             "startedAt": started_at.isoformat(),
@@ -140,7 +207,7 @@ def generate_canonical_gameplay_understanding(
 
     try:
         server_module.executor.submit(
-            server_module._generate_gameplay_review,
+            _generate_canonical_understanding_job,
             job_id,
             runtime_config,
             generation_id,
@@ -155,8 +222,7 @@ def generate_canonical_gameplay_understanding(
                     {
                         "status": "failed",
                         "progress": 0,
-                        "message": "Gameplay review generation failed. Please retry.",
-                        "failureKind": "system",
+                        "message": "Gameplay Understanding generation failed. Please retry.",
                     },
                 ),
             )
@@ -164,3 +230,50 @@ def generate_canonical_gameplay_understanding(
             server_module.logger.exception("failed to persist canonical understanding submission error for %s", job_id)
         raise
     return generation
+
+
+def _install_canonical_routes() -> None:
+    global _canonical_route_installed
+    if _canonical_route_installed:
+        return
+    app.router.routes[:] = [
+        route for route in app.router.routes
+        if not (
+            getattr(route, "path", None) == _LEGACY_GAMEPLAY_GENERATE_PATH
+            and "POST" in (getattr(route, "methods", None) or set())
+        )
+    ]
+    app.add_api_route(
+        _LEGACY_GAMEPLAY_GENERATE_PATH,
+        generate_canonical_gameplay_understanding,
+        methods=["POST"],
+        status_code=202,
+        name=_CANONICAL_ROUTE_NAME,
+    )
+    app.openapi_schema = None
+    _canonical_route_installed = True
+
+
+def _restore_legacy_routes() -> None:
+    global _canonical_route_installed
+    if not _canonical_route_installed:
+        return
+    app.router.routes[:] = [
+        route for route in app.router.routes
+        if getattr(route, "name", None) != _CANONICAL_ROUTE_NAME
+    ]
+    for route in _original_gameplay_routes:
+        if route not in app.router.routes:
+            app.router.routes.append(route)
+    app.openapi_schema = None
+    _canonical_route_installed = False
+
+
+@app.on_event("startup")
+def _canonical_startup() -> None:
+    _install_canonical_routes()
+
+
+@app.on_event("shutdown")
+def _canonical_shutdown() -> None:
+    _restore_legacy_routes()
