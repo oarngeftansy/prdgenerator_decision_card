@@ -40,8 +40,6 @@ server_module.BUILT_IN_VISION_API_KEY = ""
 app = server_module.app  # noqa: E402,F401
 logger = logging.getLogger("mirror-eye.master-planner")
 
-# The browser historically posts to this URL. Remove the legacy handler at
-# startup so the same public URL is owned by Master Planner publication safety.
 _LEGACY_FEISHU_POST_PATH = "/api/jobs/{job_id}/feishu/publish"
 app.router.routes[:] = [
     route for route in app.router.routes
@@ -62,53 +60,56 @@ def _provider_config(payload: dict) -> ProviderConfig:
 
 
 def _master_publication_guard(job: dict, *, expected_gameplay: int | None = None, expected_interaction: int | None = None) -> dict:
-    """Validate canonical Master Planner publication authority.
-
-    The legacy screenshot interaction model remains a revision/freshness input,
-    but it is no longer an independent Final quality authority. Interaction
-    closure is owned by the canonical planningSketch/interactionReview pair.
-    """
+    """Validate the frozen canonical publication authority."""
     master = job.get("masterPlanning") if isinstance(job.get("masterPlanning"), dict) else {}
     gameplay = job.get("gameplayReviewModel") if isinstance(job.get("gameplayReviewModel"), dict) else {}
     interaction = job.get("reviewModel") if isinstance(job.get("reviewModel"), dict) else {}
     accepted = job.get("acceptedPublication") if isinstance(job.get("acceptedPublication"), dict) else {}
     gameplay_revision = gameplay.get("revision")
     interaction_revision = interaction.get("revision")
-    if not master or accepted.get("source") != "master_planner_v1":
-        raise ReviewApprovalConflict("Master Planner Final has not been generated")
+    snapshot = master.get("publicationInputSnapshot") if isinstance(master.get("publicationInputSnapshot"), dict) else {}
+    p7 = master.get("p7Delivery") if isinstance(master.get("p7Delivery"), dict) else {}
+    snapshot_digest = str(snapshot.get("digest") or "")
+
+    if not master or accepted.get("source") != "canonical_pipeline_v1":
+        raise ReviewApprovalConflict("Canonical Final has not been generated")
     if master.get("gameplayRevision") != gameplay_revision:
-        raise ReviewApprovalConflict("gameplay revision changed; regenerate Master Planner Final")
+        raise ReviewApprovalConflict("gameplay revision changed; regenerate Canonical Final")
     if master.get("interactionRevision") != interaction_revision:
-        raise ReviewApprovalConflict("interaction revision changed; regenerate Master Planner Final")
+        raise ReviewApprovalConflict("interaction revision changed; regenerate Canonical Final")
     if expected_gameplay is not None and gameplay_revision != expected_gameplay:
         raise PublicationConflict("gameplay publication approval pin changed")
     if expected_interaction is not None and interaction_revision != expected_interaction:
         raise PublicationConflict("interaction publication approval pin changed")
+    if not snapshot_digest or p7.get("publicationInputDigest") != snapshot_digest:
+        raise ReviewApprovalConflict("PublicationInputSnapshot is missing or stale")
+    if accepted.get("publicationInputDigest") != snapshot_digest:
+        raise ReviewApprovalConflict("accepted publication is not pinned to current snapshot")
     if not (master.get("p7Gate") or {}).get("ready"):
-        raise ReviewApprovalConflict("Master Planner P7 gate is not ready")
+        raise ReviewApprovalConflict("Canonical P7 gate is not ready")
     if not (master.get("qualityJudge") or {}).get("ready"):
-        raise ReviewApprovalConflict("Master Planner execution readiness is not ready")
+        raise ReviewApprovalConflict("execution readiness is not ready")
     if not (master.get("interactionReview") or {}).get("ready"):
         raise ReviewApprovalConflict("canonical interaction review is not ready")
     if (master.get("planningSketch") or {}).get("version") != "planning_sketch_v2":
         raise ReviewApprovalConflict("canonical planning sketch is missing or stale")
     if gameplay.get("reviewState", {}).get("previewRevision") != gameplay_revision:
-        raise ReviewApprovalConflict("Master Planner Final preview is stale")
+        raise ReviewApprovalConflict("Canonical Final preview is stale")
     return {
         "gameplayRevision": gameplay_revision,
         "interactionRevision": interaction_revision,
+        "publicationInputDigest": snapshot_digest,
     }
 
 
 @app.post("/api/config/validate")
 def validate_runtime_provider(payload: dict = Body(default={})):
-    """Validate real provider authentication before a fan-out generation job starts."""
     return validate_connectivity(_provider_config(payload))
 
 
 @app.post("/api/jobs/{job_id}/master-plan/final-preview")
 def create_master_planning_final_preview(job_id: str, payload: dict = Body(default={})):
-    """Production P7: legacy delivery safety + canonical Master Planner Final."""
+    """Run canonical production stages, then perform legacy delivery-safety checks."""
     try:
         job = server_module.load_job(job_id)
     except (FileNotFoundError, ValueError) as exc:
@@ -120,8 +121,8 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
     if type(expected) is not int or expected != gameplay.get("revision"):
         raise HTTPException(409, {"currentRevision": gameplay.get("revision", 0)})
 
-    # Legacy preview still owns media/diagram/table/revision safety. Planner
-    # depth and interaction closure are superseded by canonical Master Planner.
+    # Legacy preview is compatibility-only delivery safety: media/diagram/table/
+    # revision checks. It does not own planning depth or Final semantics.
     legacy_preview = server_module.create_gameplay_final_preview(job_id, payload)
     job = server_module.load_job(job_id)
     gameplay = copy.deepcopy(job.get("gameplayReviewModel") or {})
@@ -130,20 +131,30 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
         raise HTTPException(409, {"currentRevision": gameplay.get("revision", 0)})
 
     try:
-        delivery = build_master_planning_delivery(gameplay, _provider_config(payload))
+        delivery = build_master_planning_delivery(
+            gameplay,
+            _provider_config(payload),
+            interaction_model=interaction,
+        )
     except ProviderError as exc:
         raise HTTPException(502 if exc.retryable else 400, exc.public()) from exc
     except (MasterPlannerError, ProductionPlanningError, ValueError) as exc:
         raise HTTPException(422, str(exc)) from exc
 
+    pipeline = delivery.get("canonicalPipeline") or {}
+    snapshot = delivery.get("publicationInputSnapshot") or {}
+    p7_delivery = delivery.get("p7Delivery") or {}
     quality = delivery.get("qualityJudge") or {}
     interaction_review = delivery.get("interactionReview") or {}
     master_ready = (
-        bool(quality.get("ready"))
+        tuple(pipeline.get("stageTrace") or [])
+        and bool(quality.get("ready"))
         and bool(interaction_review.get("ready"))
+        and bool(snapshot.get("digest"))
+        and p7_delivery.get("publicationInputDigest") == snapshot.get("digest")
         and not (delivery.get("document") or {}).get("unresolvedDiagnostics")
     )
-    gate = combine_master_p7_gate(legacy_preview, master_ready=master_ready, master_quality=quality)
+    gate = combine_master_p7_gate(legacy_preview, master_ready=bool(master_ready), master_quality=quality)
     completion = merge_completion_snapshot(
         legacy_preview.get("completionSnapshot"), gate, master_quality=quality,
     )
@@ -160,10 +171,21 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
             current_gameplay["reviewState"]["status"] = "preview_ready"
         else:
             current_gameplay.setdefault("reviewState", {})["previewRevision"] = None
+
+        current["canonicalPipeline"] = copy.deepcopy(pipeline)
         current["masterPlanning"] = {
+            "pipelineVersion": pipeline.get("pipelineVersion"),
+            "stageTrace": copy.deepcopy(pipeline.get("stageTrace") or []),
             "gameplayRevision": expected,
             "interactionRevision": current_interaction.get("revision"),
-            "projection": copy.deepcopy(delivery["projection"]),
+            "gameplayUnderstandingModel": copy.deepcopy(delivery.get("gameplayUnderstandingModel") or {}),
+            "interactionModel": copy.deepcopy(delivery.get("interactionModel") or {}),
+            "executionRuleModel": copy.deepcopy(delivery.get("executionRuleModel") or {}),
+            "p4Review": copy.deepcopy(delivery.get("p4Review") or {}),
+            "p5DiagramProjection": copy.deepcopy(delivery.get("p5DiagramProjection") or {}),
+            "p6ParameterProjection": copy.deepcopy(delivery.get("p6ParameterProjection") or {}),
+            "publicationInputSnapshot": copy.deepcopy(snapshot),
+            "p7Delivery": copy.deepcopy(p7_delivery),
             "document": copy.deepcopy(delivery["document"]),
             "markdown": delivery["markdown"],
             "feishuXml": delivery["feishuXml"],
@@ -176,9 +198,6 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
             "completionSnapshot": copy.deepcopy(completion),
         }
 
-        # Do not embed the legacy screenshot board as the Master Planner sketch.
-        # Until the native whiteboard renderer consumes planning_sketch_v2, the
-        # accepted delivery publishes the canonical structured sketch as text.
         existing_accepted = current.get("acceptedPublication") if isinstance(current.get("acceptedPublication"), dict) else {}
         accepted_markdown = delivery["acceptedMarkdown"].rstrip()
         sketch_markdown = str(delivery.get("planningSketchMarkdown") or "").strip()
@@ -186,14 +205,16 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
             accepted_markdown += "\n\n" + sketch_markdown + "\n"
         current["acceptedPublication"] = {
             **copy.deepcopy(existing_accepted),
-            "source": "master_planner_v1",
+            "source": "canonical_pipeline_v1",
             "gameplayRevision": expected,
             "interactionRevision": current_interaction.get("revision"),
+            "publicationInputDigest": snapshot.get("digest"),
+            "p7DeliveryDigest": p7_delivery.get("digest"),
             "markdown": accepted_markdown,
             "planningSketch": copy.deepcopy(delivery.get("planningSketch") or {}),
             "interactionReview": copy.deepcopy(interaction_review),
-            "p5Diagrams": copy.deepcopy(current_gameplay.get("diagrams") or []),
-            "p6Tables": copy.deepcopy(current_gameplay.get("tables") or []),
+            "p5Diagrams": copy.deepcopy((delivery.get("p5DiagramProjection") or {}).get("diagrams") or []),
+            "p6Tables": copy.deepcopy((delivery.get("p6ParameterProjection") or {}).get("tables") or []),
         }
 
     try:
@@ -217,7 +238,10 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
         "legacyBlockerIds": list(gate["legacyBlockerIds"]),
         "plannerSupersededBlockerIds": list(gate["plannerSupersededBlockerIds"]),
         "completionSnapshot": completion,
-        "masterPlanningReady": master_ready,
+        "masterPlanningReady": bool(master_ready),
+        "canonicalPipelineVersion": pipeline.get("pipelineVersion"),
+        "canonicalStageTrace": copy.deepcopy(pipeline.get("stageTrace") or []),
+        "publicationInputDigest": snapshot.get("digest"),
         "masterPlanningDocument": delivery["document"],
         "masterPlanningMarkdown": delivery["markdown"],
         "masterPlanningFeishuXml": delivery["feishuXml"],
@@ -232,7 +256,6 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
 
 
 def _publish_master_feishu(job_id: str, request_id: str, mode: str, gameplay_revision: int, interaction_revision: int) -> None:
-    """Publish with Master P7 authority while preserving Feishu conflict safety."""
     def approval_guard() -> None:
         _master_publication_guard(
             server_module.load_job(job_id),
@@ -242,7 +265,7 @@ def _publish_master_feishu(job_id: str, request_id: str, mode: str, gameplay_rev
 
     def persist_publication(publication: dict, history: list[dict] | None = None) -> dict:
         def merge(current: dict) -> dict:
-            _master_publication_guard(
+            authority = _master_publication_guard(
                 current,
                 expected_gameplay=gameplay_revision,
                 expected_interaction=interaction_revision,
@@ -255,7 +278,8 @@ def _publish_master_feishu(job_id: str, request_id: str, mode: str, gameplay_rev
                 requestId=request_id,
                 approvedGameplayRevision=gameplay_revision,
                 approvedReviewRevision=interaction_revision,
-                publicationAuthority="master_planner_v1",
+                publicationInputDigest=authority["publicationInputDigest"],
+                publicationAuthority="canonical_pipeline_v1",
             )
             current["feishuPublication"] = canonical
             if history is not None:
@@ -273,7 +297,7 @@ def _publish_master_feishu(job_id: str, request_id: str, mode: str, gameplay_rev
             approval_guard=approval_guard,
         ).publish(job, request_id, mode)
     except (ReviewApprovalConflict, PublicationConflict) as exc:
-        logger.info("Master Feishu publication stopped for %s: %s", job_id, exc)
+        logger.info("Canonical Feishu publication stopped for %s: %s", job_id, exc)
         try:
             def mark_conflict(current: dict) -> None:
                 record = current.get("feishuPublication") or {}
@@ -285,9 +309,9 @@ def _publish_master_feishu(job_id: str, request_id: str, mode: str, gameplay_rev
                     )
             server_module.storage.mutate_job(job_id, mark_conflict)
         except Exception:
-            logger.exception("failed to persist Master Feishu publication conflict for %s", job_id)
+            logger.exception("failed to persist Canonical Feishu publication conflict for %s", job_id)
     except Exception:
-        logger.exception("Master Feishu publication failed for %s", job_id)
+        logger.exception("Canonical Feishu publication failed for %s", job_id)
         try:
             def mark_failed(current: dict) -> None:
                 record = current.get("feishuPublication") or {}
@@ -299,7 +323,7 @@ def _publish_master_feishu(job_id: str, request_id: str, mode: str, gameplay_rev
                     )
             server_module.storage.mutate_job(job_id, mark_failed)
         except Exception:
-            logger.exception("failed to persist Master Feishu publication failure for %s", job_id)
+            logger.exception("failed to persist Canonical Feishu publication failure for %s", job_id)
 
 
 @app.post("/api/jobs/{job_id}/master-plan/feishu/publish", status_code=202)
@@ -340,7 +364,8 @@ def publish_master_plan_to_feishu(job_id: str, payload: dict = Body(...)):
             resumePartial=resume_partial,
             approvedGameplayRevision=revisions["gameplayRevision"],
             approvedReviewRevision=revisions["interactionRevision"],
-            publicationAuthority="master_planner_v1",
+            publicationInputDigest=revisions["publicationInputDigest"],
+            publicationAuthority="canonical_pipeline_v1",
             message="正在检查飞书登录",
         )
         if mode == "new_version" or not record.get("documentToken"):
