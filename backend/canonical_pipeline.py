@@ -3,18 +3,19 @@
 The ordering in this module is an architectural contract:
 
 Evidence / Video (already materialized by upstream ingestion)
+-> Gameplay Understanding Skill v1.2
 -> GameplayUnderstandingModel
 -> InteractionModel
 -> P1 / P2 / P3 projections
--> Execution Planning
+-> Execution Planning Skill
 -> ExecutionRuleModel
 -> P4 Review
 -> P5 Diagram / P6 Parameters
 -> PublicationInputSnapshot
 -> P7 Assemble / Validate / Render
 
-Only Execution Planning may call a generative model. P4-P7 are deterministic
-projections/reviews/renderers and must never invent gameplay rules.
+Only Execution Planning may call a generative model after P3. P4-P7 are
+deterministic projections/reviews/renderers and must never invent gameplay rules.
 """
 
 from __future__ import annotations
@@ -26,8 +27,8 @@ from typing import Any
 
 from .ai_provider import ProviderConfig, Transport
 from .document_assembler import build_final_document, document_to_markdown
+from .execution_planning_runtime import execute_planning_skill
 from .interaction_planning import planning_sketch_to_markdown, project_and_review_interactions
-from .master_planner import complete_execution_plan
 from .planner_quality_judge import evaluate_execution_readiness
 from .publication_renderers import (
     final_document_to_annotated_markdown,
@@ -70,10 +71,10 @@ def _record(trace: list[str], stage: str) -> None:
 
 
 def build_gameplay_understanding_model(gameplay_model: dict[str, Any]) -> dict[str, Any]:
-    """Freeze the current gameplay understanding as the sole semantic source for projections.
+    """Freeze Gameplay Understanding v1.2 output as the sole semantic projection source.
 
-    `gameplayReviewModel` remains a compatibility container. Downstream stages
-    consume this first-class model rather than reaching back into evidence/media.
+    `gameplayReviewModel` is now a compatibility container. Downstream stages do
+    not reach back into evidence/media or plannerSections after this boundary.
     """
     directory = gameplay_model.get("directory") if isinstance(gameplay_model.get("directory"), dict) else {}
     understanding = directory.get("understanding") if isinstance(directory.get("understanding"), dict) else {}
@@ -81,6 +82,7 @@ def build_gameplay_understanding_model(gameplay_model: dict[str, Any]) -> dict[s
     systems = [deepcopy(item) for item in (gameplay_model.get("systems") or []) if isinstance(item, dict)]
     model = {
         "version": "gameplay_understanding_model_v1_2",
+        "skillContract": "gameplay-understanding-v1.2",
         "sourceRevision": gameplay_model.get("revision"),
         "directoryRevision": directory.get("revision"),
         "summary": deepcopy(understanding.get("Summary") or understanding.get("summary") or ""),
@@ -99,11 +101,7 @@ def build_interaction_model(
     gameplay_understanding: dict[str, Any],
     interaction_source: dict[str, Any] | None,
 ) -> dict[str, Any]:
-    """Freeze reviewed interaction observations before any execution planning.
-
-    This is the pre-planning interaction authority. It may contain screenshot/
-    flow review data, but it cannot contain planner-generated execution rules.
-    """
+    """Freeze reviewed interaction observations before any execution planning."""
     source = interaction_source if isinstance(interaction_source, dict) else {}
     stages = [deepcopy(item) for item in (source.get("stages") or []) if isinstance(item, dict)]
     model = {
@@ -159,8 +157,8 @@ def build_p3_planning_snapshot(
         "interactionModel": deepcopy(interaction),
         "p1DirectoryProjection": deepcopy(p1),
         "p2InteractionProjection": deepcopy(p2),
-        # Transitional compatibility source. It is frozen here so execution
-        # planning cannot reach back into mutable upstream job/evidence state.
+        # Compatibility evidence/rule input is frozen here. Execution Planning
+        # cannot reach back into a mutable job after this boundary.
         "approvedData": deepcopy(approved),
     }
     snapshot["digest"] = _digest(snapshot)
@@ -174,13 +172,13 @@ def build_execution_rule_model(
     *,
     transport: Transport | None = None,
 ) -> dict[str, Any]:
-    """The only generative planning stage in the post-understanding pipeline."""
+    """Execute the checked-in Execution Planning Skill and freeze its rule output."""
     frozen_gameplay = {
         **deepcopy(gameplay_model),
         "approvedData": deepcopy(p3_snapshot["approvedData"]),
     }
     projection = build_rule_intelligence_v1(frozen_gameplay, frozen_gameplay["approvedData"])
-    completed = complete_execution_plan(
+    completed = execute_planning_skill(
         projection,
         config,
         understanding=deepcopy(p3_snapshot.get("understanding") or {}),
@@ -189,6 +187,7 @@ def build_execution_rule_model(
     publication = completed.get("publication") if isinstance(completed.get("publication"), dict) else completed
     model = {
         "version": "execution_rule_model_v1",
+        "skillContract": "execution-planning-v2",
         "sourceP3Digest": p3_snapshot.get("digest"),
         "chapters": deepcopy(publication.get("chapters") or []),
         "rules": deepcopy(publication.get("rules") or []),
