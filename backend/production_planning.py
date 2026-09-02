@@ -7,7 +7,7 @@ from typing import Any
 
 from .ai_provider import ProviderConfig, Transport
 from .document_assembler import build_final_document, document_to_markdown
-from .interaction_planning import project_and_review_interactions
+from .interaction_planning import planning_sketch_to_markdown, project_and_review_interactions
 from .master_planner import complete_execution_plan
 from .publication_renderers import (
     final_document_to_annotated_markdown,
@@ -46,9 +46,6 @@ def build_master_planning_delivery(
     )
     publication = completed.get("publication") if isinstance(completed.get("publication"), dict) else completed
 
-    # Interaction Review / Planning Sketch is now a first-class projection of
-    # the same canonical rules that feed Final. It is not sourced from legacy
-    # screenshot-page heuristics and it cannot create a second rule authority.
     planning_sketch, interaction_review = project_and_review_interactions(publication)
     publication["planningSketch"] = deepcopy(planning_sketch)
     publication["interactionReview"] = deepcopy(interaction_review)
@@ -77,5 +74,6 @@ def build_master_planning_delivery(
         "qualityJudge": deepcopy(quality),
         "masterPlanner": deepcopy(publication.get("masterPlanner") or {}),
         "planningSketch": deepcopy(planning_sketch),
+        "planningSketchMarkdown": planning_sketch_to_markdown(planning_sketch),
         "interactionReview": deepcopy(interaction_review),
     }
