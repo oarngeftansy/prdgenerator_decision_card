@@ -1,8 +1,8 @@
-"""Runtime access to the production planning skill contracts.
+"""Runtime access to production planning skill contracts.
 
-The repository still contains historical skills for audit/repro purposes. Production
-planning must only consume the v2 contracts listed here so legacy evidence-gating
-instructions cannot silently regain authority.
+Historical skills remain in-repo only for audit/repro. New production stages must
+load contracts exclusively from this manifest so legacy evidence-gating and
+sample-specific instructions cannot silently regain authority.
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 PRODUCTION_SKILLS = {
-    "gameplay_reconstruction": ROOT / "skills" / "gameplay-reconstruction-v2" / "SKILL.md",
+    "gameplay_understanding": ROOT / "skills" / "gameplay-understanding-v1.2" / "SKILL.md",
     "execution_planning": ROOT / "skills" / "execution-planning-v2" / "SKILL.md",
     "interaction_planning": ROOT / "skills" / "interaction-planning-v2" / "SKILL.md",
     "quality_judge": ROOT / "skills" / "planner-quality-judge-v2" / "SKILL.md",
