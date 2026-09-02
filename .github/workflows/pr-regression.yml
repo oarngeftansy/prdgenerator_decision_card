@@ -21,7 +21,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-backend.txt pytest
       - name: Compile backend
-        run: python -m compileall -q backend api_server.py
+        run: python -m compileall -q backend api_server.py canonical_api_server.py
       - name: Report regression scope
         env:
           PYTHONPATH: .
@@ -59,13 +59,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements-backend.txt
-      - name: Start production API
+      - name: Start canonical production API
         env:
           PYTHONPATH: .
         shell: bash
         run: |
           set -euo pipefail
-          python -m uvicorn api_server:app --host 127.0.0.1 --port 8765 > /tmp/prdgenerator-api.log 2>&1 &
+          python -m uvicorn canonical_api_server:app --host 127.0.0.1 --port 8765 > /tmp/prdgenerator-api.log 2>&1 &
           echo $! > /tmp/prdgenerator-api.pid
           for i in {1..30}; do
             if curl -fsS http://127.0.0.1:8765/openapi.json -o /tmp/openapi.json; then
@@ -75,7 +75,7 @@ jobs:
           done
           cat /tmp/prdgenerator-api.log
           exit 1
-      - name: Verify Master Planner production routes
+      - name: Verify canonical production routes
         run: |
           python - <<'PY'
           import json
@@ -84,14 +84,16 @@ jobs:
           paths = schema['paths']
           required = {
               '/api/config/validate',
+              '/api/jobs/{job_id}/gameplay-review/generate',
               '/api/jobs/{job_id}/master-plan/final-preview',
               '/api/jobs/{job_id}/feishu/publish',
               '/api/jobs/{job_id}/master-plan',
           }
           missing = sorted(required - set(paths))
           assert not missing, f'missing production routes: {missing}'
+          assert 'post' in paths['/api/jobs/{job_id}/gameplay-review/generate']
           assert 'post' in paths['/api/jobs/{job_id}/feishu/publish']
-          print('Master Planner production routes OK')
+          print('Canonical production routes OK')
           PY
       - name: Stop production API
         if: always()
