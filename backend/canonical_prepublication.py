@@ -18,6 +18,7 @@ provider or reconstruct execution rules.
 
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Any
 
 from .ai_provider import ProviderConfig, Transport
@@ -50,16 +51,30 @@ PREPUBLICATION_STAGE_ORDER = (
 )
 
 
+def _authoritative_understanding(
+    gameplay_model: dict[str, Any],
+    first_class_understanding: dict[str, Any] | None,
+) -> dict[str, Any]:
+    candidate = first_class_understanding if isinstance(first_class_understanding, dict) else {}
+    if candidate.get("version") == "gameplay_understanding_model_v1_2" and candidate.get("digest"):
+        return deepcopy(candidate)
+    nested = gameplay_model.get("gameplayUnderstandingModel") if isinstance(gameplay_model.get("gameplayUnderstandingModel"), dict) else {}
+    if nested.get("version") == "gameplay_understanding_model_v1_2" and nested.get("digest"):
+        return deepcopy(nested)
+    return build_gameplay_understanding_model(gameplay_model)
+
+
 def prepare_publication_input(
     gameplay_model: dict[str, Any],
     interaction_source: dict[str, Any] | None,
     config: ProviderConfig,
     *,
+    first_class_understanding: dict[str, Any] | None = None,
     transport: Transport | None = None,
 ) -> dict[str, Any]:
     trace: list[str] = []
 
-    understanding = build_gameplay_understanding_model(gameplay_model)
+    understanding = _authoritative_understanding(gameplay_model, first_class_understanding)
     trace.append("gameplay_understanding")
 
     interaction = build_interaction_model(understanding, interaction_source)
