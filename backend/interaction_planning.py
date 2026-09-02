@@ -14,7 +14,6 @@ from __future__ import annotations
 from collections import Counter
 from copy import deepcopy
 import hashlib
-import re
 from typing import Any
 
 
@@ -82,16 +81,11 @@ def _state_change(rule: dict[str, Any]) -> str:
     ).strip()
     if explicit:
         return explicit
-    result = str(rule.get("result") or "").strip()
-    return result
+    return str(rule.get("result") or "").strip()
 
 
 def build_planning_sketch(publication: dict[str, Any]) -> dict[str, Any]:
-    """Project canonical rules into a reviewable, mechanic-agnostic sketch.
-
-    This is a deterministic projection. It does not re-interpret the source and
-    therefore cannot override Master Planner decisions or confirmed rules.
-    """
+    """Project canonical rules into a reviewable, mechanic-agnostic sketch."""
     rules = [deepcopy(rule) for rule in publication.get("rules") or [] if isinstance(rule, dict)]
     chapters = [chapter for chapter in publication.get("chapters") or [] if isinstance(chapter, dict)]
     chapter_by_id = {str(chapter.get("chapterId") or ""): chapter for chapter in chapters}
@@ -139,7 +133,7 @@ def build_planning_sketch(publication: dict[str, Any]) -> dict[str, Any]:
                     "ruleRefs": [rule_id],
                 })
             if interaction["trigger"] or interaction["result"]:
-                edge = {
+                all_edges.append({
                     "edgeId": _stable_id("EDGE", interaction_id),
                     "contextId": context_id,
                     "interactionId": interaction_id,
@@ -147,8 +141,7 @@ def build_planning_sketch(publication: dict[str, Any]) -> dict[str, Any]:
                     "to": interaction["result"] or interaction["stateChange"] or "context_updated",
                     "publicationState": publication_state,
                     "ruleRefs": [rule_id],
-                }
-                all_edges.append(edge)
+                })
 
         contexts.append({
             "contextId": context_id,
@@ -212,6 +205,35 @@ def audit_planning_sketch(sketch: dict[str, Any], publication: dict[str, Any]) -
         "publicationStateCounts": dict(states),
         "policy": "inferred_and_proposed_are_reviewable_non_blocking_states",
     }
+
+
+def planning_sketch_to_markdown(sketch: dict[str, Any]) -> str:
+    """Render the canonical sketch without leaking provenance labels into copy."""
+    lines = ["## 策划草图", ""]
+    for context in sketch.get("contexts") or []:
+        if not isinstance(context, dict):
+            continue
+        title = str(context.get("title") or "玩法上下文").strip()
+        lines.extend([f"### {title}", ""])
+        for interaction in context.get("interactions") or []:
+            if not isinstance(interaction, dict):
+                continue
+            action = str(interaction.get("action") or "").strip()
+            if action:
+                lines.append(f"- {action.rstrip('。；')}。")
+            trigger = str(interaction.get("trigger") or "").strip()
+            result = str(interaction.get("result") or interaction.get("stateChange") or "").strip()
+            if trigger or result:
+                transition = " → ".join(value for value in (trigger, result) if value)
+                lines.append(f"  - 流转：{transition}")
+            conditions = [str(value).strip() for value in interaction.get("preconditions") or [] if str(value).strip()]
+            if conditions:
+                lines.append("  - 条件：" + "；".join(conditions))
+            exception = str(interaction.get("exception") or "").strip()
+            if exception:
+                lines.append(f"  - 异常：{exception}")
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def project_and_review_interactions(publication: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
