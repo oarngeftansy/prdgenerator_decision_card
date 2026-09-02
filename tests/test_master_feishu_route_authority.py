@@ -10,6 +10,8 @@ def _master_ready_job(*, gameplay_revision: int = 8, preview_revision: int = 8) 
             "interactionRevision": None,
             "p7Gate": {"ready": True},
             "qualityJudge": {"ready": True},
+            "planningSketch": {"version": "planning_sketch_v2", "authority": "canonical_rule_projection"},
+            "interactionReview": {"version": "interaction_review_v2", "ready": True},
         },
         "acceptedPublication": {"source": "master_planner_v1"},
         "gameplayReviewModel": {
@@ -30,12 +32,52 @@ def test_legacy_feishu_url_is_owned_only_by_master_planner() -> None:
     assert routes[0].endpoint is api_server.publish_master_plan_to_feishu
 
 
-def test_master_publication_guard_accepts_master_authority_without_legacy_gameplay_depth_gate() -> None:
+def test_master_publication_guard_accepts_canonical_interaction_authority() -> None:
     job = _master_ready_job()
     assert api_server._master_publication_guard(job) == {
         "gameplayRevision": 8,
         "interactionRevision": None,
     }
+
+
+def test_legacy_interaction_export_gate_no_longer_controls_master_final() -> None:
+    job = _master_ready_job()
+    job["reviewModel"] = {
+        # Deliberately legacy-incomplete. Canonical interactionReview is the
+        # publication authority once Master Planner Final has been generated.
+        "revision": 3,
+        "reviewState": {"previewRevision": None},
+        "stages": [],
+        "transitions": [],
+    }
+    job["masterPlanning"]["interactionRevision"] = 3
+    assert api_server._master_publication_guard(job)["interactionRevision"] == 3
+
+
+def test_master_publication_guard_rejects_failed_canonical_interaction_review() -> None:
+    job = _master_ready_job()
+    job["masterPlanning"]["interactionReview"] = {
+        "version": "interaction_review_v2",
+        "ready": False,
+        "criticalIssues": ["planning_sketch_rule_coverage_incomplete"],
+    }
+    try:
+        api_server._master_publication_guard(job)
+    except Exception as exc:
+        assert "canonical interaction review is not ready" in str(exc)
+    else:
+        raise AssertionError("failed canonical interaction review must block publication")
+
+
+def test_master_publication_guard_rejects_missing_canonical_planning_sketch() -> None:
+    job = _master_ready_job()
+    job["masterPlanning"]["planningSketch"] = {}
+    try:
+        api_server._master_publication_guard(job)
+    except Exception as exc:
+        assert "canonical planning sketch is missing or stale" in str(exc)
+    else:
+        raise AssertionError("missing canonical planning sketch must block publication")
 
 
 def test_master_publication_guard_rejects_stale_gameplay_revision() -> None:
