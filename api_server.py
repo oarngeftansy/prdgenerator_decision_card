@@ -31,7 +31,6 @@ from backend.feishu_render import render_feishu_document  # noqa: E402
 from backend.master_planner import MasterPlannerError  # noqa: E402
 from backend.p7_master_gate import combine_master_p7_gate, merge_completion_snapshot  # noqa: E402
 from backend.production_planning import ProductionPlanningError, build_master_planning_delivery  # noqa: E402
-from backend.review_model import review_gate  # noqa: E402
 from backend.review_preview import _delivery_preview_html  # noqa: E402
 
 server_module.BUILT_IN_VISION_API_BASE = DEFAULT_API_BASE
@@ -63,11 +62,11 @@ def _provider_config(payload: dict) -> ProviderConfig:
 
 
 def _master_publication_guard(job: dict, *, expected_gameplay: int | None = None, expected_interaction: int | None = None) -> dict:
-    """Validate the current Master Planner publication authority.
+    """Validate canonical Master Planner publication authority.
 
-    Legacy gameplay depth gates are intentionally excluded here. They are
-    superseded by Master Planner + Execution Readiness Judge. Revision, media,
-    board, diagram and table safety were already captured by the current P7 gate.
+    The legacy screenshot interaction model remains a revision/freshness input,
+    but it is no longer an independent Final quality authority. Interaction
+    closure is owned by the canonical planningSketch/interactionReview pair.
     """
     master = job.get("masterPlanning") if isinstance(job.get("masterPlanning"), dict) else {}
     gameplay = job.get("gameplayReviewModel") if isinstance(job.get("gameplayReviewModel"), dict) else {}
@@ -89,13 +88,12 @@ def _master_publication_guard(job: dict, *, expected_gameplay: int | None = None
         raise ReviewApprovalConflict("Master Planner P7 gate is not ready")
     if not (master.get("qualityJudge") or {}).get("ready"):
         raise ReviewApprovalConflict("Master Planner execution readiness is not ready")
+    if not (master.get("interactionReview") or {}).get("ready"):
+        raise ReviewApprovalConflict("canonical interaction review is not ready")
+    if (master.get("planningSketch") or {}).get("version") != "planning_sketch_v2":
+        raise ReviewApprovalConflict("canonical planning sketch is missing or stale")
     if gameplay.get("reviewState", {}).get("previewRevision") != gameplay_revision:
         raise ReviewApprovalConflict("Master Planner Final preview is stale")
-    if interaction and (
-        interaction.get("reviewState", {}).get("previewRevision") != interaction_revision
-        or not review_gate(interaction)["exportReady"]
-    ):
-        raise ReviewApprovalConflict("interaction preview is stale")
     return {
         "gameplayRevision": gameplay_revision,
         "interactionRevision": interaction_revision,
@@ -122,8 +120,8 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
     if type(expected) is not int or expected != gameplay.get("revision"):
         raise HTTPException(409, {"currentRevision": gameplay.get("revision", 0)})
 
-    # Keep legacy ownership of revision/media/diagram/table/board safety. The
-    # resulting planner-depth blockers are classified after canonical planning.
+    # Legacy preview still owns media/diagram/table/revision safety. Planner
+    # depth and interaction closure are superseded by canonical Master Planner.
     legacy_preview = server_module.create_gameplay_final_preview(job_id, payload)
     job = server_module.load_job(job_id)
     gameplay = copy.deepcopy(job.get("gameplayReviewModel") or {})
@@ -139,7 +137,12 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
         raise HTTPException(422, str(exc)) from exc
 
     quality = delivery.get("qualityJudge") or {}
-    master_ready = bool(quality.get("ready")) and not (delivery.get("document") or {}).get("unresolvedDiagnostics")
+    interaction_review = delivery.get("interactionReview") or {}
+    master_ready = (
+        bool(quality.get("ready"))
+        and bool(interaction_review.get("ready"))
+        and not (delivery.get("document") or {}).get("unresolvedDiagnostics")
+    )
     gate = combine_master_p7_gate(legacy_preview, master_ready=master_ready, master_quality=quality)
     completion = merge_completion_snapshot(
         legacy_preview.get("completionSnapshot"), gate, master_quality=quality,
@@ -166,22 +169,29 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
             "feishuXml": delivery["feishuXml"],
             "qualityJudge": copy.deepcopy(quality),
             "masterPlanner": copy.deepcopy(delivery.get("masterPlanner") or {}),
+            "planningSketch": copy.deepcopy(delivery.get("planningSketch") or {}),
+            "planningSketchMarkdown": delivery.get("planningSketchMarkdown") or "",
+            "interactionReview": copy.deepcopy(interaction_review),
             "p7Gate": copy.deepcopy(gate),
             "completionSnapshot": copy.deepcopy(completion),
         }
 
-        # Existing Feishu renderer remains responsible for boards/P5/P6. Only
-        # the textual authority is replaced by canonical Master Planner output.
+        # Do not embed the legacy screenshot board as the Master Planner sketch.
+        # Until the native whiteboard renderer consumes planning_sketch_v2, the
+        # accepted delivery publishes the canonical structured sketch as text.
         existing_accepted = current.get("acceptedPublication") if isinstance(current.get("acceptedPublication"), dict) else {}
-        accepted_markdown = delivery["acceptedMarkdown"].rstrip() + (
-            "\n\n## 策划草图\n\n<!-- EMBED:BOARD:planning -->\n"
-        )
+        accepted_markdown = delivery["acceptedMarkdown"].rstrip()
+        sketch_markdown = str(delivery.get("planningSketchMarkdown") or "").strip()
+        if sketch_markdown:
+            accepted_markdown += "\n\n" + sketch_markdown + "\n"
         current["acceptedPublication"] = {
             **copy.deepcopy(existing_accepted),
             "source": "master_planner_v1",
             "gameplayRevision": expected,
             "interactionRevision": current_interaction.get("revision"),
             "markdown": accepted_markdown,
+            "planningSketch": copy.deepcopy(delivery.get("planningSketch") or {}),
+            "interactionReview": copy.deepcopy(interaction_review),
             "p5Diagrams": copy.deepcopy(current_gameplay.get("diagrams") or []),
             "p6Tables": copy.deepcopy(current_gameplay.get("tables") or []),
         }
@@ -193,8 +203,6 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
     except (FileNotFoundError, ValueError) as exc:
         raise HTTPException(404, "job not found") from exc
 
-    # P7 preview must be byte-semantically aligned with the renderer later used
-    # by Feishu publishing; otherwise preview/Final drift returns.
     try:
         persisted_job = server_module.load_job(job_id)
         exact_render = render_feishu_document(persisted_job, server_module.job_path(job_id))
@@ -214,6 +222,8 @@ def create_master_planning_final_preview(job_id: str, payload: dict = Body(defau
         "masterPlanningMarkdown": delivery["markdown"],
         "masterPlanningFeishuXml": delivery["feishuXml"],
         "masterPlanningQuality": quality,
+        "masterPlanningSketch": delivery.get("planningSketch") or {},
+        "masterInteractionReview": interaction_review,
         "masterPlanner": delivery.get("masterPlanner") or {},
         "legacyDeliveryPreviewHtml": legacy_preview.get("deliveryPreviewHtml", ""),
         "deliveryPreviewHtml": exact_preview_html,
