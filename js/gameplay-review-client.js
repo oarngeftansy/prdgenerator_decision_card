@@ -41,7 +41,11 @@ class GameplayReviewClient {
   diagrams(expectedRevision) { return this.request("/gameplay-review-model/diagrams", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision }) }); }
   tables(expectedRevision) { return this.request("/gameplay-review-model/tables", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision }) }); }
   tableAction(action, expectedRevision, tableId, feedback = "") { return this.request(`/gameplay-review-model/tables/${tableId}/${action}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision, ...(feedback ? { feedback } : {}) }) }); }
-  finalPreview(expectedRevision, config = {}) { return this.request("/master-plan/final-preview", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision, ...config }) }); }
+  preparePublication(expectedRevision, config = {}) { return this.request("/master-plan/prepare-publication", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision, ...config }) }); }
+  async finalPreview(expectedRevision, config = {}) {
+    await this.preparePublication(expectedRevision, config);
+    return this.request("/master-plan/final-preview", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision }) });
+  }
 }
 
 function createOperationQueue(options) {
