@@ -21,9 +21,13 @@ _UI_TERMS = (
     "页面", "界面", "按钮", "点击", "选择", "弹窗", "列表", "入口", "关闭", "返回", "提示",
     "panel", "button", "click", "tap", "modal", "screen", "ui",
 )
-_GAMEPLAY_TERMS = (
-    "移动", "攻击", "战斗", "目标", "碰撞", "死亡", "生成", "刷新", "技能", "单位", "回合",
-    "关卡", "波次", "资源", "奖励", "结算", "伤害", "速度", "位置", "范围", "状态",
+_DIRECT_GAMEPLAY_TERMS = (
+    "移动", "攻击", "战斗", "目标", "碰撞", "死亡", "技能", "单位", "回合", "关卡", "波次",
+    "伤害", "速度", "位置", "范围", "操控", "瞄准", "放置", "建造", "对话", "解谜",
+)
+_AUTONOMOUS_SYSTEM_TERMS = (
+    "系统自动", "自动生产", "离线", "定时", "周期", "后台", "累计", "持久化", "保存", "恢复",
+    "刷新时间", "调度", "simulation", "offline", "scheduler", "persistent",
 )
 
 
@@ -44,7 +48,14 @@ def _context_type(rule: dict[str, Any]) -> str:
     text = _text(rule).casefold()
     if any(term.casefold() in text for term in _UI_TERMS):
         return "ui_surface"
-    if any(term.casefold() in text for term in _GAMEPLAY_TERMS):
+    # Autonomous mechanics are system contexts even when their results mention
+    # resources, settlement or state. Those nouns alone must not fabricate an
+    # in-play interaction surface.
+    if any(term.casefold() in text for term in _AUTONOMOUS_SYSTEM_TERMS) and not any(
+        term.casefold() in text for term in _DIRECT_GAMEPLAY_TERMS
+    ):
+        return "system_context"
+    if any(term.casefold() in text for term in _DIRECT_GAMEPLAY_TERMS):
         return "gameplay_context"
     return "system_context"
 
