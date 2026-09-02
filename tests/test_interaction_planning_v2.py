@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from backend.interaction_planning import audit_planning_sketch, build_planning_sketch, project_and_review_interactions
+from backend.interaction_planning import (
+    audit_planning_sketch,
+    build_planning_sketch,
+    planning_sketch_to_markdown,
+    project_and_review_interactions,
+)
 
 
 def _publication() -> dict:
@@ -83,6 +88,17 @@ def test_interaction_review_blocks_only_structural_traceability_defects() -> Non
     review = audit_planning_sketch(sketch, publication)
     assert review["ready"] is False
     assert "planning_sketch_rule_coverage_incomplete" in review["criticalIssues"]
-    # inferred/proposed remain reviewable states; their provenance is not a blocker.
     assert "inferred" not in review["criticalIssues"]
     assert "proposed" not in review["criticalIssues"]
+
+
+def test_planning_sketch_markdown_publishes_decisions_without_provenance_labels() -> None:
+    sketch = build_planning_sketch(_publication())
+    markdown = planning_sketch_to_markdown(sketch)
+    assert "玩家点击购买后校验货币和库存并提交交易" in markdown
+    assert "系统按已记录的生产速率累计离线产出" in markdown
+    assert "【黄色：推断】" not in markdown
+    assert "【推断】" not in markdown
+    assert "【建议】" not in markdown
+    assert "根据素材推测" not in markdown
+    assert "待确认" not in markdown
