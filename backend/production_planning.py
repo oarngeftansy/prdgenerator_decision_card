@@ -1,4 +1,9 @@
-"""Production adapter from reviewed gameplay model to canonical Master Planner Final."""
+"""Compatibility adapter for the canonical production planning pipeline.
+
+New production code should inspect `canonicalPipeline`. Historical callers may
+continue reading the legacy top-level delivery keys returned here while migration
+finishes.
+"""
 
 from __future__ import annotations
 
@@ -6,14 +11,7 @@ from copy import deepcopy
 from typing import Any
 
 from .ai_provider import ProviderConfig, Transport
-from .document_assembler import build_final_document, document_to_markdown
-from .interaction_planning import planning_sketch_to_markdown, project_and_review_interactions
-from .master_planner import complete_execution_plan
-from .publication_renderers import (
-    final_document_to_annotated_markdown,
-    final_document_to_feishu_xml,
-    final_document_to_html,
-)
+from .canonical_pipeline import CanonicalPipelineError, run_canonical_pipeline
 from .rule_normalizer import build_rule_intelligence_v1
 
 
@@ -22,7 +20,7 @@ class ProductionPlanningError(ValueError):
 
 
 def build_current_projection(gameplay_model: dict[str, Any]) -> dict[str, Any]:
-    """Always rebuild from the current approved snapshot to avoid stale P7 data."""
+    """Legacy compatibility helper. It is no longer the production orchestrator."""
     approved = gameplay_model.get("approvedData")
     if gameplay_model.get("contentModelVersion") != 2 or not isinstance(approved, dict):
         raise ProductionPlanningError("Master Planner requires content model v2 approvedData")
@@ -33,47 +31,58 @@ def build_master_planning_delivery(
     gameplay_model: dict[str, Any],
     config: ProviderConfig,
     *,
+    interaction_model: dict[str, Any] | None = None,
     transport: Transport | None = None,
 ) -> dict[str, Any]:
-    """Run the production kernel and materialize Final plus interaction review."""
-    projection = build_current_projection(gameplay_model)
-    understanding = ((gameplay_model.get("directory") or {}).get("understanding") or {})
-    completed = complete_execution_plan(
-        projection,
-        config,
-        understanding=understanding if isinstance(understanding, dict) else {},
-        transport=transport,
-    )
-    publication = completed.get("publication") if isinstance(completed.get("publication"), dict) else completed
+    """Run canonical stages and expose temporary legacy aliases for existing UI/API code."""
+    try:
+        pipeline = run_canonical_pipeline(
+            gameplay_model,
+            interaction_model,
+            config,
+            transport=transport,
+        )
+    except CanonicalPipelineError as exc:
+        raise ProductionPlanningError(str(exc)) from exc
 
-    planning_sketch, interaction_review = project_and_review_interactions(publication)
-    publication["planningSketch"] = deepcopy(planning_sketch)
-    publication["interactionReview"] = deepcopy(interaction_review)
-
-    quality = deepcopy(publication.get("qualityJudge") or {})
-    if not interaction_review.get("ready"):
-        issues = list(quality.get("criticalIssues") or [])
-        for issue in interaction_review.get("criticalIssues") or []:
-            if issue not in issues:
-                issues.append(issue)
-        quality["criticalIssues"] = issues
-        quality["ready"] = False
-    quality["interactionReviewReady"] = bool(interaction_review.get("ready"))
-    quality["planningSketchVersion"] = planning_sketch.get("version")
-    publication["qualityJudge"] = quality
-
-    document = build_final_document(publication)
+    p7 = pipeline["p7Delivery"]
+    erm = pipeline["executionRuleModel"]
+    p4 = pipeline["p4Review"]
+    publication = {
+        "chapters": deepcopy(erm.get("chapters") or []),
+        "rules": deepcopy(erm.get("rules") or []),
+        "ruleGroups": deepcopy(erm.get("ruleGroups") or []),
+        "mechanicFlows": deepcopy(erm.get("mechanicFlows") or []),
+        "gaps": deepcopy(erm.get("gaps") or []),
+        "finalPlanningGaps": deepcopy(erm.get("finalPlanningGaps") or []),
+        "masterPlanner": deepcopy(erm.get("masterPlanner") or {}),
+        "planningSketch": deepcopy(p4.get("planningSketch") or {}),
+        "interactionReview": deepcopy(p4.get("interactionReview") or {}),
+        "qualityJudge": deepcopy(p4.get("qualityJudge") or {}),
+    }
     return {
-        "projection": completed,
-        "publication": deepcopy(publication),
-        "document": document,
-        "markdown": document_to_markdown(document),
-        "acceptedMarkdown": final_document_to_annotated_markdown(document),
-        "previewHtml": final_document_to_html(document),
-        "feishuXml": final_document_to_feishu_xml(document),
-        "qualityJudge": deepcopy(quality),
-        "masterPlanner": deepcopy(publication.get("masterPlanner") or {}),
-        "planningSketch": deepcopy(planning_sketch),
-        "planningSketchMarkdown": planning_sketch_to_markdown(planning_sketch),
-        "interactionReview": deepcopy(interaction_review),
+        # Canonical authority and observability.
+        "canonicalPipeline": deepcopy(pipeline),
+        "gameplayUnderstandingModel": deepcopy(pipeline["gameplayUnderstandingModel"]),
+        "interactionModel": deepcopy(pipeline["interactionModel"]),
+        "executionRuleModel": deepcopy(erm),
+        "publicationInputSnapshot": deepcopy(pipeline["publicationInputSnapshot"]),
+        "p4Review": deepcopy(p4),
+        "p5DiagramProjection": deepcopy(pipeline["p5DiagramProjection"]),
+        "p6ParameterProjection": deepcopy(pipeline["p6ParameterProjection"]),
+        "p7Delivery": deepcopy(p7),
+        # Compatibility aliases. These must be read-only projections of the
+        # canonical stages; they are not independent authorities.
+        "projection": deepcopy(erm),
+        "publication": publication,
+        "document": deepcopy(p7["document"]),
+        "markdown": p7["markdown"],
+        "acceptedMarkdown": p7["acceptedMarkdown"],
+        "previewHtml": p7["previewHtml"],
+        "feishuXml": p7["feishuXml"],
+        "qualityJudge": deepcopy(p4.get("qualityJudge") or {}),
+        "masterPlanner": deepcopy(erm.get("masterPlanner") or {}),
+        "planningSketch": deepcopy(p4.get("planningSketch") or {}),
+        "planningSketchMarkdown": p7["planningSketchMarkdown"],
+        "interactionReview": deepcopy(p4.get("interactionReview") or {}),
     }
