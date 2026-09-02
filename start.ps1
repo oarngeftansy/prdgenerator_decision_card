@@ -39,4 +39,7 @@ if ($LarkCliPath -and (Test-Path -LiteralPath $LarkCliPath)) {
     $env:LARK_CLI_EXECUTABLE = $LarkCliPath
 }
 
-& $pythonPath -m uvicorn backend.server:app --host $HostAddress --port $Port
+# canonical_api_server is the sole production launcher. It composes the stable
+# backend infrastructure with Gameplay Understanding v1.2, canonical planning,
+# P7 snapshot rendering and canonical Feishu publication authority.
+& $pythonPath -m uvicorn canonical_api_server:app --host $HostAddress --port $Port

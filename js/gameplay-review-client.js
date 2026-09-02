@@ -9,9 +9,15 @@ class GameplayReviewClient {
     const response = await fetch(`${this.baseUrl}/api/jobs/${this.jobId}${path}`, options);
     const body = await response.json();
     if (!response.ok) {
-      const error = new Error(body.detail?.message || body.detail || "Gameplay review request failed");
+      const detail = body.detail;
+      const message = typeof detail === "object" && detail
+        ? (detail.message || detail.kind || JSON.stringify(detail))
+        : detail;
+      const error = new Error(message || "Gameplay review request failed");
       error.status = response.status;
-      error.currentRevision = body.detail?.currentRevision;
+      error.currentRevision = detail?.currentRevision;
+      error.kind = detail?.kind;
+      error.retryable = detail?.retryable;
       throw error;
     }
     return body;
@@ -35,7 +41,11 @@ class GameplayReviewClient {
   diagrams(expectedRevision) { return this.request("/gameplay-review-model/diagrams", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision }) }); }
   tables(expectedRevision) { return this.request("/gameplay-review-model/tables", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision }) }); }
   tableAction(action, expectedRevision, tableId, feedback = "") { return this.request(`/gameplay-review-model/tables/${tableId}/${action}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision, ...(feedback ? { feedback } : {}) }) }); }
-  finalPreview(expectedRevision, config = {}) { return this.request("/gameplay-review-model/final-preview", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision, ...config }) }); }
+  preparePublication(expectedRevision, config = {}) { return this.request("/master-plan/prepare-publication", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision, ...config }) }); }
+  async finalPreview(expectedRevision, config = {}) {
+    await this.preparePublication(expectedRevision, config);
+    return this.request("/master-plan/final-preview", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expectedRevision }) });
+  }
 }
 
 function createOperationQueue(options) {

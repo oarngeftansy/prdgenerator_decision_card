@@ -1,0 +1,148 @@
+name: PR Regression
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  python-core-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-backend.txt
+      - name: Install backend and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-backend.txt pytest
+      - name: Compile backend
+        run: python -m compileall -q backend api_server.py canonical_api_server.py
+      - name: Report regression scope
+        env:
+          PYTHONPATH: .
+        run: python scripts/ci_regression_scope.py list
+      - name: Run reproducible Python regression suite
+        env:
+          PYTHONPATH: .
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/ci_regression_scope.py core 2>&1 | tee /tmp/python-core-regression.log
+      - name: Preserve Python failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-core-regression-log
+          path: /tmp/python-core-regression.log
+          retention-days: 3
+      - name: Run calibration tests
+        env:
+          PYTHONPATH: .
+        run: python -m pytest -q tests/calibration
+
+  production-api-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-backend.txt
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-backend.txt
+      - name: Start canonical production API
+        env:
+          PYTHONPATH: .
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m uvicorn canonical_api_server:app --host 127.0.0.1 --port 8765 > /tmp/prdgenerator-api.log 2>&1 &
+          echo $! > /tmp/prdgenerator-api.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:8765/openapi.json -o /tmp/openapi.json; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/prdgenerator-api.log
+          exit 1
+      - name: Verify canonical production routes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          schema = json.loads(Path('/tmp/openapi.json').read_text())
+          paths = schema['paths']
+          required = {
+              '/api/config/validate',
+              '/api/jobs/{job_id}/gameplay-review/generate',
+              '/api/jobs/{job_id}/master-plan/final-preview',
+              '/api/jobs/{job_id}/feishu/publish',
+              '/api/jobs/{job_id}/master-plan',
+          }
+          missing = sorted(required - set(paths))
+          assert not missing, f'missing production routes: {missing}'
+          assert 'post' in paths['/api/jobs/{job_id}/gameplay-review/generate']
+          assert 'post' in paths['/api/jobs/{job_id}/feishu/publish']
+          print('Canonical production routes OK')
+          PY
+      - name: Stop production API
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/prdgenerator-api.pid ]; then
+            kill "$(cat /tmp/prdgenerator-api.pid)" || true
+          fi
+          if [ -f /tmp/prdgenerator-api.log ]; then
+            tail -n 80 /tmp/prdgenerator-api.log
+          fi
+
+  historical-workspace-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-backend.txt
+      - name: Install backend and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-backend.txt pytest
+      - name: Check historical workspace audits
+        env:
+          PYTHONPATH: .
+        run: python scripts/ci_regression_scope.py historical
+
+  javascript-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run dependency-free JavaScript tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(tests/js/*.test.js tests/js/test_*.js)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo 'No dependency-free JS tests found; skipping.'
+            exit 0
+          fi
+          for file in "${files[@]}"; do
+            node "$file"
+          done

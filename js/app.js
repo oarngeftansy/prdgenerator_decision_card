@@ -109,6 +109,9 @@ function bindEvents() {
   });
   $("extractBtn").addEventListener("click", async () => {
     try {
+      setProgress(0, "生成前检查 API");
+      await window.validateConfiguredApi();
+      setProgress(1, "API 已验证，正在启动分析");
       const handled = await extractWithIntegratedBackend();
       if (!handled) {
         throw new Error("无法连接统一分析服务，请确认局域网服务正在运行后重试。");
@@ -118,8 +121,24 @@ function bindEvents() {
       setProgress(0, "启动失败");
     }
   });
-  $("aiBtn").addEventListener("click", aiInterpretFrames);
-  $("reanalyzeAllBtn").addEventListener("click", () => reanalyzeWholeJob().catch((error) => setStatus(error.message)));
+  $("aiBtn").addEventListener("click", async () => {
+    try {
+      setProgress(0, "生成前检查 API");
+      await window.validateConfiguredApi();
+      await aiInterpretFrames();
+    } catch (error) {
+      setStatus(`AI 解读启动失败：${error.message}`);
+      setProgress(0, "启动失败");
+    }
+  });
+  $("reanalyzeAllBtn").addEventListener("click", async () => {
+    try {
+      await window.validateConfiguredApi();
+      await reanalyzeWholeJob();
+    } catch (error) {
+      setStatus(error.message);
+    }
+  });
   $("confirmAllBtn").addEventListener("click", () => {
     state.frames.forEach((frame) => { frame.confirmed = true; });
     renderFrames();
@@ -141,7 +160,14 @@ function bindEvents() {
   });
   $("clearBtn").addEventListener("click", clearAll);
   $("cancelJobBtn").addEventListener("click", cancelBackendJob);
-  $("retryJobBtn").addEventListener("click", () => retryBackendJob().catch((error) => setStatus(error.message)));
+  $("retryJobBtn").addEventListener("click", async () => {
+    try {
+      await window.validateConfiguredApi();
+      await retryBackendJob();
+    } catch (error) {
+      setStatus(error.message);
+    }
+  });
   $("projectType").addEventListener("change", updateAnalysisMode);
   $("apiKey").addEventListener("input", rememberApiConfig);
   $("rememberKey").addEventListener("change", rememberApiConfig);

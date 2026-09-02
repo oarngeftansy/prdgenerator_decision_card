@@ -57,7 +57,7 @@ test("history restoration keeps selected chapter, diagram state, and pinned fina
   assert.equal(rebuilt.model.diagrams[0].status, "reviewed");
 });
 
-test("gameplay client uses canonical endpoints and exposes revision conflicts", async () => {
+test("gameplay client freezes PublicationInputSnapshot before pure Final preview", async () => {
   const originalFetch = global.fetch;
   const calls = [];
   global.fetch = async (url, options = {}) => {
@@ -84,7 +84,8 @@ test("gameplay client uses canonical endpoints and exposes revision conflicts", 
     { url: "http://127.0.0.1:8000/api/jobs/job-5/gameplay-review-model/reopen-chapter", method: "POST", body: { chapterId: "GCH-001", expectedRevision: 6 } },
     { url: "http://127.0.0.1:8000/api/jobs/job-5/gameplay-review/chapters/GCH-001/context", method: "POST", body: { expectedRevision: 7, anchorFrameId: "F0001", missingFields: ["trigger"] } },
     { url: "http://127.0.0.1:8000/api/jobs/job-5/gameplay-review-model/diagrams", method: "POST", body: { expectedRevision: 8 } },
-    { url: "http://127.0.0.1:8000/api/jobs/job-5/gameplay-review-model/final-preview", method: "POST", body: { expectedRevision: 8, apiBase: "https://vision.example/v1", model: "vision-model", apiKey: "configured-key" } },
+    { url: "http://127.0.0.1:8000/api/jobs/job-5/master-plan/prepare-publication", method: "POST", body: { expectedRevision: 8, apiBase: "https://vision.example/v1", model: "vision-model", apiKey: "configured-key" } },
+    { url: "http://127.0.0.1:8000/api/jobs/job-5/master-plan/final-preview", method: "POST", body: { expectedRevision: 8 } },
   ]);
 });
 

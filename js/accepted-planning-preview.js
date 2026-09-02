@@ -13,8 +13,8 @@
     const rows = table.publicationRows || (table.rows || []).map((row) => [row[0], row[1], row[3]]);
     return `<h${headingLevel}>配置表：${escapeHtml(table.title)}</h${headingLevel}>${renderTable([`|${columns.join("|")}|`, "|" + columns.map(() => "---").join("|") + "|", ...rows.map((row) => `|${row.join("|")}|`)])}`;
   };
-  const renderMarkdown = (markdown, embeds = {}) => {
-    const lines = markdown.split(/\r?\n/); let html = "", list = null, table = [];
+  const renderMarkdown = (markdown = "", embeds = {}) => {
+    const lines = String(markdown || "").split(/\r?\n/); let html = "", list = null, table = [];
     const closeList = () => { if (list) { html += `</${list}>`; list = null; } };
     const closeTable = () => { if (table.length) { html += renderTable(table); table = []; } };
     for (const raw of lines) {
@@ -23,6 +23,10 @@
       if (embed) {
         closeList(); closeTable();
         const item = embeds[embed[1]]?.[embed[2]];
+        // Legacy BOARD:planning is intentionally ignored. The canonical sketch
+        // is rendered from planning_sketch_v2 below and must not be replaced by
+        // screenshot/stage board data.
+        if (embed[1] === "BOARD" && embed[2] === "planning") continue;
         if (!item && embed[1] === "BOARD" && ["ue", "competitor"].includes(embed[2])) continue;
         if (!item) throw new Error(`缺少正文内嵌交付：${embed[1]}:${embed[2]}`);
         html += embed[1] === "P5"
@@ -43,29 +47,37 @@
     }
     closeList(); closeTable(); return html;
   };
-  const renderP6 = (tables) => `<h1>参数配置表</h1>${tables.filter((table) => table.status === "reviewed").map((table) => renderP6Table(table, 2)).join("")}`;
-  const nativeBoard = (board, heading) => `<h1>${escapeHtml(heading)}</h1><section class="native-board-card"><div class="native-board-canvas">${board.svg}</div></section>`;
+  const renderP6 = (tables = []) => `<h1>参数配置表</h1>${tables.filter((table) => table.status === "reviewed").map((table) => renderP6Table(table, 2)).join("")}`;
 
   const response = await fetch("/api/accepted-planning-preview", {cache:"no-store"});
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
-  const boards = Object.fromEntries(payload.nativeBoards.map((board) => [board.key, board]));
+  const nativeBoards = Array.isArray(payload.nativeBoards) ? payload.nativeBoards : [];
+  const boards = Object.fromEntries(nativeBoards.map((board) => [board.key, board]));
+  const p5Diagrams = Array.isArray(payload.p5Diagrams) ? payload.p5Diagrams : [];
+  const p6Tables = Array.isArray(payload.p6Tables) ? payload.p6Tables : [];
   const embeds = {
     BOARD: boards,
-    P5: Object.fromEntries(payload.p5Diagrams.filter((item) => item.status === "reviewed").map((item) => [item.id, item])),
-    P6: Object.fromEntries(payload.p6Tables.filter((item) => item.status === "reviewed").map((item) => [item.id, item])),
+    P5: Object.fromEntries(p5Diagrams.filter((item) => item.status === "reviewed").map((item) => [item.id, item])),
+    P6: Object.fromEntries(p6Tables.filter((item) => item.status === "reviewed").map((item) => [item.id, item])),
   };
   document.getElementById("planning").innerHTML = renderMarkdown(payload.planningMarkdown, embeds);
-  document.getElementById("sketch").innerHTML = nativeBoard(boards.planning, "策划草图") + renderMarkdown(payload.planningSketchMarkdown);
-  document.getElementById("diagrams").innerHTML = `<h1>P5 必要图解</h1>${payload.p5Diagrams.map((item) => `<section class="diagram-card"><h2>${escapeHtml(item.title)}</h2><div class="diagram-canvas">${item.svg}</div></section>`).join("")}`;
-  document.getElementById("parameters").innerHTML = renderP6(payload.p6Tables);
-  const crosswalk = payload.bodyCrosswalk;
-  const grouped = crosswalk.lines.reduce((result, item) => {
-    const owner = item.ownerPath.split(" / ")[0];
+
+  const canonicalSketch = payload.masterPlanningSketch || payload.planningSketch || payload.masterPlanning?.planningSketch || null;
+  const sketchRenderer = globalThis.PlanningSketchV2;
+  document.getElementById("sketch").innerHTML = sketchRenderer?.render
+    ? sketchRenderer.render(canonicalSketch)
+    : renderMarkdown(payload.planningSketchMarkdown || "## 策划草图\n\n策划草图尚未生成。");
+
+  document.getElementById("diagrams").innerHTML = `<h1>P5 必要图解</h1>${p5Diagrams.map((item) => `<section class="diagram-card"><h2>${escapeHtml(item.title)}</h2><div class="diagram-canvas">${item.svg}</div></section>`).join("")}`;
+  document.getElementById("parameters").innerHTML = renderP6(p6Tables);
+  const crosswalk = payload.bodyCrosswalk || {lines: [], comparisonMethod: ""};
+  const grouped = (crosswalk.lines || []).reduce((result, item) => {
+    const owner = String(item.ownerPath || "未分类").split(" / ")[0];
     (result[owner] ||= []).push(item);
     return result;
   }, {});
-  document.getElementById("benchmark").innerHTML = `<h1>GVE16 逐行职责核对</h1><p>${escapeHtml(crosswalk.comparisonMethod)}</p>${Object.entries(grouped).map(([owner, items]) => `<h2>${escapeHtml(owner)}</h2><div class="table-scroll"><table><thead><tr><th>Final 行</th><th>当前 Owner</th><th>最终实际文字</th><th>GVE16 职责参照</th><th>第一手范围</th></tr></thead><tbody>${items.map(item => `<tr><td>${escapeHtml(item.finalLine)}</td><td>${escapeHtml(item.ownerPath)}</td><td>${escapeHtml(item.renderedFinalText)}</td><td>${escapeHtml(item.gve16ResponsibilityReference)}</td><td>${escapeHtml(item.sourceRange)}</td></tr>`).join("")}</tbody></table></div>`).join("")}`;
+  document.getElementById("benchmark").innerHTML = `<h1>职责核对</h1><p>${escapeHtml(crosswalk.comparisonMethod || "")}</p>${Object.entries(grouped).map(([owner, items]) => `<h2>${escapeHtml(owner)}</h2><div class="table-scroll"><table><thead><tr><th>Final 行</th><th>当前 Owner</th><th>最终实际文字</th><th>职责参照</th><th>第一手范围</th></tr></thead><tbody>${items.map(item => `<tr><td>${escapeHtml(item.finalLine)}</td><td>${escapeHtml(item.ownerPath)}</td><td>${escapeHtml(item.renderedFinalText)}</td><td>${escapeHtml(item.gve16ResponsibilityReference)}</td><td>${escapeHtml(item.sourceRange)}</td></tr>`).join("")}</tbody></table></div>`).join("")}`;
   const activate = (button) => {
     document.querySelector("main").classList.toggle("flow-wide", ["sketch","diagrams"].includes(button.dataset.target));
     document.querySelectorAll(".tabs button").forEach(item => item.classList.toggle("active", item === button));
