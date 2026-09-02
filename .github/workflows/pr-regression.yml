@@ -29,7 +29,17 @@ jobs:
       - name: Run reproducible Python regression suite
         env:
           PYTHONPATH: .
-        run: python scripts/ci_regression_scope.py core
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/ci_regression_scope.py core 2>&1 | tee /tmp/python-core-regression.log
+      - name: Preserve Python failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-core-regression-log
+          path: /tmp/python-core-regression.log
+          retention-days: 3
       - name: Run calibration tests
         env:
           PYTHONPATH: .
